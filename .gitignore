@@ -1,0 +1,4 @@
+.vscode
+libmy.a
+*.o
+vgc*
