@@ -14,6 +14,7 @@ SRCS =	concat.c \
 	my_getnbr.c	\
 	my_put.c	\
 	my_strdup.c	\
+	my_strcmp.c	\
 	my_strlen.c
 
 OBJS = $(SRCS:.c=.o)

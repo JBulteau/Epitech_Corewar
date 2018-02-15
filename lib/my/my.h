@@ -22,5 +22,6 @@ int my_put_nbrbase(int nb, char *base);
 int my_put_nbr(int nb);
 char *my_strdup(char const *str);
 int my_strlen(char const *str);
+int my_strcmp(char *str1, char *str2, int n);
 
 #endif
