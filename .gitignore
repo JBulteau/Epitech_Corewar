@@ -1,4 +1,6 @@
 .vscode
-libmy.a
+*.a
 *.o
 vgc*
+*~
+\#*\#
