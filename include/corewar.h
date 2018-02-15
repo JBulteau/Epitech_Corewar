@@ -16,6 +16,6 @@ over) with the following format: 32 bytes/line in\n\t\t\thexadecimal \
 default, the first free number\n\t\t\tin the parameter order\n\t-a \
 load_address\tsets the next program’s loading address. When no address is\
 \n\t\t\tspecified, optimize the addresses so that the processes are as far\
-\n\t\t\taway from each other as possible. The addresses are MEM_SIZE modulo.\n"
+\n\t\t\taway from each other as possible. The addresses are %i modulo.\n"
 
 #endif
