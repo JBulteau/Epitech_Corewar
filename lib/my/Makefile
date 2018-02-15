@@ -14,7 +14,19 @@ SRCS =	concat.c \
 	my_getnbr.c	\
 	my_put.c	\
 	my_strdup.c	\
-	my_strlen.c
+	my_strlen.c	\
+	my_putstr_octal.c\
+	my_put_long_long.c\
+	my_unsigned_base.c\
+	my_putnbr_base.c\
+	printf/my_printf.c\
+	printf/my_printf_char.c\
+	printf/my_printf_convert.c\
+	printf/my_printf_display.c\
+	printf/my_printf_flags.c\
+	printf/my_printf_nb_len.c\
+	printf/my_printf_nb.c\
+	printf/my_printf_test_flags.c\
 
 OBJS = $(SRCS:.c=.o)
 
