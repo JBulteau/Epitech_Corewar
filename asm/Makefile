@@ -18,7 +18,7 @@ CFLAGS		=	-W -Wextra  -I ./include
 
 OBJ		=	$(SRC:%.c=%.o)
 
-LIB_DIR		=	$(realpath ./lib)
+LIB_DIR		=	$(realpath ../lib)
 
 LDFLAGS		=	-L $(LIB_DIR) -Llib -lmy
 
