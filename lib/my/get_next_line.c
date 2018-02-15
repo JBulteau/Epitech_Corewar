@@ -5,7 +5,9 @@
 ** gnl
 */
 
-#include "get_next_line.h"
+#include "my.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 char *my_malloc(char *str, int size)
 {

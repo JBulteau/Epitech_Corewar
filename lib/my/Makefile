@@ -9,7 +9,7 @@ NAME = my
 
 SRCS =	concat.c \
 	get_digits.c	\
-	gnl.c	\
+	get_next_line.c	\
 	indexof.c	\
 	my_getnbr.c	\
 	my_put.c	\
@@ -31,7 +31,7 @@ SRCS =	concat.c \
 
 OBJS = $(SRCS:.c=.o)
 
-INC = -I .
+INC = -I ../../include
 
 CC = gcc
 
@@ -42,9 +42,6 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar rc lib$(NAME).a $(OBJS)
 	cp lib$(NAME).a ..
-	cp my.h ../../asm/include/
-	cp my.h ../../corewar/include/
-
 clean:
 	rm -f $(OBJS)
 

@@ -27,6 +27,6 @@
 #define ERR_TOOLONG_COMM "The comment is too long."
 #define ERR_UNDEF_LAB "Undefined label."
 #define ERR_UNDEF_COMM "No comment specified."
-#define ERR_UNDEF_COMM "No name specified."
+#define ERR_UNDEF_NAME "No name specified."
 
 #endif

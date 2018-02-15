@@ -14,7 +14,7 @@ SRC_FILES	=	main.c
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
-CFLAGS		=	-W -Wextra  -I ./include
+CFLAGS		=	-W -Wextra  -I ../include
 
 OBJ		=	$(SRC:%.c=%.o)
 
