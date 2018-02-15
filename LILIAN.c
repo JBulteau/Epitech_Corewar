@@ -1,0 +1,24 @@
+char **my_str_to_word(char *buffer)
+{
+	int nb_word = 0;
+	char **result = NULL;
+	int a = 0;
+	int last = 0;
+	int quo = 0;
+
+	for (int i = 0; buffer[i] != '\0'; i++) {
+		if (buffer[i] == '"')
+			quo += 1;
+		if (buffer[i] == ' ' && quo % 2 == 0)
+			nb_word++;
+	}
+	nb_word += 1;
+	result = malloc(sizeof(result) * (nb_word + 1));
+	result[nb_word] = NULL;
+	loop_to_malloc(&buffer, &a, result);
+	for (int i = 0; buffer[i] != '\0'; i++)
+		last++;
+	result[a] = malloc(sizeof(char) * last + 1);
+	my_strcpy(result[a], buffer);
+	return (result);
+}
