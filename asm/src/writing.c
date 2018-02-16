@@ -7,6 +7,7 @@
 
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "op.h"
 #include "my.h"
@@ -24,7 +25,7 @@ int write_exec(char *filename)
 		return (-1);
 	}
 	write_header(fd, "NAME", "COMMENT");
-	write_op(fd, (in_struct_t) {0, 0, {0}, 0});
+	write_op(fd, (in_struct_t) {0, 0, {0}});
 }
 
 /* Function that writes the header */
