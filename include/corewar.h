@@ -8,21 +8,32 @@
 #ifndef __COREWAR_H_
 #define __COREWAR_H_
 
-typedef struct prog prog_t;
+#include "op.h"
 
-struct prog {
-	prog_t *prev;
+typedef struct prog_name prog_name_t;
+
+struct prog_name {
+	prog_name_t *prev;
 	char *name;
 	int adress;
 	int prog_nb;
-	prog_t *next;
+	prog_name_t *next;
 };
 
 typedef struct args args_t;
 
 struct args {
 	int dump;
-	prog_t *progs;
+	prog_name_t *progs;
+};
+
+typedef struct prog_info prog_info_t;
+
+struct prog_info {
+	header_t *header;
+	int registers [REG_NUMBER + 1];
+	int pc;
+	char *content;
 };
 
 args_t *check_args(int ac, char **av);
@@ -33,6 +44,7 @@ args_t *check_adress(args_t *args, char *str);
 args_t *check_prog(args_t *args, char *str);
 void error(char *str, args_t *args);
 int rev_endiannes(int nb);
+int load_vm(args_t *args, int nb_progs);
 
 #define HELP		"USAGE\n\t./corewar [-dump nbr_cycle] [[-n prog_number] [-a load_address] prog_name] ...\n\nDESCRIPTION\n\t-dump nbr_cycle\tdumps the memory after the nbr_cycle execution (if the round isn’t\n\t\t\talready over) with the following format: 32 bytes/line in\n\t\t\thexadecimal (A0BCDEFE1DD3...)\n\t-n prog_number\tsets the next program’s number. By default, the first free number\n\t\t\tin the parameter order\n\t-a load_address\tsets the next program’s loading address. When no address is\n\t\t\tspecified, optimize the addresses so that the processes are as far\n\t\t\taway from each other as possible. The addresses are %i modulo.\n"
 #define TOO_BIG_PROG	"Wrong program size in the header : Program is too big.\n"
@@ -42,7 +54,7 @@ int rev_endiannes(int nb);
 #define MISPLACED_DUMP	"-dump flag misplaced.\n"
 #define NEG_DUMP	"-dump argument is invalid. Please enter a positive number.\n"
 #define NO_DUMP		"No arguments to -dump\n"
-#define NOT_EXEC	" is not an executable."
+#define NOT_EXEC	" is not an executable.\n"
 #define WRONG_MAGIC_NB	"Wrong executable magic number.\n"
 #define TOO_MANY_CHAMP	"The number of champion load is above the limit.\n"
 #define INVALID_OFFSET	"-a argument is invalid. Enter a valid memory offset.\n"
