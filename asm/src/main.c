@@ -1,16 +1,21 @@
 /*
 ** EPITECH PROJECT, 2017
 ** main.c
-** File description:
+** File description
 ** Main file
 */
 
+#include "op.h"
 #include "my.h"
 #include "asm.h"
 
 int main(int ac, char **av)
 {
-	if (ac == 1)
+	if (0 && (ac == 1) || my_strcmp(av[1], "-h", -1)) {
 		my_putstr(USAGE);
+		return (0);
+	}
+	if (write_exec("champion") == -1)
+		return (84);
 	return (0);
 }

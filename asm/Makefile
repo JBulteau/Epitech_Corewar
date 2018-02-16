@@ -12,6 +12,7 @@ SRC_DIR		=	$(realpath ./src)
 
 SRC_FILES	=	main.c	\
 			read.c	\
+			op.c	\
 			writing.c	\
 			endianness.c	\
 
