@@ -34,9 +34,9 @@ args_t *check_prog(args_t *args, char *str)
 	args->progs->name = malloc(sizeof(char) * (my_strlen(str) + 1));
 	if (args->progs->name == NULL)
 		error(NULL, args);
-	my_strcpy(args->progs->name, str, -1);
+	my_strcpy(args->progs->name, my_revstr(str), -1);
 	return (args);
-} /* check_prog */
+}
 
 args_t *check_adress(args_t *args, char *str)
 {
