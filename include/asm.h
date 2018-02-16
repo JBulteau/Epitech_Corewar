@@ -38,6 +38,12 @@ typedef struct {
 	int args[4];
 } in_struct_t;
 
+typedef struct node_instruction_s {
+	in_struct_t info;
+	char *label;
+	struct node_instruction_s *next;
+} node_t;
+
 /* endianness.c */
 int rev_endiannes_int(int nb);
 short rev_endiannes_short(short nb);
