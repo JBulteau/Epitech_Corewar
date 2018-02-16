@@ -32,6 +32,7 @@ args_t *check_prog_number(args_t *args, char *str);
 args_t *check_adress(args_t *args, char *str);
 args_t *check_prog(args_t *args, char *str);
 void error(char *str, args_t *args);
+int rev_endiannes(int nb);
 
 #define HELP	"USAGE\n\t./corewar [-dump nbr_cycle] [[-n prog_number] \
 [-a load_address] prog_name] ...\n\nDESCRIPTION\n\t-dump nbr_cycle\tdumps \

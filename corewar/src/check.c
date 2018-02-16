@@ -28,10 +28,13 @@ args_t *check_prog(args_t *args, char *str)
 		error(NOT_EXEC, args);
 	}
 	read(fd, &magic_number, 4);
+	magic_number = rev_endiannes(magic_number);
 	if (magic_number != COREWAR_EXEC_MAGIC)
 		error(WRONG_MAGIC_NB, args);
 	close(fd);
 	args->progs->name = malloc(sizeof(char) * (my_strlen(str) + 1));
+	if (args->progs->name == NULL)
+		error(NULL, args);
 	my_strcpy(args->progs->name, str, -1);
 	return (args);
 }

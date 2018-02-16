@@ -14,6 +14,18 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+int rev_endiannes(int nb)
+{
+	int res = 0;
+
+	for (int i = 0; i < 4; i++) {
+		if (res)
+			res = res << 8;
+		res += nb >> (8 * i) & (0xff);
+	}
+	return (res);	
+}
+
 void error(char *str, args_t *args)
 {
 	if (str != NULL)
@@ -53,6 +65,8 @@ int main(int ac, char **av)
 		return (0);
 	} else {
 		args = check_args(ac, av);
+		while (args->progs->prev != NULL)
+			args->progs = args->progs->prev;
 		if (args->progs->name == NULL)
 			error(NO_CHAMPION, args);
 	}
