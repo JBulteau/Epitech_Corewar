@@ -34,5 +34,6 @@ char *my_revstr(char *str);
 int my_pow(int nb, int power);
 int hexa_to_deca(char *str);
 char *my_strcpy(char *dest, char const *src, int n);
+char **my_str_to_word(char *buffer);
 
 #endif
