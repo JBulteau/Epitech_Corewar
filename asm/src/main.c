@@ -15,7 +15,7 @@ int main(int ac, char **av)
 		my_putstr(USAGE);
 		return (0);
 	}
-	if (write_exec("champion") == -1)
+	if (write_exec("tmp") == -1)
 		return (84);
 	return (0);
 }

@@ -33,8 +33,8 @@
 #define FILE_NOTFOUND	"Error in function open: No such file or directory."
 
 typedef struct {
-	char op_code;
-	char args_types;
+	int op_code;
+	int args_types;
 	int args[4];
 } in_struct_t;
 
