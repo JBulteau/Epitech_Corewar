@@ -18,7 +18,7 @@ int write_exec(char *filename)
 {
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
-	in_struct_t op = {0x02, 0xd0, {34, 3, 0, 0}};
+	in_struct_t op = {0x01, 0x00, {0x04, 0, 0, 0}};
 
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
@@ -53,33 +53,52 @@ int write_header(int fd, char *name, char *comment)
 		if (write(fd, &values[0], 1) == -1)
 			return (-1);
 	return (0);
-}
+} /* write_header */
 
 /* Functions that writes the args for std functions */
 int write_arg(int fd, in_struct_t op, int arg)
 {
 	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
 
-	my_printf("%x --> ARG%i --> %02b\n", op.args_types, arg, arg_type);
-	if (arg_type == 0b01) {
-		write(fd, &op.args[arg], T_REG);
-		my_printf("r%i\n", op.args[arg]);
-	}
-	if (arg_type == 0b10) {
-		write(fd, &op.args[arg], DIR_SIZE);
-		my_printf("%%%i\n", op.args[arg]);
-	}
-	if (arg_type == 0b11) {
-		write(fd, &op.args[arg], IND_SIZE);
-		my_printf("%i\n", op.args[arg]);
-	}
+	if (arg_type == 0b01)
+		if (write(fd, &op.args[arg], T_REG) == -1)
+			return (-1);
+	if (arg_type == 0b10)
+		if (write(fd, &op.args[arg], DIR_SIZE) == -1)
+			return (-1);
+	if (arg_type == 0b11)
+		if (write(fd, &op.args[arg], IND_SIZE) == -1)
+			return (-1);
 	return (0);
 }
 
 /* Functions that writes the args for ldi sti lldi*/
-int write_special(int fd, in_struct_t op)
+int write_indexes(int fd, in_struct_t op, int arg)
 {
-	my_putstr("SPECIAL CASE\n");
+	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
+
+	if (arg_type == 0b01)
+		if (write(fd, &op.args[arg], T_REG) == -1)
+			return (-1);
+	if ((arg_type == 0b11) || (arg_type == 0b10))
+		if (write(fd, &op.args[arg], IND_SIZE) == -1)
+			return (-1);
+	return (0);
+}
+
+/* Function that writes bytecode for live / zjump / fork / lfork */
+int write_notype(int fd, in_struct_t op)
+{
+	if (op.op_code == 1) {
+		op.args[0] = rev_endiannes_int(op.args[0]);		
+		if (write(fd, &op.args[0], 4) == -1)
+			return (-1);
+	} else {
+		op.args[0] = rev_endiannes_short(op.args[0]);
+		if (write(fd, &op.args[0], 2) == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 /* Function that writes the opcode + args_byte */
@@ -90,11 +109,15 @@ int write_op(int fd, in_struct_t op)
 	return_v = write(fd, &op.op_code, 1);
 	if (return_v == -1)
 		return (-1);
-	return_v = write(fd, &op.args_types, 1);
 	if (return_v == -1)
 		return (-1);
+	if (op.args_types == 0)
+		return_v = write_notype(fd, op);
+	else
+		return_v = write(fd, &op.args_types, 1);
 	if ((op.op_code == 10) || (op.op_code == 11) || (op.op_code == 14))
-		return_v = write_special(fd, op);
+		for (int i = 0; (i < 4) && (return_v != -1); i++)
+			return_v = write_indexes(fd, op, i);
 	else
 		for (int i = 0; (i < 4) && (return_v != -1); i++)
 			return_v = write_arg(fd, op, i);
