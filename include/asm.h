@@ -30,4 +30,21 @@
 #define ERR_UNDEF_NAME "No name specified."
 #define FILE_NOTFOUND "Error in function open: No such file or directory."
 
+/* endianness.c */
+int rev_endiannes_int(int nb);
+short rev_endiannes_short(short nb);
+
+/* writing.c */
+int write_exec(char *filename);
+int write_header(int fd, char *name, char *comment);
+int write_arg(int fd, in_struct_t op, int arg);
+int write_special(int fd, in_struct_t op);
+int write_op(int fd, in_struct_t op);
+
+typedef struct {
+	char op_code;
+	char args_types;
+	int args[4];
+} in_struct_t;
+
 #endif

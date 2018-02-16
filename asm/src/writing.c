@@ -27,7 +27,7 @@ int write_exec(char *filename)
 	write_op(fd, (in_struct_t) {0, 0, {0}, 0});
 }
 
-/* Function that writes the headr */
+/* Function that writes the header */
 int write_header(int fd, char *name, char *comment)
 {
 	int magic = rev_endiannes_int(COREWAR_EXEC_MAGIC);
