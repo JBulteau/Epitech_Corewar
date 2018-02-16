@@ -20,6 +20,8 @@ SRCS =	concat.c \
 	my_put_long_long.c\
 	my_unsigned_base.c\
 	my_putnbr_base.c\
+	my_str_to_word_array.c\
+	my_memset.c\
 	printf/my_printf.c\
 	printf/my_printf_char.c\
 	printf/my_printf_convert.c\
