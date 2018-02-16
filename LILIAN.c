@@ -22,3 +22,22 @@ char **my_str_to_word(char *buffer)
 	my_strcpy(result[a], buffer);
 	return (result);
 }
+
+void loop_to_malloc(char **buffer, int *a, char **result)
+{
+	int quo = 0;
+
+	for (int i = 0; (*buffer)[i] != '\0';) {
+		if ((*buffer)[i] == '"')
+			quo += 1;
+		if ((*buffer)[i] == ' ' && quo % 2 == 0) {
+			(*buffer)[i] = '\0';
+			result[*a] = malloc(sizeof(char) * i + 1);
+			my_strcpy(result[*a], *buffer);
+			(*a)++;
+			*buffer = *buffer + i + 1;
+			i = 0;
+		} else
+			i++;
+	}
+}
