@@ -12,7 +12,7 @@
 int my_ptr_c(va_list ap, char *flags)
 {
 	int n = 0;
-	char str [2];
+	char str[2];
 	int len = 1;
 
 	str[0] = va_arg(ap, int);
