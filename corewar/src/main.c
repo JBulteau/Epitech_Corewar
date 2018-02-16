@@ -23,7 +23,7 @@ int rev_endiannes(int nb)
 			res = res << 8;
 		res += nb >> (8 * i) & (0xff);
 	}
-	return (res);	
+	return (res);
 }
 
 void error(char *str, args_t *args)
@@ -49,7 +49,7 @@ args_t *check_args(int ac, char **av)
 	args_t *args = malloc(sizeof(args_t));
 
 	if (args == NULL)
-		exit (84);
+		exit(84);
 	for (int i = 1; av[i] != NULL; i++)
 		if (my_strcmp(av[i], "-dump", -1))
 			nb_args++;
@@ -59,8 +59,8 @@ args_t *check_args(int ac, char **av)
 int main(int ac, char **av)
 {
 	args_t *args = NULL;
-	
-	if (ac == 2 && av[1][0] == '-' && av[1][1] == 'h') {
+
+	if ((ac == 2) && (av[1][0] == '-') && (av[1][1] == 'h')) {
 		my_printf(HELP, MEM_SIZE);
 		return (0);
 	} else {
