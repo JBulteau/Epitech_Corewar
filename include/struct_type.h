@@ -6,7 +6,7 @@
 */
 
 #ifndef __STRUCT_TYPE_H_
-#define __STRUCT_TYPE_H_
+#define	__STRUCT_TYPE_H_
 
 #include <stdarg.h>
 
@@ -22,13 +22,11 @@ int my_ptr_u(va_list ap, char *flags);
 int my_ptr_p(va_list ap, char *flags);
 int my_ptr_s_maj(va_list ap, char *flags);
 
-struct types
+struct
 {
 	char type;
-	int (*ptrfunc)(va_list, char*);
-};
-
-struct types type_funcs [] = {
+	int (*ptrfunc)(va_list, char *);
+} type_funcs [] = {
 	{'c', &my_ptr_c},
 	{'d', &my_ptr_d},
 	{'i', &my_ptr_i},

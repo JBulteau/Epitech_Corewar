@@ -8,9 +8,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "my.h"
-
-char *browse_flags(const char *format, int i, char *flags);
-int handle_flags(va_list ap, char *flags);
+#include "my_printf.h"
 
 int is_flag(char *flags)
 {

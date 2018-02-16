@@ -16,37 +16,41 @@
 /* Main function that writes */
 int write_exec(char *filename)
 {
-	char *pathname = concat("champion", ".cor", 0, 0);
-	int fd = open("champion.cor", O_CREAT | O_RDWR, 0700);
+	char *pathname = concat(filename, ".cor", 0, 0);
+	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
+	in_struct_t op = {0x02, 0xd0, {34, 3, 0, 0}};
 
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
 		return (-1);
 	}
-	write_header(fd, "NAME", "COMMENT");
-	write_op(fd, (in_struct_t) {0, 0, {0}});
+	write_header(fd, "test", "test");
+	write_op(fd, op);
 }
 
 /* Function that writes the header */
 int write_header(int fd, char *name, char *comment)
 {
 	int magic = rev_endiannes_int(COREWAR_EXEC_MAGIC);
-	int zero = 0;
-	int to_write = PROG_NAME_LENGTH - my_strlen(name) + 6;
+	int values[3] = {0};
 
+	values[1] = rev_endiannes_int(5);
+	values[2] = PROG_NAME_LENGTH - my_strlen(name) + 4;
 	if (write(fd, &magic, sizeof(int)) == -1)
 		return (-1);
 	if (write(fd, name, my_strlen(name)) == -1)
 		return (-1);
-	for (int i = 0; i < to_write; i++)
-		if (write(fd, &zero, 1) == -1)
+	for (int i = 0; i < values[2]; i++)
+		if (write(fd, &values[0], 1) == -1)
 			return (-1);
+	if (write(fd, &values[1], sizeof(int)) == -1)
+		return (-1);
 	if (write(fd, comment, my_strlen(comment)) == -1)
 		return (-1);
-	to_write = COMMENT_LENGTH - my_strlen(comment) + 6;
-	for (int i = 0; i < to_write; i++)
-		if (write(fd, &zero, 1) == -1)
+	values[2] = COMMENT_LENGTH - my_strlen(comment) + 4;
+	for (int i = 0; i < values[2]; i++)
+		if (write(fd, &values[0], 1) == -1)
 			return (-1);
 	return (0);
 }
@@ -54,11 +58,28 @@ int write_header(int fd, char *name, char *comment)
 /* Functions that writes the args for std functions */
 int write_arg(int fd, in_struct_t op, int arg)
 {
+	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
+
+	my_printf("%x --> ARG%i --> %02b\n", op.args_types, arg, arg_type);
+	if (arg_type == 0b01) {
+		write(fd, &op.args[arg], T_REG);
+		my_printf("r%i\n", op.args[arg]);
+	}
+	if (arg_type == 0b10) {
+		write(fd, &op.args[arg], DIR_SIZE);
+		my_printf("%%%i\n", op.args[arg]);
+	}
+	if (arg_type == 0b11) {
+		write(fd, &op.args[arg], IND_SIZE);
+		my_printf("%i\n", op.args[arg]);
+	}
+	return (0);
 }
 
 /* Functions that writes the args for ldi sti lldi*/
 int write_special(int fd, in_struct_t op)
 {
+	my_putstr("SPECIAL CASE\n");
 }
 
 /* Function that writes the opcode + args_byte */
@@ -77,7 +98,7 @@ int write_op(int fd, in_struct_t op)
 	else
 		for (int i = 0; (i < 4) && (return_v != -1); i++)
 			return_v = write_arg(fd, op, i);
-	if (return_v != -1)
+	if (return_v == -1)
 		return (-1);
 	return (0);
 }

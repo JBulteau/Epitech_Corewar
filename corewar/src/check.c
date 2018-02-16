@@ -36,7 +36,7 @@ args_t *check_prog(args_t *args, char *str)
 		error(NULL, args);
 	my_strcpy(args->progs->name, str, -1);
 	return (args);
-}
+} /* check_prog */
 
 args_t *check_adress(args_t *args, char *str)
 {
@@ -52,7 +52,7 @@ args_t *check_prog_number(args_t *args, char *str)
 {
 	int prog_number = my_getnbr(str);
 
-	if (prog_number > 4 || prog_number < 1)
+	if ((prog_number > 4) || (prog_number < 1))
 		error(INVALID_N_NB, args);
 	args->progs->prog_nb = prog_number;
 	return (args);
@@ -65,10 +65,10 @@ args_t *check_flags(args_t *args, int ac, char **av)
 		error(NULL, args);
 	args->progs->prev = NULL;
 	for (int i = 3; i < ac; i++) {
-		if (av[i][0] == '-' && av[i][1] == 'n') {
+		if ((av[i][0] == '-') && (av[i][1] == 'n')) {
 			args = check_prog_number(args, av[i++]);
 			continue;
-		} else if (av[i][0] == '-' && av[i][1] == 'a') {
+		} else if ((av[i][0] == '-') && (av[i][1] == 'a')) {
 			args = check_adress(args, av[i++]);
 			continue;
 		}
@@ -89,14 +89,11 @@ args_t *check_dump(args_t *args, int ac, char **av, int nb_args)
 	else if (nb_args == 0)
 		error(NO_DUMP, args);
 	if (my_strcmp(av[1], "-dump", -1)) {
-		if (av[2] == NULL) {
+		if (av[2] == NULL)
 			error(NO_DUMP, args);
-		}
-		if (args->dump = hexa_to_deca(av[2]) == -1) {
+		if (args->dump = hexa_to_deca(av[2]) == -1)
 			error(NEG_DUMP, args);
-		}
-	} else {
+	} else
 		error(MISPLACED_DUMP, args);
-	}
 	return (check_flags(args, ac, av));
 }
