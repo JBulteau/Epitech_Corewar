@@ -30,5 +30,8 @@ int my_putstr_octal(char *str);
 int my_putnbr_base(int nb, char const *base, int i);
 char **my_str_to_word_array(char const *str);
 char *my_memset(char *s, int c, int n);
+char *my_revstr(char *str);
+int my_pow(int nb, int power);
+int hexa_to_deca(char *str);
 
 #endif

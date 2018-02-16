@@ -22,6 +22,9 @@ SRCS =	concat.c \
 	my_putnbr_base.c\
 	my_str_to_word_array.c\
 	my_memset.c\
+	my_revstr.c\
+	my_pow.c\
+	hexa_to_deca.c\
 	printf/my_printf.c\
 	printf/my_printf_char.c\
 	printf/my_printf_convert.c\
