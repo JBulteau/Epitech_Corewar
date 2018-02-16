@@ -36,6 +36,17 @@ struct prog_info {
 	char *content;
 };
 
+typedef struct {
+	int p1;
+        int p2;
+	int p3;
+	int p4;
+        int i1;
+	int i2;
+	int i3;
+	int i4;
+} end_s;
+
 args_t *check_args(int ac, char **av);
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
 args_t *check_flags(args_t *args, int ac, char **av);
