@@ -28,5 +28,6 @@
 #define ERR_UNDEF_LAB "Undefined label."
 #define ERR_UNDEF_COMM "No comment specified."
 #define ERR_UNDEF_NAME "No name specified."
+#define FILE_NOTFOUND "Error in function open: No such file or directory."
 
 #endif

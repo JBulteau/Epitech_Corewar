@@ -18,6 +18,7 @@ int indexof(char c, char *str);
 int my_getnbr(char *str);
 int my_putchar(char c);
 int my_putstr(char *str);
+int my_strcmp(char *str1, char *str2, int n);
 int my_put_nbrbase(int nb, char *base);
 int my_put_nbr(int nb);
 char *my_strdup(char const *str);
