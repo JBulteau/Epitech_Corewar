@@ -68,6 +68,27 @@ char *clear_str(char *buffer)
 	return (result);
 }
 
+void test_synt_name(char *name, int *error)
+{
+	int i = 1;
+
+	if (name[0] != ' ') {
+		*error = -6;
+		return;
+	} else if (name[1] != '"') {
+		*error = -5
+		return;
+	}
+	while (name[++i] != '\0' && name[i] != '"');
+	if (i == 2) {
+		*error = -3;
+		return;
+	} else if (name[i] == '\0' || name[i + 1] != '\0') {
+		*error = -5;
+		return;
+	}
+}
+
 node_t *fill_linked_list(char *filename, int *error)
 {
 	char *pathname = concat(filename, ".s", 0, 0);
@@ -89,13 +110,5 @@ node_t *fill_linked_list(char *filename, int *error)
 		*error = -6;
 		return (NULL);
 	}
-	if (buffer[5] == '\0')
-		*error = -3;
-	if (buffer[6] != ' ')
-		*error = -6;
-	if (buffer[7] != '"')
-		*error = -5;
-	
-
-	
+	test_synt_name(&buffer[5], error);
 }
