@@ -5,10 +5,14 @@
 ** Task 01
 */
 
+#include <stdlib.h>
+
 char *my_strcpy(char *dest, char const *src, int n)
 {
 	int i = 0;
 
+	if (src == NULL)
+		return (NULL);
 	if (n == -1) {
 		while (src[i] != '\0') {
 			dest[i] = src[i];
