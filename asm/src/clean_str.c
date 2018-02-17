@@ -65,3 +65,19 @@ char *clear_str(char *buffer)
 	free(buffer);
 	return (result);
 }
+
+char *get_fn(char *pathname)
+{
+	int index = 0;
+	char *fn = my_strdup(pathname);
+
+	if (fn == NULL)
+		return (NULL);
+	index = str_find(fn, ".s");
+	if (index == -1)
+		return (fn);
+	if (fn[index + 2] != '\0')
+		return (fn);
+	fn[index] = 0;
+	return (fn);
+}

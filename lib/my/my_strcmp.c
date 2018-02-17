@@ -6,6 +6,7 @@
 */
 
 #include <unistd.h>
+#include "my.h"
 
 int my_strcmp(char *str1, char *str2, int n)
 {

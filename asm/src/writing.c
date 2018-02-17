@@ -17,7 +17,7 @@
 int write_exec(char *filename)
 {
 	int error = 0;
-	char *pathname = concat(filename, ".cor", 0, 0);
+	char *pathname = concat(filename, ".cor", 1, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
 	in_struct_t op = {0x02, 0xd0, {34, 3, 0, 0}}; //useless, we have the linked list;
 	node_t *first = NULL;

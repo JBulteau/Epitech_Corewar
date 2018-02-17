@@ -65,5 +65,6 @@ char *my_strcpy2(char *dest, char const *src);
 char *clear_str(char *buffer);
 void spaces_handle(int *a, char *result, int *i, char *buffer);
 void init_clear_str(char *buffer, char **result);
+char *get_fn(char *pathname);
 
 #endif
