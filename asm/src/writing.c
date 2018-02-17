@@ -16,15 +16,20 @@
 /* Main function that writes */
 int write_exec(char *filename)
 {
+	int error = 0;
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
-	in_struct_t op = {0x01, 0x00, {0x04, 0, 0, 0}};
+	in_struct_t op = {0x02, 0xd0, {34, 3, 0, 0}}; //useless, we have the linked list;
+	node_t *first = NULL;
 
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
 		return (-1);
 	}
+	first = fill_linked_list("test", &error); //replace with filename
+	for (; first != NULL; first = first->next)
+		my_printf("%s\n", first->label);
 	write_header(fd, "test", "test");
 	write_op(fd, op);
 }

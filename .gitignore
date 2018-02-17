@@ -1,9 +1,7 @@
-.vscode
+*.vscode
 *.a
 *.o
 vgc*
 *~
 \#*\#
 *.cor
-asm
-corewar

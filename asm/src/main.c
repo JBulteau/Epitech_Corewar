@@ -17,5 +17,6 @@ int main(int ac, char **av)
 	}
 	if (write_exec("tmp") == -1)
 		return (84);
+	//fill_linked_list("test");
 	return (0);
 }

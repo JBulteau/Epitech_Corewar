@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** corewar
 ** File description:
-** corewar
+** virtual machine for corewar
 */
 
 #include "my.h"
@@ -23,8 +23,7 @@ args_t *check_prog(args_t *args, char *str)
 		error(NULL, args);
 	my_revstr(str);
 	if (!my_strcmp(str, "roc.", 4)) {
-		my_revstr(str);
-		write(2, str, my_strlen(str));
+		write(2, my_revstr(str), my_strlen(str));
 		error(NOT_EXEC, args);
 	}
 	read(fd, &magic_number, 4);
@@ -35,9 +34,9 @@ args_t *check_prog(args_t *args, char *str)
 	args->progs->name = malloc(sizeof(char) * (my_strlen(str) + 1));
 	if (args->progs->name == NULL)
 		error(NULL, args);
-	my_strcpy(args->progs->name, str, -1);
+	my_strcpy(args->progs->name, my_revstr(str), -1);
 	return (args);
-} /* check_prog */
+}
 
 args_t *check_adress(args_t *args, char *str)
 {
@@ -61,7 +60,7 @@ args_t *check_prog_number(args_t *args, char *str)
 
 args_t *check_flags(args_t *args, int ac, char **av)
 {
-	args->progs = malloc(sizeof(prog_t));
+	args->progs = malloc(sizeof(prog_name_t));
 	if (args->progs == NULL)
 		error(NULL, args);
 	args->progs->prev = NULL;
@@ -74,7 +73,7 @@ args_t *check_flags(args_t *args, int ac, char **av)
 			continue;
 		}
 		args = check_prog(args, av[i]);
-		args->progs->next = malloc(sizeof(prog_t));
+		args->progs->next = malloc(sizeof(prog_name_t));
 		if (args->progs->next == NULL)
 			error(NULL, args);
 		args->progs->next->prev = args->progs;

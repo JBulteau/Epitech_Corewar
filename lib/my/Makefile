@@ -24,9 +24,12 @@ SRCS =	concat.c \
 	my_memset.c\
 	my_revstr.c\
 	strtab.c\
+	my_strcpy2.c	\
 	my_pow.c\
 	my_strcpy.c\
 	hexa_to_deca.c\
+	my_realloc.c\
+	my_strncmp.c	\
 	printf/my_printf.c\
 	printf/my_printf_char.c\
 	printf/my_printf_convert.c\

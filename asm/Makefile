@@ -9,12 +9,12 @@ NAME		=	asm
 
 SRC_DIR		=	$(realpath ./src)
 
-
 SRC_FILES	=	main.c	\
-			read.c	\
 			op.c	\
 			writing.c	\
 			endianness.c	\
+			linked_list.c	\
+			clean_str.c	\
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

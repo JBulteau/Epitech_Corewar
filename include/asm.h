@@ -38,6 +38,12 @@ typedef struct {
 	int args[4];
 } in_struct_t;
 
+typedef struct node_instruction_s {
+	in_struct_t info;
+	char *label;
+	struct node_instruction_s *next;
+} node_t;
+
 /* endianness.c */
 int rev_endiannes_int(int nb);
 short rev_endiannes_short(short nb);
@@ -48,5 +54,16 @@ int write_header(int fd, char *name, char *comment);
 int write_arg(int fd, in_struct_t op, int arg);
 int write_special(int fd, in_struct_t op, int arg);
 int write_op(int fd, in_struct_t op);
+
+/* linked_list.c */
+node_t *fill_linked_list(char *filename, int *error);
+int check_buff(char **buffer, int *error, int fd, char *to_check);
+void test_synt_name(char *name, int *error);
+char *my_strcpy2(char *dest, char const *src);
+
+/* clean_str.c */
+char *clear_str(char *buffer);
+void spaces_handle(int *a, char *result, int *i, char *buffer);
+void init_clear_str(char *buffer, char **result);
 
 #endif
