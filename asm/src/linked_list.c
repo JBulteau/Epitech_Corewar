@@ -15,18 +15,6 @@
 
 //op_tab[i];
 
-char *my_strcpy2(char *dest, char const *src)
-{
-	int i = 0;
-
-	while (src[i] != '\0') {
-		dest[i] = src[i];
-		i++;
-	}
-	dest [i] = '\0';
-	return (dest);
-}
-
 void test_synt_name(char *name, int *error)
 {
 	int i = 1;
@@ -48,7 +36,7 @@ void test_synt_name(char *name, int *error)
 	}
 }
 
-int check_buff(char **buffer, int *error)
+int check_buff(char **buffer, int *error, int fd, char *to_check)
 {
 	if (buffer[0] == NULL) {
 		*error = -1;
@@ -58,11 +46,38 @@ int check_buff(char **buffer, int *error)
 	if (buffer[0] == NULL)
 		return (-1);
 	buffer[0] = clear_str(buffer[0]);
-	if ((my_strncmp(buffer[0], ".name", 5) != 0)) {
+	if ((my_strncmp(buffer[0], to_check, 5) != 0)) {
 		*error = -6;
 		return (-1);
 	}
 	return (0);
+}
+
+void fill_first_case(node_t **first, node_t **second, node_t **save, char **buffer)
+{
+	int nb = 0;
+
+	for (int i = 7; (*buffer)[i] != '"'; i++)
+		nb++;
+	*first = malloc(sizeof(**first));
+	*second = malloc(sizeof(**second));
+	(*first)->label = malloc(sizeof(char) * (nb + 1));
+	(*first)->label = my_strcpy2((*first)->label, (*buffer + 7));
+	(*first)->label[nb] = '\0';
+	(*first)->next = *second;
+	*save = *first;
+	*first = *second;
+}
+
+void fill_second_case(node_t **first, node_t **second, node_t **save, char **buffer)
+{
+	int nb = 0;
+
+	for (int i = 10; (*buffer)[i] != '"'; i++)
+		nb++;
+	(*first)->label = malloc(sizeof(char) * (nb + 1));
+	(*first)->label = my_strcpy2((*first)->label, (*buffer + 10));
+	(*first)->label[nb] = '\0';
 }
 
 node_t *fill_linked_list(char *filename, int *error)
@@ -70,18 +85,23 @@ node_t *fill_linked_list(char *filename, int *error)
 	char *pathname = concat(filename, ".s", 0, 0);
 	int fd = open(pathname, O_RDWR, 0700);
 	char *buffer = get_next_line(fd);
-	node_t *first = malloc(sizeof(*first));
+	node_t *first = NULL;
+	node_t *second = NULL;
 	node_t *save = first;
-	int nb = 0;
 
-	if (check_buff(&buffer, error) == -1)
+	//les 5 prochaines lignes à mettre dans une fonction
+	if (check_buff(&buffer, error, fd, ".name") == -1)
 		return (NULL);
 	test_synt_name(buffer + 5, error);
 	if (*error != 0)
 		return (NULL);
-	for (int i = 7; buffer[i] != '"'; i++)
-		nb++;
-	first->label = malloc(sizeof(char) * (nb + 1));
-	first->label = my_strcpy2(first->label, (buffer + 7));
-	first->label[nb] = '\0';
+	fill_first_case(&first, &second, &save, &buffer);
+	buffer = get_next_line(fd);
+	if (check_buff(&buffer, error, fd, ".comment") == -1)
+		return (NULL);
+	test_synt_name(buffer + 8, error);
+	if (*error != 0)
+		return (NULL);
+	fill_second_case(&first, &second, &save, &buffer);
+	return (save);
 }

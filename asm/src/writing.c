@@ -28,6 +28,8 @@ int write_exec(char *filename)
 		return (-1);
 	}
 	first = fill_linked_list("test", &error); //replace with filename
+	for (; first != NULL; first = first->next)
+		my_printf("%s\n", first->label);
 	write_header(fd, "test", "test");
 	write_op(fd, op);
 }

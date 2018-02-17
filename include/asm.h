@@ -57,6 +57,9 @@ int write_op(int fd, in_struct_t op);
 
 /* linked_list.c */
 node_t *fill_linked_list(char *filename, int *error);
+int check_buff(char **buffer, int *error, int fd, char *to_check);
+void test_synt_name(char *name, int *error);
+char *my_strcpy2(char *dest, char const *src);
 
 /* clean_str.c */
 char *clear_str(char *buffer);
