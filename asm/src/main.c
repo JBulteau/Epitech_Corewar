@@ -15,6 +15,7 @@ int main(int ac, char **av)
 		my_putstr(USAGE);
 		return (0);
 	}
+	my_printf("%i\n", str_find("champion.s", ".s"));
 	if (write_exec("tmp") == -1)
 		return (84);
 	//fill_linked_list("test");

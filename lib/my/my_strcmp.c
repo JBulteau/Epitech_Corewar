@@ -27,3 +27,19 @@ int my_strcmp(char *str1, char *str2, int n)
 		return (1);
 	}
 }
+
+int str_find(char *src, char *to_find)
+{
+	int cursor = 0;
+	int end_cursor = my_strlen(to_find);
+
+	if (src == NULL || to_find == NULL)
+		return (-1);
+	for (int i = 0; src[i]; i++) {
+		if (src[i] == to_find[cursor])
+			cursor++;
+		if (cursor == end_cursor)
+			return(i - end_cursor + 1);
+	}
+	return (-1);
+}
