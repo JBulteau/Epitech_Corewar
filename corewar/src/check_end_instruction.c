@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-void check_end_instru(end_s *check_end)
+void check_end_instru(end_t *check_end)
 {
 	if (check_end->p1 > 0)
 		check_end->p1 -= 1;
