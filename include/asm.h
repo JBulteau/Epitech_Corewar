@@ -58,4 +58,9 @@ int write_op(int fd, in_struct_t op);
 /* linked_list.c */
 node_t *fill_linked_list(char *filename, int *error);
 
+/* clean_str.c */
+char *clear_str(char *buffer);
+void spaces_handle(int *a, char *result, int *i, char *buffer);
+void init_clear_str(char *buffer, char **result);
+
 #endif

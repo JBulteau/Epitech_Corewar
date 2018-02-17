@@ -15,57 +15,16 @@
 
 //op_tab[i];
 
-void init_clear_str(char *buffer, char **result)
+char *my_strcpy2(char *dest, char const *src)
 {
-	int nb = 0;
 	int i = 0;
 
-	for (; buffer[i] != '\0'; i++) {
-		if ((buffer[i] == ' ' || buffer[i] == '\t'))
-			for (; buffer[i + 1] == ' ' || \
-buffer[i + 1] == '\t'; i++);
-		nb++;
+	while (src[i] != '\0') {
+		dest[i] = src[i];
+		i++;
 	}
-	if (buffer[i - 1] == ' ' || buffer[i - 1] == '\t')
-		nb--;
-	if (buffer[0] == ' ' || buffer[0] == '\t')
-		nb--;
-	*result = malloc(sizeof(char) * (nb + 1));
-	(*result)[nb] = '\0';
-
-}
-
-void spaces_handle(int *a, char *result, int *i, char *buffer)
-{
-	int j = 0;
-
-	for (; buffer[j] != '\0' && (buffer[j] == ' ' || \
-buffer[j] == '\t'); i++);
-	if (buffer[j] == '\0')
-		j = 1;
-	if (*a > 0 && j > 0) {
-		result[*a] = ' ';
-		(*a)++;
-	}
-	for (; (buffer[*i + 1] == ' ' || buffer[*i + 1] == '\t'); (*i)++);
-}
-
-char *clear_str(char *buffer)
-{
-	char *result = NULL;
-	int a = 0;
-
-	init_clear_str(buffer, &result);
-	for (int i = 0; buffer[i] != '\0'; i++) {
-		if ((buffer[i] == ' ' || buffer[i] == '\t')) {
-			spaces_handle(&a, result, &i, buffer);
-			continue;
-		}
-		result[a] = buffer[i];
-		a++;
-	}
-	free(buffer);
-	return (result);
+	dest [i] = '\0';
+	return (dest);
 }
 
 void test_synt_name(char *name, int *error)
@@ -96,6 +55,7 @@ node_t *fill_linked_list(char *filename, int *error)
 	char *buffer = get_next_line(fd);
 	node_t *first = malloc(sizeof(*first));
 	node_t *save = first;
+	int nb = 0;
 
 	if (buffer == NULL) {
 		*error = -1;
@@ -106,9 +66,13 @@ node_t *fill_linked_list(char *filename, int *error)
 		return (NULL);
 	buffer = clear_str(buffer);
 	if ((my_strncmp(buffer, ".name", 5) != 0)) {
-		my_putchar('b');
 		*error = -6;
 		return (NULL);
 	}
-	test_synt_name(&buffer[5], error);
+	//ERROR ROMAIN if (*error != 0) return (NULL);
+	for (int i = 7; buffer[i] != '"'; i++)
+		nb++;
+	first->label = malloc(sizeof(char) * (nb + 1));
+	first->label = my_strcpy2(first->label, (buffer + 7));
+	first->label[nb] = '\0';
 }
