@@ -26,7 +26,7 @@ int write_exec(char *filename)
 			free(pathname);
 		return (-1);
 	}
-	first = fill_linked_list(fd);
+	first = fill_linked_list("test"); //replace with filename
 	write_header(fd, "test", "test");
 	write_op(fd, op);
 }

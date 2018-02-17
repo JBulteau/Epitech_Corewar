@@ -11,11 +11,12 @@
 
 int main(int ac, char **av)
 {
-	if (0 && (ac == 1) || my_strcmp(av[1], "-h", -1)) {
+	/*if (0 && (ac == 1) || my_strcmp(av[1], "-h", -1)) {
 		my_putstr(USAGE);
 		return (0);
 	}
 	if (write_exec("tmp") == -1)
-		return (84);
+		return (84);*/
+	fill_linked_list("test");
 	return (0);
 }

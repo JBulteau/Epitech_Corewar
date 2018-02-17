@@ -5,8 +5,8 @@
 ** functions to fill the linked list of all instructions
 */
 
-//#include <sys/stat.h>
-//#include <fcntl.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "op.h"
@@ -15,7 +15,13 @@
 
 //op_tab[i];
 
-node_t *fill_linked_list(int fd)
+node_t *fill_linked_list(char *filename)
 {
+	char *pathname = concat(filename, ".s", 0, 0);
+	int fd = open(pathname, O_RDWR, 0700);
+	char *buffer = NULL;
+	node_t *first = malloc(sizeof(*first));
+	node_t *save = first;
 
+	buffer = get_next_line(fd);
 }

@@ -56,6 +56,6 @@ int write_special(int fd, in_struct_t op);
 int write_op(int fd, in_struct_t op);
 
 /* linked_list.c */
-node_t *fill_linked_list(int fd);
+node_t *fill_linked_list(char *filename);
 
 #endif
