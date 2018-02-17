@@ -74,8 +74,11 @@ node_t *fill_linked_list(char *filename, int *error)
 	node_t *save = first;
 	int nb = 0;
 
-
-	//ERROR ROMAIN if (*error != 0) return (NULL);
+	if (check_buff(&buffer, error) == -1)
+		return (NULL);
+	test_synt_name(buffer + 5, error);
+	if (*error != 0)
+		return (NULL);
 	for (int i = 7; buffer[i] != '"'; i++)
 		nb++;
 	first->label = malloc(sizeof(char) * (nb + 1));
