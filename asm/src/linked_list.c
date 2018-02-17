@@ -35,7 +35,7 @@ void test_synt_name(char *name, int *error)
 		*error = -6;
 		return;
 	} else if (name[1] != '"') {
-		*error = -5
+		*error = -5;
 		return;
 	}
 	while (name[++i] != '\0' && name[i] != '"');
@@ -48,6 +48,23 @@ void test_synt_name(char *name, int *error)
 	}
 }
 
+int check_buff(char **buffer, int *error)
+{
+	if (buffer[0] == NULL) {
+		*error = -1;
+		return (-1);
+	}
+	for (;buffer[0] != NULL && buffer[0][0] == '#'; buffer[0] = get_next_line(fd));
+	if (buffer[0] == NULL)
+		return (-1);
+	buffer[0] = clear_str(buffer[0]);
+	if ((my_strncmp(buffer[0], ".name", 5) != 0)) {
+		*error = -6;
+		return (-1);
+	}
+	return (0);
+}
+
 node_t *fill_linked_list(char *filename, int *error)
 {
 	char *pathname = concat(filename, ".s", 0, 0);
@@ -57,18 +74,7 @@ node_t *fill_linked_list(char *filename, int *error)
 	node_t *save = first;
 	int nb = 0;
 
-	if (buffer == NULL) {
-		*error = -1;
-		return (NULL);
-	}
-	for (;buffer != NULL && buffer[0] == '#'; buffer = get_next_line(fd));
-	if (buffer == NULL)
-		return (NULL);
-	buffer = clear_str(buffer);
-	if ((my_strncmp(buffer, ".name", 5) != 0)) {
-		*error = -6;
-		return (NULL);
-	}
+
 	//ERROR ROMAIN if (*error != 0) return (NULL);
 	for (int i = 7; buffer[i] != '"'; i++)
 		nb++;
