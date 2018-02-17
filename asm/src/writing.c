@@ -16,6 +16,7 @@
 /* Main function that writes */
 int write_exec(char *filename)
 {
+	int error = 0;
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
 	in_struct_t op = {0x02, 0xd0, {34, 3, 0, 0}}; //useless, we have the linked list;
@@ -26,7 +27,7 @@ int write_exec(char *filename)
 			free(pathname);
 		return (-1);
 	}
-	first = fill_linked_list("test"); //replace with filename
+	first = fill_linked_list("test", &error); //replace with filename
 	write_header(fd, "test", "test");
 	write_op(fd, op);
 }
