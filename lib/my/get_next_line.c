@@ -5,9 +5,7 @@
 ** gnl
 */
 
-#include "my.h"
-#include <stdlib.h>
-#include <unistd.h>
+#include "get_next_line.h"
 
 char *my_malloc(char *str, int size)
 {
@@ -58,7 +56,7 @@ char *get_next_line(const int fd)
 		return (NULL);
 	while (save != '\n' && save != '\0') {
 		str[size++] = save;
-		if ((save = get_result(fd)) == 0)
+		if ((save = get_result(fd)) == 0 && str == NULL)
 			return (NULL);
 		if (size % (READ_SIZE + 1) == 0)
 			str = my_malloc(str, size + READ_SIZE + 1);
