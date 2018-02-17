@@ -15,6 +15,59 @@
 
 //op_tab[i];
 
+void init_clear_str(char *buffer, char **result)
+{
+	int nb = 0;
+	int i = 0;
+
+	for (; buffer[i] != '\0'; i++) {
+		if ((buffer[i] == ' ' || buffer[i] == '\t'))
+			for (; buffer[i + 1] == ' ' || \
+buffer[i + 1] == '\t'; i++);
+		nb++;
+	}
+	if (buffer[i - 1] == ' ' || buffer[i - 1] == '\t')
+		nb--;
+	if (buffer[0] == ' ' || buffer[0] == '\t')
+		nb--;
+	*result = malloc(sizeof(char) * (nb + 1));
+	(*result)[nb] = '\0';
+
+}
+
+void spaces_handle(int *a, char *result, int *i, char *buffer)
+{
+	int j = 0;
+
+	for (; buffer[j] != '\0' && (buffer[j] == ' ' || \
+buffer[j] == '\t'); i++);
+	if (buffer[j] == '\0')
+		j = 1;
+	if (*a > 0 && j > 0) {
+		result[*a] = ' ';
+		(*a)++;
+	}
+	for (; (buffer[*i + 1] == ' ' || buffer[*i + 1] == '\t'); (*i)++);
+}
+
+char *clear_str(char *buffer)
+{
+	char *result = NULL;
+	int a = 0;
+
+	init_clear_str(buffer, &result);
+	for (int i = 0; buffer[i] != '\0'; i++) {
+		if ((buffer[i] == ' ' || buffer[i] == '\t')) {
+			spaces_handle(&a, result, &i, buffer);
+			continue;
+		}
+		result[a] = buffer[i];
+		a++;
+	}
+	free(buffer);
+	return (result);
+}
+
 node_t *fill_linked_list(char *filename, int *error)
 {
 	char *pathname = concat(filename, ".s", 0, 0);
@@ -30,60 +83,19 @@ node_t *fill_linked_list(char *filename, int *error)
 	for (;buffer != NULL && buffer[0] == '#'; buffer = get_next_line(fd));
 	if (buffer == NULL)
 		return (NULL);
-	if (my_strncmp(buffer, ".name", 5) != 0) {
+	buffer = clear_str(buffer);
+	if ((my_strncmp(buffer, ".name", 5) != 0)) {
+		my_putchar('b');
 		*error = -6;
 		return (NULL);
 	}
-}
+	if (buffer[5] == '\0')
+		*error = -3;
+	if (buffer[6] != ' ')
+		*error = -6;
+	if (buffer[7] != '"')
+		*error = -5;
+	
 
-void init_clear_str(char *buffer, char **result, int *quo)
-{
-	int nb = 0;
-	int i = 0;
-
-	for (; buffer[i] != '\0'; i++) {
-		if (buffer[i] == '"')
-			(*quo) += 1;
-		if ((buffer[i] == ' ' || buffer[i] == '\t') && *quo % 2 == 0)
-			for (; buffer[i + 1] == ' ' || \
-buffer[i + 1] == '\t'; i++);
-		nb++;
-	}
-	if (buffer[i - 1] == ' ' || buffer[i - 1] == '\t')
-		nb--;
-	if (buffer[0] == ' ' || buffer[0] == '\t')
-		nb--;
-	*result = malloc(sizeof(char) * (nb + 1));
-	(*result)[nb] = '\0';
-	*quo = 0;
-}
-
-void spaces_handle(int *a, char *result, int *i, char *buffer)
-{
-	if (*a > 0) {
-		result[*a] = ' ';
-		(*a)++;
-	}
-	for (; (buffer[*i + 1] == ' ' || buffer[*i + 1] == '\t'); (*i)++);
-}
-
-char *clear_str(char *buffer)
-{
-	char *result = NULL;
-	int a = 0;
-	int quo = 0;
-
-	init_clear_str(buffer, &result, &quo);
-	for (int i = 0; buffer[i] != '\0'; i++) {
-		if (buffer[i] == '"')
-			quo += 1;
-		if ((buffer[i] == ' ' || buffer[i] == '\t') && quo % 2 == 0) {
-			spaces_handle(&a, result, &i, buffer);
-			continue;
-		}
-		result[a] = buffer[i];
-		a++;
-	}
-	free(buffer);
-	return (result);
+	
 }
