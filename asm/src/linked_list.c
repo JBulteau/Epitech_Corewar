@@ -19,11 +19,10 @@ node_t *fill_linked_list(char *filename, int *error)
 {
 	char *pathname = concat(filename, ".s", 0, 0);
 	int fd = open(pathname, O_RDWR, 0700);
-	char *buffer = NULL;
+	char *buffer = get_next_line(fd);
 	node_t *first = malloc(sizeof(*first));
 	node_t *save = first;
 
-	buffer = get_next_line(fd);
 	if (buffer == NULL) {
 		*error = -1;
 		return (NULL);
@@ -31,7 +30,10 @@ node_t *fill_linked_list(char *filename, int *error)
 	for (;buffer != NULL && buffer[0] == '#'; buffer = get_next_line(fd));
 	if (buffer == NULL)
 		return (NULL);
-		
+	if (my_strncmp(buffer, ".name", 5) != 0) {
+		*error = -6;
+		return (NULL);
+	}
 }
 
 void init_clear_str(char *buffer, char **result, int *quo)
