@@ -67,4 +67,10 @@ void spaces_handle(int *a, char *result, int *i, char *buffer);
 void init_clear_str(char *buffer, char **result);
 char *get_fn(char *pathname);
 
+/* size_ins.c */
+int size(in_struct_t op);
+int size_arg(int args);
+int size_indexes(int arg);
+int size_notype(int opcode);
+
 #endif

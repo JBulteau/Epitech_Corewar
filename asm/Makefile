@@ -15,6 +15,7 @@ SRC_FILES	=	main.c	\
 			endianness.c	\
 			linked_list.c	\
 			clean_str.c	\
+			size_ins.c	\
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
