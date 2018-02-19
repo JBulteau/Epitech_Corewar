@@ -78,5 +78,6 @@ int fill_next(node_t *first, char **lin, int fd);
 
 /* check.c */
 int check_args(int op_code, char *args);
+int find_instru(char *str);
 
 #endif
