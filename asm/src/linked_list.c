@@ -90,6 +90,8 @@ node_t *fill_linked_list(char *filename, int *error)
 	node_t *save = first;
 
 	//les 5 prochaines lignes à mettre dans une fonction
+	if (buffer == NULL)
+		*error = -1;
 	if (check_buff(&buffer, error, fd, ".name") == -1)
 		return (NULL);
 	test_synt_name(buffer + 5, error);

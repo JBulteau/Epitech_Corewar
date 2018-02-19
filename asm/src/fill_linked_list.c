@@ -13,19 +13,26 @@
 #include "my.h"
 #include "asm.h"
 
-int fill_next(node_t *first, char **line, int fd)
+int fill_next(node_t *first, char **buffer, int fd)
 {
-	for (; line != NULL && (*line[0] == '\0' || *line[0] == '#'); \
-(*line = get_next_line(fd))); // main for ??
-	for (int i = 0; buffer[i] != '\0'; i++) {
-		for (int j = 0; LABEL_CHAR[j] != '\0'; j++) {
-			if (LABEL_CHAR[j] == buffer[i])
+	int inc = 0;
+	int check = 0;
+
+	for (; *buffer != NULL && (*buffer[0] == '\0' || *buffer[0] == '#'); \
+(*buffer = get_next_line(fd))); // main for ??
+	for (; *buffer[inc] != '\0'; inc++) {
+		for (int j = 0; LABEL_CHARS[j] != '\0'; j++) {
+			if (LABEL_CHARS[j] == *buffer[inc])
 				break;
-			if (LABEL_CHAR[j + 1] == '\0')
+			if (LABEL_CHARS[j + 1] == '\0')
 				return (-6);
 		}
-		
-	}
-	return(0);
-	
+	}	
+	if (*buffer[inc] != ':')
+		check = find_instru(*buffer);
+	if (check == -1)
+		my_putchar('a');
+	if (*buffer[inc] == '\0')
+		return (-6);
+	return (0);	
 }
