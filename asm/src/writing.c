@@ -29,12 +29,12 @@ int write_exec(char *filename)
 		return (-1);
 	}
 	my_put_nbr(size(op));
-//	first = fill_linked_list(filename, &error); //replace with filename
-//	for (; first != NULL; first = first->next)
-//		my_printf("%s\n", first->label);
-//	write_header(fd, "test", "test");
-//	write_op(fd, op);
-}
+/*	first = fill_linked_list(filename, &error); //replace with filename
+	for (; first != NULL; first = first->next)
+		my_printf("%s\n", first->label);
+	write_header(fd, "test", "test");
+	write_op(fd, op);
+*/}
 
 /* Function that writes the header */
 int write_header(int fd, char *name, char *comment)

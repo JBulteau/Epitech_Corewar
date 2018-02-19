@@ -76,4 +76,7 @@ int size_notype(int opcode);
 /* fill_linked_list.c */
 int fill_next(node_t *first, char **buffer);
 
+/* check.c */
+int check_args(int op_code, char *args);
+
 #endif
