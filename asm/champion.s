@@ -1,5 +1,7 @@
 .name "test"
 .comment "testing fncs"
+
+\er
 live %3
 
 ld 34,r3

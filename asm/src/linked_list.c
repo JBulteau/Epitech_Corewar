@@ -103,6 +103,6 @@ node_t *fill_linked_list(char *filename, int *error)
 	if (*error != 0)
 		return (NULL);
 	fill_second_case(&first, &second, &save, &buffer);
-	fill_next(first, &buffer);
+	fill_next(first, &buffer, fd);
 	return (save);
 }
