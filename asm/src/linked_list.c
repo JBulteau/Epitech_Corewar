@@ -82,7 +82,7 @@ void fill_second_case(node_t **first, node_t **second, node_t **save, char **buf
 
 node_t *fill_linked_list(char *filename, int *error)
 {
-	char *pathname = concat(filename, ".s", 1, 0);
+	char *pathname = concat(filename, ".s", 0, 0);
 	int fd = open(pathname, O_RDWR, 0700);
 	char *buffer = get_next_line(fd);
 	node_t *first = NULL;
@@ -103,5 +103,6 @@ node_t *fill_linked_list(char *filename, int *error)
 	if (*error != 0)
 		return (NULL);
 	fill_second_case(&first, &second, &save, &buffer);
+	fill_next(first, &buffer);
 	return (save);
 }

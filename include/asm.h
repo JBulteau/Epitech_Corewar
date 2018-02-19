@@ -73,4 +73,7 @@ int size_arg(int args);
 int size_indexes(int arg);
 int size_notype(int opcode);
 
+/* fill_linked_list.c */
+int fill_next(node_t *first, char **buffer);
+
 #endif
