@@ -6,13 +6,14 @@
 */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "my.h"
 
 int get_wordlen(char *str, char separator)
 {
 	int i = 0;
 
-	for (; str[i] != '\0' && str[i] != separator; i++);
+	for (; str[i] != '\0' && str[i] != separator; i++) ;
 	return (i);
 }
 
@@ -49,12 +50,12 @@ char **strtowordarr(char *str, char separator)
 	int w_count = count_words(str, separator);
 	char **word_arr = malloc((w_count + 1) * sizeof(char *));
 	int word = 0;
-	int is_w = 0;
 	int n = 0;
 
 	if (word_arr == NULL)
 		return (NULL);
-	for (int i = 0; i < w_count + 1; (int)(word_arr[i] = NULL) & (i++));
+	for (int i = 0; i < w_count + 1; i++)
+		word_arr[i] = NULL;
 	for (int i = 0; str[i]; i++) {
 		if ((str[i] == separator) && ((n = 0) == 0))
 			continue;
@@ -67,4 +68,4 @@ char **strtowordarr(char *str, char separator)
 		}
 	}
 	return (word_arr);
-}
+} /* strtowordarr */

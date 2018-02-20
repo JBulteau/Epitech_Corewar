@@ -20,21 +20,21 @@ int write_exec(char *filename)
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
 	int total_size = 0;
-	node_t d = {{6, 0xa4, {1, 1, 1, 0}}, "\a", NULL};
-	node_t c = {{1, 0, {4, 0, 0, 0}}, "\a", &d};
-	node_t b = {{0, 0, {0, 0, 0, 0}}, "comment", &c};
-	node_t a = {{0, 0, {0, 0, 0, 0}}, "name", &b};
+	/*node_t d = {{6, 0xa4, {1, 1, 1, 0}}, {"\a", "\a", "\a", "\a", "\a"}, NULL};
+	node_t c = {{1, 0, {4, 0, 0, 0}}, {"\a", "\a", "\a", "\a", "\a"}, &d};
+	node_t b = {{0, 0, {0, 0, 0, 0}}, {"comment", "\a", "\a", "\a", "\a"}, &c};
+	node_t a = {{0, 0, {0, 0, 0, 0}}, {"name", "\a", "\a", "\a", "\a"}, &b};*/
 
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
 		return (-1);
 	}
-	for (node_t *curr = &a; curr != NULL; curr = curr->next)
+	node_t *first = fill_linked_list("test", &error);
+	for (node_t *curr = first; curr != NULL; curr = curr->next)
 		total_size += size(curr->info);
-	//first = fill_linked_list(filename, &error); //replace with filename
-	write_header(fd, "test", "test", total_size);
-	for (node_t *curr = &c; curr != NULL; curr = curr->next)
+	write_header(fd, first->label[0], first->next->label[0], total_size);
+	for (node_t *curr = first->next->next; curr != NULL; curr = curr->next)
 		write_op(fd, curr->info);
 }
 
@@ -128,8 +128,9 @@ int write_op(int fd, in_struct_t op)
 		for (int i = 0; (i < 4) && (return_v != -1); i++)
 			return_v = write_indexes(fd, op, i);
 	else
-		for (int i = 0; (i < 4) && (return_v != -1); i++)
+		for (int i = 0; (i < 4) && (return_v != -1); i++) {
 			return_v = write_arg(fd, op, i);
+		}
 	if (return_v == -1)
 		return (-1);
 	return (0);

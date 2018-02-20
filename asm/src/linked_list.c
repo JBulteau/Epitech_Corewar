@@ -13,8 +13,6 @@
 #include "my.h"
 #include "asm.h"
 
-//op_tab[i];
-
 void test_synt_name(char *name, int *error)
 {
 	int i = 1;
@@ -60,7 +58,7 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 	*first = malloc(sizeof(**first));
 	*second = malloc(sizeof(**second));
 	(*first)->label[0] = malloc(sizeof(char) * (nb + 2));
-	(*first)->label[0] = my_strcpy2((*first)->label, (*buffer + 7));
+	(*first)->label[0] = my_strcpy2((*first)->label[0], (*buffer + 7));
 	(*first)->label[0][nb] = '\0';
 	for (int i = 1; i <= 4; i++) {
 		(*first)->label[i] = malloc(1);
@@ -78,7 +76,7 @@ void fill_second_case(node_t **first, node_t **second, node_t **save, char **buf
 	for (int i = 10; (*buffer)[i] != '"'; i++)
 		nb++;
 	(*first)->label[0] = malloc(sizeof(char) * (nb + 2));
-	(*first)->label[0] = my_strcpy2((*first)->label, (*buffer + 10));
+	(*first)->label[0] = my_strcpy2((*first)->label[0], (*buffer + 10));
 	(*first)->label[0][nb] = '\0';
 	for (int i = 1; i <= 4; i++) {
 		(*first)->label[i] = malloc(1);
@@ -113,8 +111,8 @@ node_t *fill_linked_list(char *filename, int *error)
 		return (NULL);
 	fill_second_case(&first, &second, &save, &buffer);
 	parsing(first, &buffer, fd);
-	save = save->next->next;
-	for (; save != NULL; save = save->next)
-		my_printf("op : %i\nargs_type : %i\narg :%s\n\n", save->info.op_code, save->info.args_types, save->info.args[1]);
+	//save = save->next->next;
+	//for (; save != NULL; save = save->next)
+	//	my_printf("op : %i\nargs_type : %i\narg :%s\n\n", save->info.op_code, save->info.args_types, save->info.args[1]);
 	return (save);
 }
