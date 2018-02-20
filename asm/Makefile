@@ -18,6 +18,7 @@ SRC_FILES	=	main.c	\
 			size_ins.c	\
 			fill_linked_list.c	\
 			check.c	\
+			check_arg_ins.c
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

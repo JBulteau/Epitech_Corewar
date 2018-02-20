@@ -1,3 +1,3 @@
 .name "aze" 
 .comment      "testing fncs"
-l2:  live %3
+l2:  sti r1 , a34 , %42

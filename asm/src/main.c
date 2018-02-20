@@ -17,6 +17,7 @@ int main(int ac, char **av)
 		my_putstr(USAGE);
 		return (0);
 	}
+	//my_put_nbr(check_args(6, "r1, r1, %1"));
 	//Example usage of to_find
 	//my_printf("%i\n", str_find("champion.s", ".s"));
 	if (write_exec(get_fn(av[1])) == -1)
