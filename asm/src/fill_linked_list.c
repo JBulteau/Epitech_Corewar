@@ -19,6 +19,7 @@ int parsing(node_t *first, char **buffer, int fd)
 	int check = 0;
 	node_t *new = NULL;
 
+	*buffer = get_next_line(fd);
 	for (; *buffer != NULL ; *buffer = get_next_line(fd)) {
 		if (*buffer[0] == '\0' || *buffer[0] == '#')
 			continue;
@@ -32,8 +33,10 @@ int parsing(node_t *first, char **buffer, int fd)
 			if ((check = check_label_chars(buffer, inc)) < 0)
 				return (check);
 		}
-		if (*buffer[inc] != ':')
+		if (*buffer[inc] != ':') {
 			check = find_instru(*buffer);
+			printf("ICI LA : %i\n", check);
+		}
 		if (check == -1 || *buffer[inc] == '\0' || (*buffer[inc] == ':' \
 && *buffer[inc + 1] != ' '))
 			return (-6);
@@ -41,6 +44,7 @@ int parsing(node_t *first, char **buffer, int fd)
 		new->info.op_code = check;
 		if ((check = check_args(check, *buffer + inc + 1, &(new->info))) < 0)
 			return(check);
+		new->next = NULL;
 		first = new;
 	}
 	return (0);

@@ -66,6 +66,7 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 	(*first)->label[nb] = '\0';
 	(*first)->next = *second;
 	*save = *first;
+	my_printf("test1 : %p\n", *save);
 	*first = *second;
 }
 
@@ -106,5 +107,11 @@ node_t *fill_linked_list(char *filename, int *error)
 		return (NULL);
 	fill_second_case(&first, &second, &save, &buffer);
 	parsing(first, &buffer, fd);
+	my_printf("test2 : %i\n", save->info.op_code);
+	save = save->next;
+	save = save->next;
+	for (; save != NULL; save = save->next) {
+		my_printf("op : %i\nargs_type : %x\narg :%s\n\n", save->info.op_code, save->info.args_types, save->info.args[0]);
+	}
 	return (save);
 }
