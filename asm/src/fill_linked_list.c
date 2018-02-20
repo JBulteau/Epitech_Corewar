@@ -43,3 +43,24 @@ int parsing(node_t *first, char **buffer, int fd)
 	first = new;
 	return (0);
 }
+
+void write_args_type(in_struct_t *op, int type)
+{
+	if (type == T_DIR)
+		op->args_types += 2;	
+	else if (type == T_REG)
+		op->args_types += 1;	
+	else
+		op->args_types += 3;	
+	op->args_types = op->args_types << 2;
+}
+
+void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg)
+{
+	if ((type == T_DIR && strarg[1] != LABEL_CHAR) || type == T_REG)
+		op->args[nb_arg] = my_getnbr(strarg + 1);
+	else if (type == T_DIR && strarg[1] == LABEL_CHAR)
+		op->args[nb_arg] = -1;
+	else
+		op->args[nb_arg] = my_getnbr(strarg);
+}
