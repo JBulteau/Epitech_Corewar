@@ -24,7 +24,6 @@ int size(in_struct_t op)
 		size += size_notype(op.op_code);
 	else
 		size += size_arg(op.args_types);
-	my_putchar('\n');
 	return (size);
 }
 
