@@ -14,6 +14,8 @@ int size(in_struct_t op)
 {
 	int size = 1;
 
+	if (op.op_code == 0)
+		return (0);
 	if (op.args_types != 0)
 		size++;
 	if ((op.op_code == 10) || (op.op_code == 11) || (op.op_code == 14))
@@ -22,7 +24,6 @@ int size(in_struct_t op)
 		size += size_notype(op.op_code);
 	else
 		size += size_arg(op.args_types);
-	my_putchar('\n');
 	return (size);
 }
 
