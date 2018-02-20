@@ -22,7 +22,7 @@ static int check_reg(char *arg)
 	for (int i = 1; arg[i]; i++)
 		if ((arg[i] < '0') || (arg[i] > '9'))
 			return (-9);
-	return (0);
+	return (1);
 }
 
 static int check_label(char *arg)
@@ -34,7 +34,7 @@ static int check_label(char *arg)
 	for (int i = 2; arg[i]; i++)
 		if (indexof(arg[i], LABEL_CHARS) == -1)
 			return (-7);
-	return (0);
+	return (4);
 }
 
 static int check_dir(char *arg)
@@ -42,7 +42,7 @@ static int check_dir(char *arg)
 	for (int i = 1; arg[i]; i++)
 		if ((arg[i] < '0') || (arg[i] > '9'))
 			return (-10);
-	return (0);
+	return (4);
 }
 
 static int check_ind(char *arg)
@@ -50,7 +50,7 @@ static int check_ind(char *arg)
 	for (int i = 0; arg[i]; i++)
 		if ((arg[i] < '0') || (arg[i] > '9'))
 			return (-10);
-	return (0);
+	return (2);
 }
 
 int is_valid_arg(char *arg)

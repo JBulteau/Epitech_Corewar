@@ -12,18 +12,16 @@
 int check_args(int op_code, char *args_str)
 {
 	char **args = my_str_to_word_array(args_str, SEPARATOR_CHAR);
-	int error = 0;
+	int type = 0;
 
-	my_printf("%s\n", op_tab[op_code - 1].mnemonique);
-	for (int i = 0; args[i]; i++) {
+	for (int i = 0; args[i]; i++)
 		args[i] = clear_str(args[i]);
-		my_printf("%s\n", args[i]);
-	}
 	for (int i = 0; i < op_tab[op_code - 1].nbr_args; i++) {
-		my_printf("Valid args -> %i\n", op_tab[op_code + 1].type[i]);
-		error = is_valid_arg(args[i]);
-		if (error < 0)
-			return (error);
+		type = is_valid_arg(args[i]);
+		if (type < 0)
+			return (type);
+		if (!(type & op_tab[op_code + 1].type[i]))
+			return (-10);
 	}
 	return (0);
 }

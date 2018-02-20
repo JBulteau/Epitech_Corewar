@@ -27,7 +27,7 @@ int write_exec(char *filename)
 			free(pathname);
 		return (-1);
 	}
-	my_put_nbr(size(op));
+//	my_put_nbr(size(op));
 /*	first = fill_linked_list(filename, &error); //replace with filename
 	for (; first != NULL; first = first->next)
 		my_printf("%s\n", first->label);
