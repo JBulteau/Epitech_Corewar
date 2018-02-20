@@ -19,6 +19,7 @@ int write_exec(char *filename)
 	int error = 0;
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
+	int total_size = 0;
 	node_t d = {{6, 0xa4, {1, 1, 1, 0}}, "\a", NULL};
 	node_t c = {{1, 0, {4, 0, 0, 0}}, "\a", &d};
 	node_t b = {{0, 0, {0, 0, 0, 0}}, "comment", &c};
@@ -29,18 +30,21 @@ int write_exec(char *filename)
 			free(pathname);
 		return (-1);
 	}
+	for (node_t *curr = &a; curr != NULL; curr = curr->next)
+		total_size += size(curr->info);
 	//first = fill_linked_list(filename, &error); //replace with filename
-	//for (; first != NULL; first = first->next)
-	//	my_printf("%s\n", first->label);
+	write_header(fd, "test", "test", total_size);
+	for (node_t *curr = &c; curr != NULL; curr = curr->next)
+		write_op(fd, curr->info);
 }
 
 /* Function that writes the header */
-int write_header(int fd, char *name, char *comment)
+int write_header(int fd, char *name, char *comment, int size)
 {
 	int magic = rev_endiannes_int(COREWAR_EXEC_MAGIC);
 	int values[3] = {0};
 
-	values[1] = rev_endiannes_int(5);
+	values[1] = rev_endiannes_int(size);
 	values[2] = PROG_NAME_LENGTH - my_strlen(name) + 4;
 	if (write(fd, &magic, sizeof(int)) == -1)
 		return (-1);
@@ -64,12 +68,12 @@ int write_header(int fd, char *name, char *comment)
 int write_arg(int fd, in_struct_t op, int arg)
 {
 	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
-
+	int to_write = rev_endiannes_int(op.args[arg]);
 	if (arg_type == 0b01)
 		if (write(fd, &op.args[arg], T_REG) == -1)
 			return (-1);
 	if (arg_type == 0b10)
-		if (write(fd, &op.args[arg], DIR_SIZE) == -1)
+		if (write(fd, &to_write, DIR_SIZE) == -1)
 			return (-1);
 	if (arg_type == 0b11)
 		if (write(fd, &op.args[arg], IND_SIZE) == -1)
@@ -95,7 +99,7 @@ int write_indexes(int fd, in_struct_t op, int arg)
 int write_notype(int fd, in_struct_t op)
 {
 	if (op.op_code == 1) {
-		op.args[0] = rev_endiannes_int(op.args[0]);		
+		op.args[0] = rev_endiannes_int(op.args[0]);
 		if (write(fd, &op.args[0], 4) == -1)
 			return (-1);
 	} else {

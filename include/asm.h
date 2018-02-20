@@ -50,7 +50,7 @@ short rev_endiannes_short(short nb);
 
 /* writing.c */
 int write_exec(char *filename);
-int write_header(int fd, char *name, char *comment);
+int write_header(int fd, char *name, char *comment, int size);
 int write_arg(int fd, in_struct_t op, int arg);
 int write_special(int fd, in_struct_t op, int arg);
 int write_op(int fd, in_struct_t op);
