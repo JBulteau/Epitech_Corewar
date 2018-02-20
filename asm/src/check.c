@@ -40,7 +40,7 @@ int find_instru(char *str)
 	while (str[++i] != '\0' && str[i] != ' ') ;
 	//str[i] = '\0';
 	i = -1;
-	while(op_tab[++i].mnemonique != 0 && \
+	while(op_tab[++i].mnemonique != NULL && \
 my_strcmp(op_tab[i].mnemonique, str, -1) != 0);
 	if (op_tab[i].mnemonique == 0)
 		return (-1);

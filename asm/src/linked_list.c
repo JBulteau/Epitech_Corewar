@@ -59,9 +59,13 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 		nb++;
 	*first = malloc(sizeof(**first));
 	*second = malloc(sizeof(**second));
-	(*first)->label = malloc(sizeof(char) * (nb + 2));
-	(*first)->label = my_strcpy2((*first)->label, (*buffer + 7));
-	(*first)->label[nb] = '\0';
+	(*first)->label[0] = malloc(sizeof(char) * (nb + 2));
+	(*first)->label[0] = my_strcpy2((*first)->label, (*buffer + 7));
+	(*first)->label[0][nb] = '\0';
+	for (int i = 1; i <= 4; i++) {
+		(*first)->label[i] = malloc(1);
+		(*first)->label[i][0] = '\a';
+	}
 	(*first)->next = *second;
 	*save = *first;
 	*first = *second;
@@ -73,9 +77,14 @@ void fill_second_case(node_t **first, node_t **second, node_t **save, char **buf
 
 	for (int i = 10; (*buffer)[i] != '"'; i++)
 		nb++;
-	(*first)->label = malloc(sizeof(char) * (nb + 2));
-	(*first)->label = my_strcpy2((*first)->label, (*buffer + 10));
-	(*first)->label[nb] = '\0';
+	(*first)->label[0] = malloc(sizeof(char) * (nb + 2));
+	(*first)->label[0] = my_strcpy2((*first)->label, (*buffer + 10));
+	(*first)->label[0][nb] = '\0';
+	for (int i = 1; i <= 4; i++) {
+		(*first)->label[i] = malloc(1);
+		(*first)->label[i][0] = '\a';
+	}
+	(*first)->next = NULL;
 }
 
 node_t *fill_linked_list(char *filename, int *error)

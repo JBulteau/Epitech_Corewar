@@ -1,3 +1,3 @@
 .name "aze"
 .comment      "testing fncs"
-ld %34, r1
+lldi r1, r1, r1
