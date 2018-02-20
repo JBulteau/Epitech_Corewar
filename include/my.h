@@ -9,7 +9,7 @@
 #define	__MY__H_
 
 #define ERR_CODE 84
-#define READ_SIZE 3
+#define READ_SIZE 1
 
 char *concat(char *src1, char *src2, int free1, int free2);
 int get_digits(int nb);
