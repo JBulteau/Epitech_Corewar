@@ -38,15 +38,13 @@ void test_synt_name(char *name, int *error)
 
 int check_buff(char **buffer, int *error, int fd, char *to_check)
 {
-	if (buffer[0] == NULL) {
-		*error = -1;
+	if (*buffer == NULL)
+		return (*error = -1);
+	for (;*buffer != NULL && *buffer[0] == '#'; *buffer = get_next_line(fd));
+	if (*buffer == NULL)
 		return (-1);
-	}
-	for (;buffer[0] != NULL && buffer[0][0] == '#'; buffer[0] = get_next_line(fd));
-	if (buffer[0] == NULL)
-		return (-1);
-	buffer[0] = clear_str(buffer[0]);
-	if ((my_strncmp(buffer[0], to_check, 5) != 0)) {
+	*buffer = clear_str(*buffer);
+	if ((my_strncmp(*buffer, to_check, 5) != 0)) {
 		*error = -6;
 		return (-1);
 	}
@@ -66,7 +64,6 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 	(*first)->label[nb] = '\0';
 	(*first)->next = *second;
 	*save = *first;
-	my_printf("test1 : %p\n", *save);
 	*first = *second;
 }
 

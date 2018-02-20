@@ -26,7 +26,7 @@ buffer[i + 1] == '\t'; i++);
 		nb--;
 	if (buffer[0] == ' ' || buffer[0] == '\t')
 		nb--;
-	*result = malloc(sizeof(char) * (nb + 1));
+	*result = malloc(sizeof(char) * (nb + 2));
 	(*result)[nb] = '\0';
 
 }
@@ -44,8 +44,6 @@ buffer[j] == '\t'); j++);
 		(*a)++;
 	}
 	for (; (buffer[*i + 1] == ' ' || buffer[*i + 1] == '\t'); (*i)++);
-	if (j == 0)
-		(*i)++;
 }
 
 char *clear_str(char *buffer)
@@ -59,9 +57,9 @@ char *clear_str(char *buffer)
 			spaces_handle(&a, result, &i, buffer);
 			continue;
 		}
-		result[a] = buffer[i];
-		a++;
+		result[a++] = buffer[i];
 	}
+	result[a] = '\0';
 	free(buffer);
 	return (result);
 }
