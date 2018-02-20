@@ -33,10 +33,20 @@ int find_instru(char *str)
 	while (str[++i] != '\0' && str[i] != ' ') ;
 	//str[i] = '\0';
 	i = -1;
-	while (op_tab[++i].mnemonique != 0 &&
-	       my_strcmp(op_tab[i].mnemonique, str, -1) != 0) ;
+	while(op_tab[++i].mnemonique != 0 && \
+my_strcmp(op_tab[i].mnemonique, str, -1) != 0);
 	if (op_tab[i].mnemonique == 0)
 		return (-1);
 	else
 		return (i + 1);
+}
+
+int check_label_chars(char **buffer, int inc)
+{
+	for (int j = 0; LABEL_CHARS[j] != '\0'; j++) {
+		if (LABEL_CHARS[j] == *buffer[inc])
+			return (0);
+		if (LABEL_CHARS[j + 1] == '\0')
+			return (-6);
+	}
 }

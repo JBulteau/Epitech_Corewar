@@ -13,26 +13,30 @@
 #include "my.h"
 #include "asm.h"
 
-int fill_next(node_t *first, char **buffer, int fd)
+int parsing(node_t *first, char **buffer, int fd)
 {
 	int inc = 0;
+	int check_ins = 0;
 	int check = 0;
 
 	for (; *buffer != NULL && (*buffer[0] == '\0' || *buffer[0] == '#'); \
 (*buffer = get_next_line(fd))); // main for ??
 	for (; *buffer[inc] != '\0'; inc++) {
-		for (int j = 0; LABEL_CHARS[j] != '\0'; j++) {
-			if (LABEL_CHARS[j] == *buffer[inc])
-				break;
-			if (LABEL_CHARS[j + 1] == '\0')
-				return (-6);
-		}
-	}	
+		if (*buffer[inc] == '#' || *buffer[inc] == '%' || \
+*buffer[inc] == ',')
+			return(-6);
+		if (*buffer[inc] == ' ' || *buffer[inc] == ':')
+			break;
+		if ((check = check_label_chars(buffer, inc)) < 0)
+			return (check);
+	}
 	if (*buffer[inc] != ':')
-		check = find_instru(*buffer);
-	if (check == -1)
-		my_putchar('a');
-	if (*buffer[inc] == '\0')
+		check_ins = find_instru(*buffer);
+	if (check_ins == -1 || *buffer[inc] == '\0' || (*buffer[inc] == ':' \
+&& *buffer[inc + 1] != ' '))
 		return (-6);
+	
+	
+	
 	return (0);	
 }

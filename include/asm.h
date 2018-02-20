@@ -74,11 +74,12 @@ int size_indexes(int arg);
 int size_notype(int opcode);
 
 /* fill_linked_list.c */
-int fill_next(node_t *first, char **buffer, int fd);
+int parsing(node_t *first, char **buffer, int fd);
 
 /* check.c */
 int check_args(int op_code, char *args);
 int find_instru(char *str);
+int check_label_chars(char **buffer, int inc);
 
 /*check_arg_ins*/
 int is_valid_arg(char *arg);
