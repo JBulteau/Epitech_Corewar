@@ -19,21 +19,25 @@ int write_exec(char *filename)
 	int error = 0;
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
-	in_struct_t op = {0x0b, 0x78, {1, 0x2a, 0x22, 0}}; //useless, we have the linked list;
-	node_t *first = NULL;
+	node_t d = {{6, 0xa4, {1, 1, 1, 0}}, "\a", NULL};
+	node_t c = {{1, 0, {4, 0, 0, 0}}, "\a", &d};
+	node_t b = {{0, 0, {0, 0, 0, 0}}, "comment", &c};
+	node_t a = {{0, 0, {0, 0, 0, 0}}, "name", &b};
 
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
 		return (-1);
 	}
-//	my_put_nbr(size(op));
-/*	first = fill_linked_list(filename, &error); //replace with filename
-	for (; first != NULL; first = first->next)
-		my_printf("%s\n", first->label);
-	write_header(fd, "test", "test");
-	write_op(fd, op);
-*/}
+	for (node_t *curr = &a; curr != NULL; curr = curr->next) {
+		my_printf("SIZE ins -> %i\n", size(curr->info));
+	}
+	//first = fill_linked_list(filename, &error); //replace with filename
+	//for (; first != NULL; first = first->next)
+	//	my_printf("%s\n", first->label);
+	//write_header(fd, "test", "test");
+	//write_op(fd, op);
+}
 
 /* Function that writes the header */
 int write_header(int fd, char *name, char *comment)

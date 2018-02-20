@@ -5,6 +5,7 @@
 ** Main file
 */
 
+#include <unistd.h>
 #include "op.h"
 #include "my.h"
 #include "asm.h"
@@ -19,10 +20,10 @@ int main(int ac, char **av)
 		my_putstr(USAGE);
 		return (0);
 	}
-	//in_struct_t op = {0x01, 0, {0, 0, 0, 0}};	
-	//my_put_nbr(check_args(2, "%1, r1", &op));
-	//Example usage of to_find
-	//my_printf("%i\n", str_find("champion.s", ".s"));
+	node_t d = {{0x06, 0x54, {1, 2, 3, 0}, "\a", NULL}};
+	node_t c = {{0x01, 0, {1, 0, 0, 0}, "\a", &d}};
+	node_t b = {{0, 0, {0, 0, 0, 0}, "comment", &c}};
+	node_t a = {{0, 0, {0, 0, 0, 0}, "name", &b}};
 	if (write_exec(get_fn(av[1])) == -1)
 		return (84);
 	fill_linked_list("test", &error);
