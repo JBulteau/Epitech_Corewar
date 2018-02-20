@@ -35,17 +35,15 @@ int check_args(int op_code, char *args_str, in_struct_t *op)
 
 int find_instru(char *str)
 {
-	int i = -1;
+	int i = 0;
 
-	while (str[++i] != '\0' && str[i] != ' ') ;
-	//str[i] = '\0';
-	i = -1;
-	while(op_tab[++i].mnemonique != NULL && \
-my_strcmp(op_tab[i].mnemonique, str, -1) != 0);
-	if (op_tab[i].mnemonique == 0)
-		return (-1);
-	else
-		return (i + 1);
+	while (str[i++] != '\0' && str[i] != ' ');
+	str[i] = '\0';
+	for (int j = 0; op_tab[j].mnemonique != 0; j++)
+		if (my_strcmp(str, op_tab[j].mnemonique, -1) == 1)
+			return (j + 1);
+	return (-1);
+
 }
 
 int check_label_chars(char **buffer, int inc)

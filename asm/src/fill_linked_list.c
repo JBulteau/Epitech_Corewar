@@ -36,7 +36,7 @@ int parsing(node_t *first, char **buffer, int fd)
 				return (check);
 		}
 		if ((*buffer)[inc] != ':')
-			check = find_instru(*buffer);
+			check = find_instru(my_strdup(*buffer));
 		if (check == -1 || (*buffer)[inc] == '\0' || ((*buffer)[inc] == ':' \
 && (*buffer)[inc + 1] != ' '))
 			return (-6);
