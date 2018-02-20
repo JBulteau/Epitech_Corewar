@@ -29,14 +29,9 @@ int write_exec(char *filename)
 			free(pathname);
 		return (-1);
 	}
-	for (node_t *curr = &a; curr != NULL; curr = curr->next) {
-		my_printf("SIZE ins -> %i\n", size(curr->info));
-	}
 	//first = fill_linked_list(filename, &error); //replace with filename
 	//for (; first != NULL; first = first->next)
 	//	my_printf("%s\n", first->label);
-	//write_header(fd, "test", "test");
-	//write_op(fd, op);
 }
 
 /* Function that writes the header */

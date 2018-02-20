@@ -59,7 +59,7 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 		nb++;
 	*first = malloc(sizeof(**first));
 	*second = malloc(sizeof(**second));
-	(*first)->label = malloc(sizeof(char) * (nb + 1));
+	(*first)->label = malloc(sizeof(char) * (nb + 2));
 	(*first)->label = my_strcpy2((*first)->label, (*buffer + 7));
 	(*first)->label[nb] = '\0';
 	(*first)->next = *second;
@@ -73,7 +73,7 @@ void fill_second_case(node_t **first, node_t **second, node_t **save, char **buf
 
 	for (int i = 10; (*buffer)[i] != '"'; i++)
 		nb++;
-	(*first)->label = malloc(sizeof(char) * (nb + 1));
+	(*first)->label = malloc(sizeof(char) * (nb + 2));
 	(*first)->label = my_strcpy2((*first)->label, (*buffer + 10));
 	(*first)->label[nb] = '\0';
 }
@@ -85,7 +85,7 @@ node_t *fill_linked_list(char *filename, int *error)
 	char *buffer = get_next_line(fd);
 	node_t *first = NULL;
 	node_t *second = NULL;
-	node_t *save = first;
+	node_t *save = NULL;
 
 	//les 5 prochaines lignes à mettre dans une fonction
 	if (buffer == NULL)
@@ -104,11 +104,8 @@ node_t *fill_linked_list(char *filename, int *error)
 		return (NULL);
 	fill_second_case(&first, &second, &save, &buffer);
 	parsing(first, &buffer, fd);
-	my_printf("test2 : %i\n", save->info.op_code);
-	save = save->next;
-	save = save->next;
-	for (; save != NULL; save = save->next) {
+	save = save->next->next;
+	for (; save != NULL; save = save->next)
 		my_printf("op : %i\nargs_type : %x\narg :%s\n\n", save->info.op_code, save->info.args_types, save->info.args[0]);
-	}
 	return (save);
 }

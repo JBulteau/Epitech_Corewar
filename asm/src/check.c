@@ -11,7 +11,7 @@
 
 int check_args(int op_code, char *args_str, in_struct_t *op)
 {
-	char **args = my_str_to_word_array(args_str, SEPARATOR_CHAR);
+	char **args = strtowordarr(args_str, SEPARATOR_CHAR);
 	int type = 0;
 
 	for (int i = 0; args[i]; i++)
@@ -51,7 +51,7 @@ my_strcmp(op_tab[i].mnemonique, str, -1) != 0);
 int check_label_chars(char **buffer, int inc)
 {
 	for (int j = 0; LABEL_CHARS[j] != '\0'; j++) {
-		if (LABEL_CHARS[j] == *buffer[inc])
+		if (LABEL_CHARS[j] == (*buffer)[inc])
 			return (0);
 		if (LABEL_CHARS[j + 1] == '\0')
 			return (-6);
