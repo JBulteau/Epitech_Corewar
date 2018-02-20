@@ -16,8 +16,8 @@
 int parsing(node_t *first, char **buffer, int fd)
 {
 	int inc = 0;
-	int check_ins = 0;
 	int check = 0;
+	node_t *new = malloc(sizeof(*new));
 
 	for (; *buffer != NULL && (*buffer[0] == '\0' || *buffer[0] == '#'); \
 (*buffer = get_next_line(fd))); // main for ??
@@ -31,12 +31,12 @@ int parsing(node_t *first, char **buffer, int fd)
 			return (check);
 	}
 	if (*buffer[inc] != ':')
-		check_ins = find_instru(*buffer);
-	if (check_ins == -1 || *buffer[inc] == '\0' || (*buffer[inc] == ':' \
+		check = find_instru(*buffer);
+	if (check == -1 || *buffer[inc] == '\0' || (*buffer[inc] == ':' \
 && *buffer[inc + 1] != ' '))
 		return (-6);
-	
-	
-	
-	return (0);	
+	//fill hard code here;
+	if ((check = check_args(check, *buffer + inc + 1, &(new->info))) < 0)
+		return(check);
+	return (0);
 }

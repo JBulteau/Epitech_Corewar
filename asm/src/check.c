@@ -9,7 +9,7 @@
 #include "asm.h"
 #include "op.h"
 
-int check_args(int op_code, char *args_str)
+int check_args(int op_code, char *args_str, in_struct_t *op)
 {
 	char **args = my_str_to_word_array(args_str, SEPARATOR_CHAR);
 	int type = 0;

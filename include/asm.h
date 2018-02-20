@@ -77,7 +77,7 @@ int size_notype(int opcode);
 int parsing(node_t *first, char **buffer, int fd);
 
 /* check.c */
-int check_args(int op_code, char *args);
+int check_args(int op_code, char *args, in_struct_t *op);
 int find_instru(char *str);
 int check_label_chars(char **buffer, int inc);
 
