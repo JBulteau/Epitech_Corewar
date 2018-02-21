@@ -86,4 +86,11 @@ int check_label_chars(char **buffer, int inc);
 /*check_arg_ins*/
 int is_valid_arg(char *arg);
 
+/* debug.c */
+node_t *manual_ll(void);
+
+/* free.c */
+void free_ll(node_t *ll);
+node_t *init_node(void);
+
 #endif

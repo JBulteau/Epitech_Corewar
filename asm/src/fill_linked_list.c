@@ -21,11 +21,12 @@ int parsing(node_t *first, char **buffer, int fd)
 
 	//CALL CLEAN STR CONNARD;
 	*buffer = get_next_line(fd);
-	for (; *buffer != NULL ; *buffer = get_next_line(fd)) {
+	for (; *buffer != NULL ; (*buffer = get_next_line(fd)) && (inc = 0)) {
 		if (*buffer[0] == '\0' || *buffer[0] == '#')
 			continue;
-		new = malloc(sizeof(node_t));
-		inc = 0;
+		new = init_node();
+		if (new == NULL)
+			return (84);
 		for (; (*buffer)[inc] != '\0'; inc++) {
 			if ((*buffer)[inc] == '#' || (*buffer)[inc] == '%' || \
 (*buffer)[inc] == ',')

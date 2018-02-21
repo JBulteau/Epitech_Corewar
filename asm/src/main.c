@@ -5,6 +5,7 @@
 ** Main file
 */
 
+#include <stdlib.h>
 #include <unistd.h>
 #include "op.h"
 #include "my.h"
@@ -24,10 +25,13 @@ int main(int ac, char **av)
 	if (name == NULL)
 		return (84);
 	to_write = fill_linked_list(name, &error);
+	//to_write = manual_ll();
 	if (error)
 		return (84);
 	error = write_exec(name, to_write);
 	if (error)
 		return (84);
+	free_ll(to_write);
+	free(name);
 	return (0);
 }

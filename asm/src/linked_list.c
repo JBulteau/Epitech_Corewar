@@ -64,6 +64,8 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 		(*first)->label[i] = malloc(1);
 		(*first)->label[i][0] = '\a';
 	}
+	(*first)->info.op_code = 0;
+	(*first)->info.args_types = 0;	
 	(*first)->next = *second;
 	*save = *first;
 	*first = *second;
@@ -82,6 +84,8 @@ void fill_second_case(node_t **first, node_t **second, node_t **save, char **buf
 		(*first)->label[i] = malloc(1);
 		(*first)->label[i][0] = '\a';
 	}
+	(*first)->info.op_code = 0;
+	(*first)->info.args_types = 0;
 	(*first)->next = NULL;
 }
 

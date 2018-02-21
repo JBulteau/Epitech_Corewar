@@ -30,9 +30,10 @@ int write_exec(char *filename, node_t *entry)
 		total_size += size(curr->info);
 	write_header(fd, entry->label[0], entry->next->label[0], total_size);
 	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next) {
-		my_printf("Writting op\n");
 		write_op(fd, curr->info);
 	}
+	free(pathname);
+	return (0);
 }
 
 /* Function that writes the header */
