@@ -14,28 +14,25 @@
 #include "asm.h"
 
 /* Main function that writes */
-int write_exec(char *filename)
+int write_exec(char *filename, node_t *entry)
 {
 	int error = 0;
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
 	int total_size = 0;
-	/*node_t d = {{6, 0xa4, {1, 1, 1, 0}}, {"\a", "\a", "\a", "\a", "\a"}, NULL};
-	node_t c = {{1, 0, {4, 0, 0, 0}}, {"\a", "\a", "\a", "\a", "\a"}, &d};
-	node_t b = {{0, 0, {0, 0, 0, 0}}, {"comment", "\a", "\a", "\a", "\a"}, &c};
-	node_t a = {{0, 0, {0, 0, 0, 0}}, {"name", "\a", "\a", "\a", "\a"}, &b};*/
-
+	
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
 		return (-1);
 	}
-	node_t *first = fill_linked_list("test", &error);
-	for (node_t *curr = first; curr != NULL; curr = curr->next)
+	for (node_t *curr = entry; curr != NULL; curr = curr->next)
 		total_size += size(curr->info);
-	write_header(fd, first->label[0], first->next->label[0], total_size);
-	for (node_t *curr = first->next->next; curr != NULL; curr = curr->next)
+	write_header(fd, entry->label[0], entry->next->label[0], total_size);
+	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next) {
+		my_printf("Writting op\n");
 		write_op(fd, curr->info);
+	}
 }
 
 /* Function that writes the header */
