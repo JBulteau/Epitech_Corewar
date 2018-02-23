@@ -114,7 +114,7 @@ int parsing(node_t *first, char **buffer, int fd)
 		first = new;
 		if (first->next != NULL)
 			first = first->next;
-		if ((check = check_args(check, *buffer + inc + 1, &(first->info))) < 0)
+		if ((check = check_args(check, *buffer + inc + 1, first)) < 0)
 			return (check);
 		first->next = NULL;
 		new = NULL;

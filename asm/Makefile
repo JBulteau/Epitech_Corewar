@@ -18,8 +18,8 @@ SRC_FILES	=	main.c	\
 			size_ins.c	\
 			fill_linked_list.c	\
 			check.c	\
-			check_arg_ins.c	\
 			debug.c	\
+			check_arg_ins.c	\
 			free.c	\
 			labels.c
 

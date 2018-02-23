@@ -82,7 +82,7 @@ void write_args_type(in_struct_t *op, int type);
 void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg);
 
 /* check.c */
-int check_args(int op_code, char *args, in_struct_t *op);
+int check_args(int op_code, char *args, node_t *op);
 int find_instru(char *str);
 int check_label_chars(char **buffer, int inc);
 
@@ -90,11 +90,12 @@ int check_label_chars(char **buffer, int inc);
 int is_valid_arg(char *arg, node_t *op, int i);
 
 /* debug.c */
-node_t *manual_ll(void);
-void disp_node(node_t *node);
+node_t *init_node(void);
 
 /* free.c */
 void free_ll(node_t *ll);
-node_t *init_node(void);
+
+/* labels.c */
+int replace_labels(node_t *entry);
 
 #endif
