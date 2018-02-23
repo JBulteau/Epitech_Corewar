@@ -39,14 +39,12 @@ int label_parsing(char **buffer, int *inc, node_t *middle, node_t **first)
 	} else {
 		(*buffer)[*inc] = '\0';
 		middle->info.op_code = 0;
-		middle->label[0] = malloc(sizeof(char) * (my_strlen(*buffer) + 1));
+		middle->label[0] = my_strdup(*buffer);
 		if (middle->label[0] == NULL)
 			return (84);
-		middle->label[0][my_strlen(*buffer)] = '\0';
-		for (int i = 0; (*buffer)[i] != '\0'; i++)
-			middle->label[0][i] = (*buffer)[i];
 		*first = middle;
 	}
+	return (0);
 
 }
 
@@ -95,6 +93,7 @@ int parsing(node_t *first, char **buffer, int fd)
 	int inc = 0;
 	int check = 0;
 	node_t *new = NULL;
+	int dirty = 1;
 
 	*buffer = get_next_line(fd);
 	if (*buffer == NULL)
@@ -103,7 +102,9 @@ int parsing(node_t *first, char **buffer, int fd)
 	for (; *buffer != NULL; (*buffer = get_next_line(fd)) && (inc = 0)) {
 		if ((*buffer)[0] == '\0')
 			continue;
-		//*buffer = clear_str(*buffer);
+		if (dirty == 0)
+			*buffer = clear_str(*buffer);
+		dirty = 0;
 		if ((check = parsing_first_word(buffer, &new, &inc)) == 2)
 			continue;
 		else if (check != 0)
