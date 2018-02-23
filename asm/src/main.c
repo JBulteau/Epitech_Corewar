@@ -29,7 +29,6 @@ int main(int ac, char **av)
 		return (error);
 	if (error)
 		return (84);
-//	to_write->next->next->label[0] = "label";
 	error = replace_labels(to_write->next->next);
 	if (error)
 		return (84);

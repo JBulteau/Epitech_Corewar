@@ -95,12 +95,17 @@ node_t *fill_linked_list(char *filename, int *error)
 {
 	char *pathname = concat(filename, ".s", 0, 0);
 	int fd = open(pathname, O_RDWR, 0700);
-	char *buffer = get_next_line(fd);
+	char *buffer = NULL;
 	node_t *first = NULL;
 	node_t *second = NULL;
 	node_t *save = NULL;
 
 	//les 5 prochaines lignes à mettre dans une fonction
+	if (fd == -1) {
+		*error = -1;
+		return (NULL);
+	}
+	buffer = get_next_line(fd);
 	if (buffer == NULL)
 		*error = -1;
 	if (check_buff(&buffer, error, fd, ".name") == -1)
