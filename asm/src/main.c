@@ -25,7 +25,7 @@ int main(int ac, char **av)
 	if (name == NULL)
 		return (84);
 	to_write = fill_linked_list(name, &error);
-	disp_node(to_write->next->next);
+	//disp_node(to_write->next->next);
 	if (error)
 		return (84);
 	error = write_exec(name, to_write);
