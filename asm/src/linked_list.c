@@ -38,7 +38,8 @@ int check_buff(char **buffer, int *error, int fd, char *to_check)
 {
 	if (*buffer == NULL)
 		return (*error = -1);
-	for (;*buffer != NULL && *buffer[0] == '#'; *buffer = get_next_line(fd));
+	for (; *buffer != NULL && *buffer[0] == '#'; \
+*buffer = get_next_line(fd));
 	if (*buffer == NULL)
 		return (-1);
 	*buffer = clear_str(*buffer);
@@ -49,7 +50,8 @@ int check_buff(char **buffer, int *error, int fd, char *to_check)
 	return (0);
 }
 
-void fill_first_case(node_t **first, node_t **second, node_t **save, char **buffer)
+void fill_first_case(node_t **first, node_t **second, node_t **save, \
+char **buffer)
 {
 	int nb = 0;
 
@@ -65,14 +67,15 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 		(*first)->label[i][0] = '\a';
 	}
 	(*first)->info.op_code = 0;
-	(*first)->info.args_types = 0;	
+	(*first)->info.args_types = 0;
 	(*first)->next = *second;
 	(*first)->adress = -1;
 	*save = *first;
 	*first = *second;
 }
 
-void fill_second_case(node_t **first, node_t **second, node_t **save, char **buffer)
+void fill_second_case(node_t **first, node_t **second, node_t **save, \
+char **buffer)
 {
 	int nb = 0;
 
@@ -100,7 +103,6 @@ node_t *fill_linked_list(char *filename, int *error)
 	node_t *second = NULL;
 	node_t *save = NULL;
 
-	//les 5 prochaines lignes à mettre dans une fonction
 	if (fd == -1) {
 		*error = -1;
 		return (NULL);
@@ -124,8 +126,5 @@ node_t *fill_linked_list(char *filename, int *error)
 	*error = parsing(first, &buffer, fd);
 	if (*error != 0)
 		return (NULL);
-	//save = save->next->next;
-	//for (; save != NULL; save = save->next)
-	//	my_printf("op : %i\nargs_type : %i\narg :%s\n\n", save->info.op_code, save->info.args_types, save->info.args[1]);
 	return (save);
 }
