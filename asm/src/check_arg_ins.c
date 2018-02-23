@@ -53,7 +53,7 @@ static int check_ind(char *arg)
 	return (T_IND);
 }
 
-int is_valid_arg(char *arg)
+int is_valid_arg(char *arg, node_t *op, int i)
 {
 	int reg;
 	int len = my_strlen(arg);
@@ -61,9 +61,10 @@ int is_valid_arg(char *arg)
 	if (arg[0] == 'r')
 		return (check_reg(arg));
 	else if (arg[0] == DIRECT_CHAR) {
-		if (arg[1] == LABEL_CHAR)
+		if (arg[1] == LABEL_CHAR) {
+			op->label[i] = my_strdup(arg + 2);
 			return (check_label(arg));
-		else
+		} else
 			return (check_dir(arg));
 	} else
 		return (check_ind(arg));

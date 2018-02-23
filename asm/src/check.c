@@ -22,7 +22,7 @@ int check_args(int op_code, char *args_str, in_struct_t *op)
 	if (type > op_tab[op_code - 1].nbr_args)
 		return (-11);
 	for (int i = 0; i < op_tab[op_code - 1].nbr_args; i++) {
-		type = is_valid_arg(args[i]);
+		type = is_valid_arg(args[i], op, i);
 		if (type < 0)
 			return (type);
 		write_args_type(op, type);
