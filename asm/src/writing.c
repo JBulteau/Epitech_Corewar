@@ -22,7 +22,7 @@ int write_exec(char *filename, node_t *entry)
 	if (filename[i] == '/')
 		filename = filename + i + 1;
 	char *pathname = concat(filename, ".cor", 0, 0);
-	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
+	int fd = open(pathname, O_CREAT | O_RDWR, 0644);
 	int total_size = 0;
 
 	if ((pathname == NULL) || (fd == -1)) {
