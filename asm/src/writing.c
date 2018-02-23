@@ -17,6 +17,10 @@
 int write_exec(char *filename, node_t *entry)
 {
 	int error = 0;
+	int i;
+	for (i = my_strlen(filename); i >= 0 && filename[i] != '/'; i--);
+	if (filename[i] == '/')
+		filename = filename + i + 1;
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
 	int total_size = 0;

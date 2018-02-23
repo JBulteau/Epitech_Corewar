@@ -69,15 +69,12 @@ char *clear_str(char *buffer)
 char *get_fn(char *pathname)
 {
 	int index = 0;
+	int len = my_strlen(pathname);
 	char *fn = my_strdup(pathname);
 
 	if (fn == NULL)
 		return (NULL);
-	index = str_find(fn, ".s");
-	if (index == -1)
-		return (fn);
-	if (fn[index + 2] != '\0')
-		return (fn);
-	fn[index] = 0;
+	if (fn[len - 1] == 's' && fn[len - 2] == '.')
+		fn[len - 2] = 0;
 	return (fn);
 }
