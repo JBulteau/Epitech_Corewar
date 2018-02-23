@@ -13,11 +13,26 @@
 #include "my.h"
 #include "asm.h"
 
-int label_parsing(char **buffer, int *inc, node_t *new)
+int label_parsing(char **buffer, int *inc, node_t *middle)
 {
-	if ((*buffer)[*inc + 1] == ' ') {
-		*buffer += 7;
+	node_t *new = malloc(sizeof(node_t));
+	int check = 0;
 
+	if ((*buffer)[*inc + 1] == ' ') {
+		(*buffer)[*inc] = '\0';
+		middle->info.op_code = 0;
+		middle->label[0] = malloc(sizeof(char) * (my_strlen(*buffer) + 1));
+		if (middle->label[0] == NULL)
+			return (84);
+		middle->label[0][my_strlen(*buffer)] = '\0';
+		for (int i = 0; (*buffer)[i] != '\0'; i++)
+			middle->label[0][i] = (*buffer)[i];
+		middle->next = new;
+		check = find_instru(my_strdup(*buffer));
+		if (check == -1)
+			return (84);
+		*buffer += (*inc + 1);
+		return (check);
 	}
 }
 
@@ -56,7 +71,7 @@ int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new)
 	first->next = new;
 	new->info.op_code = check;
 	if ((*buffer)[*inc] == ':')
-		label_parsing(buffer, inc, new);
+		check = label_parsing(buffer, inc, new);
 	return (check);
 }
 
@@ -78,10 +93,12 @@ int parsing(node_t *first, char **buffer, int fd)
 			return (check);
 		if ((check = parsing_instru(buffer, &inc, first, new)) < 0)
 			return (check);
-		if ((check = check_args(check, *buffer + inc + 1, &(new->info))) < 0)
-			return (check);
-		new->next = NULL;
 		first = new;
+		if (first->next != NULL)
+			first = first->next;
+		if ((check = check_args(check, *buffer + inc + 1, &(first->info))) < 0)
+			return (check);
+		first->next = NULL;
 	}
 	return (0);
 }

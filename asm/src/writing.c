@@ -116,6 +116,8 @@ int write_op(int fd, in_struct_t op)
 {
 	int return_v = 0;
 
+	if (op.op_code == 0)
+		return (0);
 	return_v = write(fd, &op.op_code, 1);
 	if (return_v == -1)
 		return (-1);

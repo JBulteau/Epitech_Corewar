@@ -14,6 +14,8 @@ int check_args(int op_code, char *args_str, in_struct_t *op)
 	char **args = strtowordarr(args_str, SEPARATOR_CHAR);
 	int type = 0;
 
+	if (op_code == 0)
+		return (0);
 	for (int i = 0; args[i]; i++)
 		args[i] = clear_str(args[i]);
 	for (type = 0; args[type]; type++);
