@@ -30,6 +30,13 @@ node_t *init_node(void)
 	return (node);
 }
 
+void disp_node(node_t *node)
+{
+	my_printf("OP CODE: %x\n", node->info.op_code);
+	my_printf("ARG TYPE: %x\n", node->info.args_types);
+	my_printf("ARGS:\t%i   %i   %i   %i\n", node->info.args[0], node->info.args[1], node->info.args[2], node->info.args[3]);
+}
+
 static node_t *create_node(int args[5], int types, int code, char **labels) {
 	node_t *node = malloc(sizeof(node_t));
 

@@ -66,6 +66,8 @@ int parsing(node_t *first, char **buffer, int fd)
 
 void write_args_type(in_struct_t *op, int type)
 {
+	if (op->op_code == 1 || op->op_code == 9 || op->op_code == 12 || op->op_code == 15)
+		return;
 	if (type == T_DIR)
 		op->args_types += 2;	
 	else if (type == T_REG)

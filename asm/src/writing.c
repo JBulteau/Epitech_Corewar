@@ -67,15 +67,18 @@ int write_arg(int fd, in_struct_t op, int arg)
 {
 	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
 	int to_write = rev_endiannes_int(op.args[arg]);
+
 	if (arg_type == 0b01)
 		if (write(fd, &op.args[arg], T_REG) == -1)
 			return (-1);
 	if (arg_type == 0b10)
 		if (write(fd, &to_write, DIR_SIZE) == -1)
 			return (-1);
-	if (arg_type == 0b11)
-		if (write(fd, &op.args[arg], IND_SIZE) == -1)
+	if (arg_type == 0b11) {
+		to_write = rev_endiannes_short(op.args[arg]);
+		if (write(fd, &to_write, IND_SIZE) == -1)
 			return (-1);
+	}
 	return (0);
 }
 
@@ -83,12 +86,12 @@ int write_arg(int fd, in_struct_t op, int arg)
 int write_indexes(int fd, in_struct_t op, int arg)
 {
 	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
-
+	int to_write = rev_endiannes_short(op.args[arg]);
 	if (arg_type == 0b01)
 		if (write(fd, &op.args[arg], T_REG) == -1)
 			return (-1);
 	if ((arg_type == 0b11) || (arg_type == 0b10))
-		if (write(fd, &op.args[arg], IND_SIZE) == -1)
+		if (write(fd, &to_write, IND_SIZE) == -1)
 			return (-1);
 	return (0);
 }
