@@ -90,6 +90,7 @@ int is_valid_arg(char *arg);
 
 /* debug.c */
 node_t *manual_ll(void);
+void disp_node(node_t *node);
 
 /* free.c */
 void free_ll(node_t *ll);

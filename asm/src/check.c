@@ -28,6 +28,10 @@ int check_args(int op_code, char *args_str, in_struct_t *op)
 		if (!(type & op_tab[op_code - 1].type[i]))
 			return (-10);
 	}
+	if (op->args_types == 4)
+		op->args_types = op->args_types << 4;
+	if (op_tab[op_code - 1].nbr_args == 2)
+		op->args_types = op->args_types << 2;
 	return (0);
 }
 
