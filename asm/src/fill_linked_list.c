@@ -13,29 +13,42 @@
 #include "my.h"
 #include "asm.h"
 
+int parsing_first_word(char **buffer, node_t **new, int *inc) 
+{
+	int check = 0;
+
+	if (*buffer[0] == '\0' || *buffer[0] == '#')
+		return (2);
+	*new = init_node();
+	if (*new == NULL)
+		return (84);
+	for (; (*buffer)[*inc] != '\0'; (*inc)++) {
+		if ((*buffer)[*inc] == '#' || (*buffer)[*inc] == '%' || \
+(*buffer)[*inc] == ',')
+			return(-6);
+		if ((*buffer)[*inc] == ' ' || (*buffer)[*inc] == ':')
+			break;
+		if ((check = check_label_chars(buffer, *inc)) < 0)
+			return (check);
+	}
+	return (0);	
+}
+
 int parsing(node_t *first, char **buffer, int fd)
 {
 	int inc = 0;
 	int check = 0;
 	node_t *new = NULL;
 
-	//CALL CLEAN STR CONNARD;
 	*buffer = get_next_line(fd);
+	if (*buffer == NULL)
+		return (84);
+	clear_str(*buffer);
 	for (; *buffer != NULL ; (*buffer = get_next_line(fd)) && (inc = 0)) {
-		if (*buffer[0] == '\0' || *buffer[0] == '#')
+		if ((check = parsing_first_word(buffer, &new, &inc)) == 2)
 			continue;
-		new = init_node();
-		if (new == NULL)
-			return (84);
-		for (; (*buffer)[inc] != '\0'; inc++) {
-			if ((*buffer)[inc] == '#' || (*buffer)[inc] == '%' || \
-(*buffer)[inc] == ',')
-				return(-6);
-			if ((*buffer)[inc] == ' ' || (*buffer)[inc] == ':')
-				break;
-			if ((check = check_label_chars(buffer, inc)) < 0)
-				return (check);
-		}
+		else if (check != 0)
+			return (check);
 		if ((*buffer)[inc] != ':')
 			check = find_instru(my_strdup(*buffer));
 		if (check == -1 || (*buffer)[inc] == '\0' || ((*buffer)[inc] == ':' \
@@ -44,7 +57,7 @@ int parsing(node_t *first, char **buffer, int fd)
 		first->next = new;
 		new->info.op_code = check;
 		if ((check = check_args(check, *buffer + inc + 1, &(new->info))) < 0)
-			return(check);
+			return (check);
 		new->next = NULL;
 		first = new;
 	}

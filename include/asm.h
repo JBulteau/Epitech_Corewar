@@ -75,6 +75,7 @@ int size_notype(int opcode);
 
 /* fill_linked_list.c */
 int parsing(node_t *first, char **buffer, int fd);
+int parsing_first_word(char **buffer, node_t **new, int *inc);
 void write_args_type(in_struct_t *op, int type);
 void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg);
 
