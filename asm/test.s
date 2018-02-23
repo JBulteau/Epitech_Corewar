@@ -1,6 +1,6 @@
 .name "aze"
 .comment "testing fncs"
-lldi r2, r3, r1
+label: lait
 
 ldi r2, r3, r1
 #HERE THERE IS A COMMENT

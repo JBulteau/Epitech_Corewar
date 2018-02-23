@@ -25,6 +25,8 @@ int main(int ac, char **av)
 	if (name == NULL)
 		return (84);
 	to_write = fill_linked_list(name, &error);
+	if (error != 0)
+		return (error);
 	//to_write = manual_ll();
 	if (error)
 		return (84);
