@@ -1,5 +1,6 @@
 .name "aze"
 .comment "testing fncs"
-
-zjmp %:live
+zjmp %:label
+aff r1
+label:
 live %1

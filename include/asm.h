@@ -40,7 +40,7 @@ typedef struct {
 
 typedef struct node_instruction_s {
 	in_struct_t info;
-	char *label[5];
+	char *label[4];
 	struct node_instruction_s *next;
 	int adress;
 } node_t;
@@ -77,6 +77,7 @@ int size_notype(int opcode);
 /* fill_linked_list.c */
 int parsing(node_t *first, char **buffer, int fd);
 int parsing_first_word(char **buffer, node_t **new, int *inc);
+int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new);
 void write_args_type(in_struct_t *op, int type);
 void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg);
 

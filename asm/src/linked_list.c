@@ -116,7 +116,9 @@ node_t *fill_linked_list(char *filename, int *error)
 	if (*error != 0)
 		return (NULL);
 	fill_second_case(&first, &second, &save, &buffer);
-	parsing(first, &buffer, fd);
+	*error = parsing(first, &buffer, fd);
+	if (*error != 0)
+		return (NULL);
 	//save = save->next->next;
 	//for (; save != NULL; save = save->next)
 	//	my_printf("op : %i\nargs_type : %i\narg :%s\n\n", save->info.op_code, save->info.args_types, save->info.args[1]);

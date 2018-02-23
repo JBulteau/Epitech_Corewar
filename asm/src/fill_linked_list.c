@@ -13,13 +13,50 @@
 #include "my.h"
 #include "asm.h"
 
-int parsing_first_word(char **buffer, node_t **new, int *inc) 
+int label_parsing(char **buffer, int *inc, node_t *middle, node_t **first)
+{
+	node_t *new = malloc(sizeof(node_t));
+	int check = 0;
+
+	if ((*buffer)[*inc + 1] == ' ') {
+		(*buffer)[*inc] = '\0';
+		middle->info.op_code = 0;
+		middle->label[0] = malloc(sizeof(char) * (my_strlen(*buffer) + 1));
+		if (middle->label[0] == NULL)
+			return (84);
+		middle->label[0][my_strlen(*buffer)] = '\0';
+		for (int i = 0; (*buffer)[i] != '\0'; i++)
+			middle->label[0][i] = (*buffer)[i];
+		middle->next = new;
+		*buffer += (*inc + 2);
+		check = find_instru(*buffer);
+		new->info.op_code = check;
+		if (check == -1)
+			return (84);
+		*inc = 0;
+		parsing_first_word(buffer, first, inc);
+		return (check);
+	} else {
+		(*buffer)[*inc] = '\0';
+		middle->info.op_code = 0;
+		middle->label[0] = my_strdup(*buffer);
+		if (middle->label[0] == NULL)
+			return (84);
+		*first = middle;
+	}
+	return (0);
+
+}
+
+int parsing_first_word(char **buffer, node_t **new, int *inc)
 {
 	int check = 0;
 
-	if (*buffer[0] == '\0' || *buffer[0] == '#')
+	if ((*buffer)[0] == '\0' || (*buffer)[0] == '#') {
 		return (2);
-	*new = init_node();
+	}
+	if (*new == NULL)
+		*new = init_node();
 	if (*new == NULL)
 		return (84);
 	for (; (*buffer)[*inc] != '\0'; (*inc)++) {
@@ -31,7 +68,24 @@ int parsing_first_word(char **buffer, node_t **new, int *inc)
 		if ((check = check_label_chars(buffer, *inc)) < 0)
 			return (check);
 	}
-	return (0);	
+	return (0);
+}
+
+int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new)
+{
+	int check = 0;
+
+	if ((*buffer)[*inc] != ':')
+		check = find_instru(my_strdup(*buffer));
+	if (check == -1 || (*buffer)[*inc] == '\0')
+		return (-6);
+	if (((*buffer)[*inc] == ':') && ((*buffer)[*inc + 1] != ' ' && (*buffer)[*inc + 1] != '\0'))
+		return (-6);
+	first->next = new;
+	new->info.op_code = check;
+	if ((*buffer)[*inc] == ':')
+		check = label_parsing(buffer, inc, new, &first);
+	return (check);
 }
 
 int parsing(node_t *first, char **buffer, int fd)
@@ -39,27 +93,31 @@ int parsing(node_t *first, char **buffer, int fd)
 	int inc = 0;
 	int check = 0;
 	node_t *new = NULL;
+	int dirty = 1;
 
 	*buffer = get_next_line(fd);
 	if (*buffer == NULL)
 		return (84);
-	clear_str(*buffer);
-	for (; *buffer != NULL ; (*buffer = get_next_line(fd)) && (inc = 0)) {
+	*buffer = clear_str(*buffer);
+	for (; *buffer != NULL; (*buffer = get_next_line(fd)) && (inc = 0)) {
+		if ((*buffer)[0] == '\0')
+			continue;
+		if (dirty == 0)
+			*buffer = clear_str(*buffer);
+		dirty = 0;
 		if ((check = parsing_first_word(buffer, &new, &inc)) == 2)
 			continue;
 		else if (check != 0)
 			return (check);
-		if ((*buffer)[inc] != ':')
-			check = find_instru(my_strdup(*buffer));
-		if (check == -1 || (*buffer)[inc] == '\0' || ((*buffer)[inc] == ':' \
-&& (*buffer)[inc + 1] != ' '))
-			return (-6);
-		first->next = new;
-		new->info.op_code = check;
-		if ((check = check_args(check, *buffer + inc + 1, &(new->info))) < 0)
+		if ((check = parsing_instru(buffer, &inc, first, new)) < 0)
 			return (check);
-		new->next = NULL;
 		first = new;
+		if (first->next != NULL)
+			first = first->next;
+		if ((check = check_args(check, *buffer + inc + 1, &(first->info))) < 0)
+			return (check);
+		first->next = NULL;
+		new = NULL;
 	}
 	return (0);
 }

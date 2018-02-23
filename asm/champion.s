@@ -1,5 +1,8 @@
 .name "test"
 .comment "testing fncs"
+live: ld 34,r3
+label:
+ld %34,r3
 
 #live %3
 #

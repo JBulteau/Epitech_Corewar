@@ -29,7 +29,6 @@ int write_exec(char *filename, node_t *entry)
 	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next) {
 		total_size += size(curr->info);
 	}
-	disp_node(entry->next->next->next);
 	write_header(fd, entry->label[0], entry->next->label[0], total_size);
 	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
 		write_op(fd, curr->info);
@@ -118,6 +117,8 @@ int write_op(int fd, in_struct_t op)
 {
 	int return_v = 0;
 
+	if (op.op_code == 0)
+		return (0);
 	return_v = write(fd, &op.op_code, 1);
 	if (return_v == -1)
 		return (-1);
