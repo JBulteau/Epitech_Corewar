@@ -12,7 +12,8 @@
 int find_labeladdr(node_t *entry, char *label_n)
 {
 	for (node_t *c = entry; c != NULL; c = c->next) {
-		if (c->info.op_code == 0 && my_strcmp(label_n, c->label[0], -1)) {
+		if (c->info.op_code == 0 \
+&& my_strcmp(label_n, c->label[0], -1)) {
 			return (c->adress);
 		}
 	}

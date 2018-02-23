@@ -9,6 +9,20 @@
 #include "asm.h"
 #include "op.h"
 
+int write_args(node_t *op, int type, char **args, int op_code)
+{
+	for (int i = 0; i < op_tab[op_code - 1].nbr_args; i++) {
+		type = is_valid_arg(args[i], op, i);
+		if (type < 0)
+			return (type);
+		write_args_type(&(op->info), type);
+		write_args_stru(&(op->info), args[i], type, i);
+		if (!(type & op_tab[op_code - 1].type[i]))
+			return (-10);
+	}
+	return (0);
+}
+
 int check_args(int op_code, char *args_str, node_t *op)
 {
 	char **args = strtowordarr(args_str, SEPARATOR_CHAR);
@@ -21,15 +35,8 @@ int check_args(int op_code, char *args_str, node_t *op)
 	for (type = 0; args[type]; type++);
 	if (type > op_tab[op_code - 1].nbr_args)
 		return (-11);
-	for (int i = 0; i < op_tab[op_code - 1].nbr_args; i++) {
-		type = is_valid_arg(args[i], op, i);
-		if (type < 0)
-			return (type);
-		write_args_type(&(op->info), type);
-		write_args_stru(&(op->info), args[i], type, i);
-		if (!(type & op_tab[op_code - 1].type[i]))
-			return (-10);
-	}
+	if (type = write_args(op, type, args, op_code) < 0)
+		return (type);
 	if (op->info.args_types == 4)
 		op->info.args_types = op->info.args_types << 4;
 	if (op_tab[op_code - 1].nbr_args == 2)

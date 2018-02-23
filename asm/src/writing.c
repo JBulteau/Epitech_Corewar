@@ -13,26 +13,25 @@
 #include "my.h"
 #include "asm.h"
 
-/* Main function that writes */
 int write_exec(char *filename, node_t *entry)
 {
 	int error = 0;
 	int i;
-	for (i = my_strlen(filename); i >= 0 && filename[i] != '/'; i--);
-	if (filename[i] == '/')
-		filename = filename + i + 1;
-	char *pathname = concat(filename, ".cor", 0, 0);
-	int fd = open(pathname, O_CREAT | O_RDWR, 0644);
+	char *pathname = NULL;
+	int fd;
 	int total_size = 0;
 
+	for (i = my_strlen(filename); i >= 0 && filename[i] != '/'; i--);
+	filename = (filename[i] == '/') ? filename + i + 1 : filename;
+	pathname = concat(filename, ".cor", 0, 0);
+	fd = open(pathname, O_CREAT | O_RDWR, 0644);
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
 		return (-1);
 	}
-	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next) {
+	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
 		total_size += size(curr->info);
-	}
 	write_header(fd, entry->label[0], entry->next->label[0], total_size);
 	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
 		write_op(fd, curr->info);
@@ -40,7 +39,6 @@ int write_exec(char *filename, node_t *entry)
 	return (0);
 }
 
-/* Function that writes the header */
 int write_header(int fd, char *name, char *comment, int size)
 {
 	int magic = rev_endiannes_int(COREWAR_EXEC_MAGIC);
@@ -64,9 +62,8 @@ int write_header(int fd, char *name, char *comment, int size)
 		if (write(fd, &values[0], 1) == -1)
 			return (-1);
 	return (0);
-} /* write_header */
+}
 
-/* Functions that writes the args for std functions */
 int write_arg(int fd, in_struct_t op, int arg)
 {
 	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
@@ -86,7 +83,6 @@ int write_arg(int fd, in_struct_t op, int arg)
 	return (0);
 }
 
-/* Functions that writes the args for ldi sti lldi*/
 int write_indexes(int fd, in_struct_t op, int arg)
 {
 	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
@@ -101,7 +97,6 @@ int write_indexes(int fd, in_struct_t op, int arg)
 	return (0);
 }
 
-/* Function that writes bytecode for live / zjump / fork / lfork */
 int write_notype(int fd, in_struct_t op)
 {
 	if (op.op_code == 1) {
@@ -116,7 +111,6 @@ int write_notype(int fd, in_struct_t op)
 	return (0);
 }
 
-/* Function that writes the opcode + args_byte */
 int write_op(int fd, in_struct_t op)
 {
 	int return_v = 0;
@@ -138,7 +132,5 @@ int write_op(int fd, in_struct_t op)
 	else
 		for (int i = 0; (i < 4) && (return_v != -1); i++)
 			return_v = write_arg(fd, op, i);
-	if (return_v == -1)
-		return (-1);
-	return (0);
+	return ((return_v == -1) ? -1 : 0);
 }
