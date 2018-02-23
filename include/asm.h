@@ -87,7 +87,7 @@ int find_instru(char *str);
 int check_label_chars(char **buffer, int inc);
 
 /*check_arg_ins*/
-int is_valid_arg(char *arg);
+int is_valid_arg(char *arg, node_t *op, int i);
 
 /* debug.c */
 node_t *manual_ll(void);
