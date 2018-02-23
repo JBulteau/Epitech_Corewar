@@ -13,29 +13,35 @@
 #include "my.h"
 #include "asm.h"
 
-int label_parsing(char **buffer, int *inc, node_t *middle, node_t **first)
+int parse_words(char **buffer, int *inc, node_t *middle, node_t **first)
 {
 	node_t *new = malloc(sizeof(node_t));
 	int check = 0;
 
+	(*buffer)[*inc] = '\0';
+	middle->info.op_code = 0;
+	middle->label[0] = malloc(sizeof(char) * (my_strlen(*buffer) + 1));
+	if (middle->label[0] == NULL || new == NULL)
+		return (84);
+	middle->label[0][my_strlen(*buffer)] = '\0';
+	for (int i = 0; (*buffer)[i] != '\0'; i++)
+		middle->label[0][i] = (*buffer)[i];
+	middle->next = new;
+	*buffer += (*inc + 2);
+	check = find_instru(*buffer);
+	new->info.op_code = check;
+	if (check == -1)
+		return (84);
+	*inc = 0;
+	parsing_first_word(buffer, first, inc);
+	return (check);
+}
+
+int label_parsing(char **buffer, int *inc, node_t *middle, node_t **first)
+{
+
 	if ((*buffer)[*inc + 1] == ' ') {
-		(*buffer)[*inc] = '\0';
-		middle->info.op_code = 0;
-		middle->label[0] = malloc(sizeof(char) * (my_strlen(*buffer) + 1));
-		if (middle->label[0] == NULL)
-			return (84);
-		middle->label[0][my_strlen(*buffer)] = '\0';
-		for (int i = 0; (*buffer)[i] != '\0'; i++)
-			middle->label[0][i] = (*buffer)[i];
-		middle->next = new;
-		*buffer += (*inc + 2);
-		check = find_instru(*buffer);
-		new->info.op_code = check;
-		if (check == -1)
-			return (84);
-		*inc = 0;
-		parsing_first_word(buffer, first, inc);
-		return (check);
+		return (parse_words(buffer, inc, middle, first));
 	} else {
 		(*buffer)[*inc] = '\0';
 		middle->info.op_code = 0;
@@ -62,7 +68,7 @@ int parsing_first_word(char **buffer, node_t **new, int *inc)
 	for (; (*buffer)[*inc] != '\0'; (*inc)++) {
 		if ((*buffer)[*inc] == '#' || (*buffer)[*inc] == '%' || \
 (*buffer)[*inc] == ',')
-			return(-6);
+			return (-6);
 		if ((*buffer)[*inc] == ' ' || (*buffer)[*inc] == ':')
 			break;
 		if ((check = check_label_chars(buffer, *inc)) < 0)
@@ -79,7 +85,8 @@ int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new)
 		check = find_instru(my_strdup(*buffer));
 	if (check == -1 || (*buffer)[*inc] == '\0')
 		return (-6);
-	if (((*buffer)[*inc] == ':') && ((*buffer)[*inc + 1] != ' ' && (*buffer)[*inc + 1] != '\0'))
+	if (((*buffer)[*inc] == ':') && ((*buffer)[*inc + 1] != ' ' \
+&& (*buffer)[*inc + 1] != '\0'))
 		return (-6);
 	first->next = new;
 	new->info.op_code = check;
@@ -124,14 +131,15 @@ int parsing(node_t *first, char **buffer, int fd)
 
 void write_args_type(in_struct_t *op, int type)
 {
-	if (op->op_code == 1 || op->op_code == 9 || op->op_code == 12 || op->op_code == 15)
+	if (op->op_code == 1 || op->op_code == 9 || op->op_code == 12 \
+|| op->op_code == 15)
 		return;
 	if (type == T_DIR)
-		op->args_types += 2;	
+		op->args_types += 2;
 	else if (type == T_REG)
-		op->args_types += 1;	
+		op->args_types += 1;
 	else
-		op->args_types += 3;	
+		op->args_types += 3;
 	op->args_types = op->args_types << 2;
 }
 
