@@ -97,7 +97,7 @@ char **buffer)
 node_t *fill_linked_list(char *filename, int *error)
 {
 	char *pathname = concat(filename, ".s", 0, 0);
-	int fd = open(pathname, O_RDWR, 0700);
+	int fd = open(pathname, O_RDONLY, 0700);
 	char *buffer = NULL;
 	node_t *first = NULL;
 	node_t *second = NULL;
