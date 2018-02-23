@@ -20,7 +20,8 @@ SRC_FILES	=	main.c	\
 			check.c	\
 			check_arg_ins.c	\
 			debug.c	\
-			free.c
+			free.c	\
+			labels.c
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

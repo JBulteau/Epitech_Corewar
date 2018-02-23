@@ -34,6 +34,7 @@ void disp_node(node_t *node)
 {
 	my_printf("OP CODE: %x\n", node->info.op_code);
 	my_printf("ARG TYPE: %x\n", node->info.args_types);
+	my_printf("ADRESS: %x\n", node->adress);
 	my_printf("ARGS:\t%i   %i   %i   %i\n", node->info.args[0], node->info.args[1], node->info.args[2], node->info.args[3]);
 }
 

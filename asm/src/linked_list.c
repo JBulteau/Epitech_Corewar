@@ -67,6 +67,7 @@ void fill_first_case(node_t **first, node_t **second, node_t **save, char **buff
 	(*first)->info.op_code = 0;
 	(*first)->info.args_types = 0;	
 	(*first)->next = *second;
+	(*first)->adress = -1;
 	*save = *first;
 	*first = *second;
 }
@@ -86,6 +87,7 @@ void fill_second_case(node_t **first, node_t **second, node_t **save, char **buf
 	}
 	(*first)->info.op_code = 0;
 	(*first)->info.args_types = 0;
+	(*first)->adress = -1;
 	(*first)->next = NULL;
 }
 

@@ -20,18 +20,19 @@ int write_exec(char *filename, node_t *entry)
 	char *pathname = concat(filename, ".cor", 0, 0);
 	int fd = open(pathname, O_CREAT | O_RDWR, 0700);
 	int total_size = 0;
-	
+
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
 		return (-1);
 	}
-	for (node_t *curr = entry; curr != NULL; curr = curr->next)
-		total_size += size(curr->info);
-	write_header(fd, entry->label[0], entry->next->label[0], total_size);
 	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next) {
-		write_op(fd, curr->info);
+		total_size += size(curr->info);
 	}
+	disp_node(entry->next->next->next);
+	write_header(fd, entry->label[0], entry->next->label[0], total_size);
+	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
+		write_op(fd, curr->info);
 	free(pathname);
 	return (0);
 }
@@ -87,6 +88,7 @@ int write_indexes(int fd, in_struct_t op, int arg)
 {
 	int arg_type = (op.args_types >> 6 - (2 * arg)) & 0b11;
 	int to_write = rev_endiannes_short(op.args[arg]);
+
 	if (arg_type == 0b01)
 		if (write(fd, &op.args[arg], T_REG) == -1)
 			return (-1);
@@ -129,9 +131,8 @@ int write_op(int fd, in_struct_t op)
 		for (int i = 0; (i < 4) && (return_v != -1); i++)
 			return_v = write_indexes(fd, op, i);
 	else
-		for (int i = 0; (i < 4) && (return_v != -1); i++) {
+		for (int i = 0; (i < 4) && (return_v != -1); i++)
 			return_v = write_arg(fd, op, i);
-		}
 	if (return_v == -1)
 		return (-1);
 	return (0);
