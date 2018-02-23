@@ -17,17 +17,13 @@ int main(int ac, char **av)
 	int error = 0;
 	char *name;
 
-	if ((ac == 1) || my_strcmp(av[1], "-h", -1)) {
-		my_putstr(USAGE);
-		return (0);
-	}
+	if ((ac == 1) || my_strcmp(av[1], "-h", -1))
+		return (my_putstr(USAGE), 0);
 	name = get_fn(av[1]);
 	if (name == NULL)
 		return (84);
 	to_write = fill_linked_list(name, &error);
 	if (error != 0)
-		return (error);
-	if (error)
 		return (84);
 	error = replace_labels(to_write->next->next);
 	if (error)
