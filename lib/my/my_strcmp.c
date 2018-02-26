@@ -40,7 +40,7 @@ int str_find(char *src, char *to_find)
 		if (src[i] == to_find[cursor])
 			cursor++;
 		if (cursor == end_cursor)
-			return(i - end_cursor + 1);
+			return (i - end_cursor + 1);
 	}
 	return (-1);
 }

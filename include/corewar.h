@@ -10,6 +10,21 @@
 
 #include "op.h"
 
+//NEW
+
+typedef struct {
+
+} pr_t;
+
+typedef struct {
+	int *live;
+	int cycle_to_die;
+	int current_cycle;
+	pr_t *prog;
+	char arena[MEM_SIZE];
+} vm_t;
+
+//OLD
 typedef struct prog_name prog_name_t;
 
 struct prog_name {
@@ -38,10 +53,10 @@ struct prog_info {
 
 typedef struct {
 	int p1;
-        int p2;
+	int p2;
 	int p3;
 	int p4;
-        int i1;
+	int i1;
 	int i2;
 	int i3;
 	int i4;

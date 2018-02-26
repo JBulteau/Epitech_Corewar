@@ -68,4 +68,4 @@ char **strtowordarr(char *str, char separator)
 		}
 	}
 	return (word_arr);
-} /* strtowordarr */
+}
