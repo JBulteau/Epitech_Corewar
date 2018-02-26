@@ -13,8 +13,15 @@
 //NEW
 
 typedef struct {
-
-} pr_t;
+	prog_t *next;
+	prog_t *next_f;
+	prog_t *prev;
+	int pc;
+	int carry;
+	int [REG_NUMBER];
+	int cycle_wait;
+	//STRUCTURE INSTRUCTION;
+} prog_t;
 
 typedef struct {
 	int *live;
@@ -60,7 +67,7 @@ typedef struct {
 	int i2;
 	int i3;
 	int i4;
-} end_t;
+} cheval_shop_t;
 
 args_t *check_args(int ac, char **av);
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
