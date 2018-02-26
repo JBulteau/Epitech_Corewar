@@ -20,14 +20,14 @@ typedef struct {
 	int carry;
 	int [REG_NUMBER];
 	int cycle_wait;
-	//STRUCTURE INSTRUCTION;
+	char *instr;
 } prog_t;
 
 typedef struct {
 	int *live;
 	int cycle_to_die;
 	int current_cycle;
-	pr_t *prog;
+	prog_t *prog;
 	char arena[MEM_SIZE];
 } vm_t;
 
@@ -47,15 +47,6 @@ typedef struct args args_t;
 struct args {
 	int dump;
 	prog_name_t *progs;
-};
-
-typedef struct prog_info prog_info_t;
-
-struct prog_info {
-	header_t *header;
-	int registers [REG_NUMBER + 1];
-	int pc;
-	char *content;
 };
 
 typedef struct {
