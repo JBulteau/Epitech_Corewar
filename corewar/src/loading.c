@@ -19,7 +19,7 @@ char *get_comment(int fd, char *comment, int *prog_size)
 	int error = 0;
 
 	do {
-		error = read(fd, comment, 1);		
+		error = read(fd, comment, 1);
 	} while (error != -1 && comment[0] < ' ');
 	for (int i = 1; i <= COMMENT_LENGTH && comment[i - 1] != '\0' \
 && error != -1; i++) {
