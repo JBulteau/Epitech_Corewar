@@ -56,27 +56,38 @@ args_t *check_args(int ac, char **av)
 	return (check_dump(args, ac, av, nb_args));
 }
 
-int main(int ac, char **av)
+args_t *init_args(int ac, char **av, int *nb_progs)
 {
-	args_t *args = NULL;
-	int nb_progs;
+	args_t *args = check_args(ac, av);
 
-	if ((ac == 2) && (av[1][0] == '-') && (av[1][1] == 'h')) {
-		my_printf(HELP, MEM_SIZE);
-		return (0);
-	}
-	args = check_args(ac, av);
 	while (args->progs->prev != NULL)
 		args->progs = args->progs->prev;
 	if (args->progs->name == NULL)
 		error(NO_CHAMPION, args);
-	for (nb_progs = 0; args->progs->name != NULL; nb_progs++)
+	for (*nb_progs = 0; args->progs->name != NULL; *nb_progs++)
 		if (args->progs->next != NULL)
 			args->progs = args->progs->next;
 	while (args->progs->prev != NULL)
 		args->progs = args->progs->prev;
-	if (nb_progs > 4)
+	if (*nb_progs > 4)
 		error(TOO_MANY_CHAMP, args);
-	load_vm(args, nb_progs);
+	return (args);
+}
+
+int main(int ac, char **av)
+{
+	args_t *args;
+	vm_t *vm;
+	int nb_prog;
+
+	if ((ac == 2) && (my_strcmp(av[1], "-h", -1)) || my_strcmp(av[1], "--help", -1)) {
+		my_printf(HELP, MEM_SIZE);
+		return (0);
+	}
+	args = init_args(ac, av, &nb_prog);
+	vm = init_vm(nb_prog);
+	if (vm == NULL)
+		return (84);
+	//load_vm(args, nb_prog);
 	return (0);
 }
