@@ -20,7 +20,7 @@ vm_t *init_vm(int prog_num)
 	vm->current_cycle = 0;
 	vm->cycle_to_die = 0;
 	vm->live = malloc(sizeof(char) * prog_num);
-	vm->prog = malloc(sizeof(pr_t) * prog_num);
+	vm->prog = malloc(sizeof(prog_t *) * prog_num);
 	if ((vm->live == NULL) || (vm->prog == NULL))
 		return (NULL);
 	for (int i = 0; i < prog_num; i++)
