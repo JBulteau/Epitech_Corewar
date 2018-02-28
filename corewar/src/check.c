@@ -40,7 +40,6 @@ args_t *check_prog(args_t *args, char *str)
 
 args_t *check_adress(args_t *args, char *str)
 {
-	my_putstr(str);
 	int adress = hexa_to_deca(str);
 
 	if (adress == -1)

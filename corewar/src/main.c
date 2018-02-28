@@ -75,6 +75,7 @@ args_t *init_args(int ac, char **av, int *nb_progs)
 	return (args);
 }
 
+
 int main(int ac, char **av)
 {
 	args_t *args = NULL;
@@ -90,7 +91,5 @@ int main(int ac, char **av)
 	vm = init_vm(nb_prog, args);
 	if (vm == NULL)
 		return (84);
-//	printf("OP_CODE: %02x\nARGS_TYPE: %02x\nARGS: %02x,%02x,%02x,%02x\n", op.op_code, op.arg_type, op.args[0], op.args[1], op.args[2], op.args[3]);
-	//load_vm(args, nb_prog);
 	return (0);
 }

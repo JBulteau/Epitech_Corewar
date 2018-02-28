@@ -10,12 +10,12 @@ NAME		=	corewar
 SRC_DIR		=	$(realpath ./src)
 
 
-SRC_FILES	=	main.c\
-			check.c\
-			vm_struct.c\
+SRC_FILES	=	main.c	\
+			check.c	\
+			vm_struct.c	\
 			read_instru.c	\
 			linked_list.c	\
-
+			debug.c
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 CFLAGS		=	-W -Wextra  -I ../include
