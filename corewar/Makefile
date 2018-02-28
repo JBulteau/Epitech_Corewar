@@ -13,7 +13,8 @@ SRC_DIR		=	$(realpath ./src)
 SRC_FILES	=	main.c\
 			check.c\
 			vm_struct.c\
-			read_instru.c
+			read_instru.c	\
+			linked_list.c	\
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
