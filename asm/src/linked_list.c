@@ -38,10 +38,10 @@ int check_buff(char **buffer, int *error, int fd, char *to_check)
 {
 	if (*buffer == NULL)
 		return (*error = -1);
-	for (; *buffer != NULL && *buffer[0] == '#'; \
+	for (; *buffer != NULL && *buffer[0] == COMMENT_CHAR; \
 *buffer = get_next_line(fd));
 	if (*buffer == NULL)
-		return (-1);
+		return (*error = -1);
 	*buffer = clear_str(*buffer);
 	if ((my_strncmp(*buffer, to_check, 5) != 0)) {
 		*error = -6;

@@ -58,18 +58,17 @@ int parsing_first_word(char **buffer, node_t **new, int *inc)
 {
 	int check = 0;
 
-	if ((*buffer)[0] == '\0' || (*buffer)[0] == '#') {
+	if ((*buffer)[0] == '\0' || (*buffer)[0] == COMMENT_CHAR)
 		return (2);
-	}
 	if (*new == NULL)
 		*new = init_node();
 	if (*new == NULL)
 		return (84);
 	for (; (*buffer)[*inc] != '\0'; (*inc)++) {
-		if ((*buffer)[*inc] == '#' || (*buffer)[*inc] == '%' || \
-(*buffer)[*inc] == ',')
+		if ((*buffer)[*inc] == COMMENT_CHAR || (*buffer)[*inc] == DIRECT_CHAR || \
+(*buffer)[*inc] == SEPARATOR_CHAR)
 			return (-6);
-		if ((*buffer)[*inc] == ' ' || (*buffer)[*inc] == ':')
+		if ((*buffer)[*inc] == ' ' || (*buffer)[*inc] == LABEL_CHAR)
 			break;
 		if ((check = check_label_chars(buffer, *inc)) < 0)
 			return (check);
@@ -81,16 +80,16 @@ int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new)
 {
 	int check = 0;
 
-	if ((*buffer)[*inc] != ':')
+	if ((*buffer)[*inc] != LABEL_CHAR)
 		check = find_instru(my_strdup(*buffer));
 	if (check == -1 || (*buffer)[*inc] == '\0')
 		return (-6);
-	if (((*buffer)[*inc] == ':') && ((*buffer)[*inc + 1] != ' ' \
+	if (((*buffer)[*inc] == LABEL_CHAR) && ((*buffer)[*inc + 1] != ' ' \
 && (*buffer)[*inc + 1] != '\0'))
 		return (-6);
 	first->next = new;
 	new->info.op_code = check;
-	if ((*buffer)[*inc] == ':')
+	if ((*buffer)[*inc] == LABEL_CHAR)
 		check = label_parsing(buffer, inc, new, &first);
 	return (check);
 }
@@ -104,7 +103,7 @@ int parsing(node_t *first, char **buffer, int fd)
 
 	*buffer = get_next_line(fd);
 	if (*buffer == NULL)
-		return (84);
+		return (0);
 	*buffer = clear_str(*buffer);
 	for (; *buffer != NULL; (*buffer = get_next_line(fd)) && (inc = 0)) {
 		if ((*buffer)[0] == '\0')
