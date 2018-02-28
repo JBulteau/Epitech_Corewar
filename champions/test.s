@@ -8,3 +8,4 @@ zjmp %:live
 zjmp %:l2
 zjmp %:l2
 aff r3
+and %34,34,r1
