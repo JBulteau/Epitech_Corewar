@@ -12,6 +12,12 @@
 
 //NEW
 
+typedef struct {
+	char op_code;
+	char arg_type;
+	int args[4];
+} in_struct_t;
+
 typedef struct prog_s {
 	struct prog_s *next;
 	struct prog_s *next_f;
@@ -20,7 +26,7 @@ typedef struct prog_s {
 	int carry;
 	int reg[REG_NUMBER];
 	int cycle_wait;
-	char *instr;
+	in_struct_t instr;
 } prog_t;
 
 typedef struct {
@@ -63,6 +69,8 @@ typedef struct {
 /* vm_struct.c */
 vm_t *init_vm(int prog_num);
 
+/* read_instru */
+in_struct_t read_instru(char *arena, int pos);
 
 args_t *check_args(int ac, char **av);
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
