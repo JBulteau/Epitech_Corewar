@@ -14,6 +14,31 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+void free_dead_prog(prog_t *to_kill)
+{
+	if (to_kill == NULL)
+		return;
+	if (to_kill->next_f != NULL)
+		free_dead_prog(to_kill->next_f);
+	free(to_kill);
+}
+
+prog_t *new_fork_case(vm_t *vm, int prog_f, int nb_prog)
+{
+	prog_t *new = malloc(sizeof(prog_t));
+
+	if (new == NULL)
+		return (NULL);
+	new->next = NULL;
+	new->next_f = NULL;
+	init_prog_struct(new);
+	vm->prog[nb_prog]->next = new;
+	new->prev = vm->prog[nb_prog];
+	vm->prog[prog_f - 1]->next_f = new;
+	vm->prog[nb_prog] = new;
+	return (new);
+}
+
 void init_prog_struct(prog_t *new)
 {
 	new->carry = 0;
