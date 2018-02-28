@@ -64,7 +64,7 @@ args_t *init_args(int ac, char **av, int *nb_progs)
 		args->progs = args->progs->prev;
 	if (args->progs->name == NULL)
 		error(NO_CHAMPION, args);
-	for (*nb_progs = 0; args->progs->name != NULL; *nb_progs++)
+	for (*nb_progs = 0; args->progs->name != NULL; *nb_progs += 1)
 		if (args->progs->next != NULL)
 			args->progs = args->progs->next;
 	while (args->progs->prev != NULL)
@@ -80,7 +80,8 @@ int main(int ac, char **av)
 	vm_t *vm;
 	int nb_prog;
 
-	if ((ac == 2) && (my_strcmp(av[1], "-h", -1)) || my_strcmp(av[1], "--help", -1)) {
+	if ((ac == 2) && (my_strcmp(av[1], "-h", -1)) \
+|| my_strcmp(av[1], "--help", -1)) {
 		my_printf(HELP, MEM_SIZE);
 		return (0);
 	}
