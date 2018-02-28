@@ -11,8 +11,8 @@
 #include "op.h"
 
 typedef struct {
-	char op_code;
-	char arg_type;
+	int op_code;
+	int arg_type;
 	int args[4];
 } in_struct_t;
 
@@ -68,7 +68,7 @@ typedef struct {
 vm_t *init_vm(int prog_num, args_t *args);
 
 /* read_instru */
-in_struct_t read_instru(char *arena, int pos);
+in_struct_t read_instru(unsigned char *arena, int pos);
 
 args_t *check_args(int ac, char **av);
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
