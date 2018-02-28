@@ -24,7 +24,7 @@ int write_exec(char *filename, node_t *entry)
 	for (i = my_strlen(filename); i >= 0 && filename[i] != '/'; i--);
 	filename = (filename[i] == '/') ? filename + i + 1 : filename;
 	pathname = concat(filename, ".cor", 0, 0);
-	fd = open(pathname, O_CREAT | O_RDWR, 0644);
+	fd = open(pathname, O_CREAT | O_RDWR, 0444);
 	if ((pathname == NULL) || (fd == -1)) {
 		if (filename)
 			free(pathname);
