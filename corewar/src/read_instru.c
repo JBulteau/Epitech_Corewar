@@ -33,6 +33,7 @@ void read_one_arg(unsigned char *arena, int pos, in_struct_t *op)
 		return;
 	}
 	// JZMP / FORK / LFROK TODO
+	op->args[0] = load_n_arena(arena, pos + 1, 2);
 }
 
 void load_args(char *arena, in_struct_t *op)
@@ -43,17 +44,14 @@ void load_args(char *arena, in_struct_t *op)
 	for (int i = 0; i < 4; i++) {
 		arg = op->arg_type >> 6 - (i * 2) & 0b11;
 		if (arg == 0b01) {
-			my_putstr("REG\n");
 			op->args[i] = load_n_arena(arena, cursor, 1);
 			cursor += 1;
 		}
 		if (arg == 0b10) {
-			my_putstr("DIR\n");
 			op->args[i] = load_n_arena(arena, cursor, 4);
 			cursor += 4;
 		}
 		if (arg == 0b11) {
-			my_putstr("IND\n");
 			op->args[i] = load_n_arena(arena, cursor, 2);
 			cursor += 2;
 		}
