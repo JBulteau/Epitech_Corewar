@@ -25,15 +25,15 @@ void init_prog_struct(prog_t *new)
 
 prog_t *new_prog_case(int i, vm_t *vm)
 {
-	prog_t *new = malloc(sizeof(prog_t) * 1);
+	prog_t *new = malloc(sizeof(prog_t));
 
-	if (new == NULL)
+	if (new = NULL)
 		return (NULL);
 	new->next = NULL;
 	new->next_f = NULL;
 	if (i > 0) {
 		new->prev = vm->prog[i - 1];
-		vm->(prog[i - 1])->next = new;
+		vm->prog[i - 1]->next = new;
 		init_prog_struct(new);
 		return (new);
 	} else {
@@ -45,10 +45,11 @@ prog_t *new_prog_case(int i, vm_t *vm)
 
 int fill_struct_vm_prog(int nb_prog, vm_t *vm)
 {
-	vm->prog = malloc(sizeof(vm->prog) * (nb_prog + 1));
+	vm->prog = malloc(sizeof(prog_t*) * (nb_prog + 1));
 	if (vm->prog == NULL)
 		return (-1);
 	for (int i = 0; i < nb_prog; i++) {
+		vm->prog[i] = malloc(sizeof(prog_t));
 		vm->prog[i] = new_prog_case(i, vm);
 		if (vm->prog[i] == NULL)
 			return (-1);
@@ -56,3 +57,4 @@ int fill_struct_vm_prog(int nb_prog, vm_t *vm)
 	vm->prog[nb_prog] = vm->prog[nb_prog - 1];	
 	return (0);
 }
+

@@ -16,22 +16,24 @@ typedef struct {
 	int args[4];
 } in_struct_t;
 
-typedef struct prog_s {
-	struct prog_s *next;
-	struct prog_s *next_f;
-	struct prog_s *prev;
+typedef struct prog_s prog_t;
+
+struct prog_s {
+	prog_t *next;
+	prog_t *next_f;
+	prog_t *prev;
 	int pc;
 	int carry;
 	int reg[REG_NUMBER];
 	int cycle_wait;
 	in_struct_t instr;
-} prog_t;
+};
 
 typedef struct {
 	int *live;
 	int cycle_to_die;
 	int current_cycle;
-	prog_t *prog;
+	prog_t **prog;
 	unsigned char arena[MEM_SIZE];
 } vm_t;
 
@@ -63,6 +65,11 @@ typedef struct {
 	int i3;
 	int i4;
 } cheval_shop_t;
+
+/* linked_list.c */
+int fill_struct_vm_prog(int nb_prog, vm_t *vm);
+prog_t *new_prog_case(int i, vm_t *vm);
+void init_prog_struct(prog_t *new);
 
 /* vm_struct.c */
 vm_t *init_vm(int prog_num, args_t *args);
