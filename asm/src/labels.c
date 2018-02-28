@@ -23,6 +23,8 @@ int replace_labels(node_t *entry)
 {
 	int addr = 0;
 
+	if (entry == NULL)
+		return (NULL);
 	for (node_t *c = entry; c != NULL; c = c->next) {
 		c->adress = addr;
 		addr += size(c->info);

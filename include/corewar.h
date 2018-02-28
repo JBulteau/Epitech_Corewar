@@ -13,14 +13,20 @@
 //NEW
 
 typedef struct {
-	prog_t *next;
-	prog_t *next_f;
-	prog_t *prev;
+	char op_code;
+	char arg_type;
+	int args[4];
+} in_struct_t;
+
+typedef struct prog_s {
+	struct prog_s *next;
+	struct prog_s *next_f;
+	struct prog_s *prev;
 	int pc;
 	int carry;
-	int [REG_NUMBER];
+	int reg[REG_NUMBER];
 	int cycle_wait;
-	char *instr;
+	in_struct_t instr;
 } prog_t;
 
 typedef struct {
@@ -60,6 +66,12 @@ typedef struct {
 	int i4;
 } cheval_shop_t;
 
+/* vm_struct.c */
+vm_t *init_vm(int prog_num);
+
+/* read_instru */
+in_struct_t read_instru(char *arena, int pos);
+
 args_t *check_args(int ac, char **av);
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
 args_t *check_flags(args_t *args, int ac, char **av);
@@ -69,7 +81,8 @@ args_t *check_prog(args_t *args, char *str);
 void error(char *str, args_t *args);
 int rev_endiannes(int nb);
 void load_vm(args_t *args, int nb_progs);
-prog_info_t *load_program(prog_name_t *prog_name);
+//Ca compilait pas :/
+//prog_info_t *load_program(prog_name_t *prog_name);
 header_t *set_header(int fd, header_t *header);
 char *get_name(int fd, char *prog_name, int *prog_size);
 char *get_comment(int fd, char *comment, int *prog_size);

@@ -110,16 +110,16 @@ node_t *fill_linked_list(char *filename, int *error)
 	buffer = get_next_line(fd);
 	if (buffer == NULL)
 		*error = -1;
-	if (check_buff(&buffer, error, fd, ".name") == -1)
+	if (check_buff(&buffer, error, fd, NAME_CMD_STRING) == -1)
 		return (NULL);
-	test_synt_name(buffer + 5, error);
+	test_synt_name(buffer + my_strlen(NAME_CMD_STRING), error);
 	if (*error != 0)
 		return (NULL);
 	fill_first_case(&first, &second, &save, &buffer);
 	buffer = get_next_line(fd);
-	if (check_buff(&buffer, error, fd, ".comment") == -1)
+	if (check_buff(&buffer, error, fd, COMMENT_CMD_STRING) == -1)
 		return (NULL);
-	test_synt_name(buffer + 8, error);
+	test_synt_name(buffer + my_strlen(COMMENT_CMD_STRING), error);
 	if (*error != 0)
 		return (NULL);
 	fill_second_case(&first, &second, &save, &buffer);

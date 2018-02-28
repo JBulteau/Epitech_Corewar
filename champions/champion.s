@@ -6,7 +6,8 @@ ld 34,r3
 ld %34,r3
 st r2,34
 st r2,r4
-add r1,r1,r1
+	add r1,r1,r1
+
 
 sub r1,r1,r1
 
@@ -71,3 +72,4 @@ lldi %34, %34, r2
 lfork %34
 
 aff r1
+live %257	
