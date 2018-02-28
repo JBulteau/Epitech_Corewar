@@ -15,7 +15,6 @@
 
 vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 {
-//	printf("%i\n", prog->size);
 	for (int i = prog->adress; i < prog->adress + prog->size; i++) {
 		if (vm->arena[i % MEM_SIZE] != '\0') {
 			write(2, "Overlap\n", 8);
@@ -23,9 +22,7 @@ vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 		}
 		if (read(fd, &vm->arena[i % MEM_SIZE], 1) == -1)
 			return (NULL);
-		my_printf("%02x ", vm->arena[i]);
 	}
-	my_putchar('\n');
 	return (vm);
 }
 
@@ -39,18 +36,15 @@ vm_t *get_program_info(vm_t *vm, prog_name_t *prog_name, int free_memory)
 		return (NULL);
 	if (read(fd, str, PROG_NAME_LENGTH + 8) == -1)
 		return (NULL);
-	my_printf("NAME -> %s\n", str + 4);
 	str = my_realloc(str, 5);
 	if (read(fd, &size, sizeof(int)) == -1)
 		return (NULL);
 	prog_name->size = rev_endiannes(size);
-	my_printf("SIZE -> %i\n", prog_name->size);
 	if (prog_name->size > free_memory)
 		return (NULL);
 	str = my_realloc(str, 2052);
 	if (read(fd, str, COMMENT_LENGTH + 4) == -1)
 		return (NULL);
-	my_printf("COMMENT -> %s\n", str);
 	vm = load_program_in_arena(vm, prog_name, fd);
 	free(str);
 	close(fd);
