@@ -40,6 +40,7 @@ args_t *check_prog(args_t *args, char *str)
 
 args_t *check_adress(args_t *args, char *str)
 {
+	my_putstr(str);
 	int adress = hexa_to_deca(str);
 
 	if (adress == -1)
@@ -66,10 +67,10 @@ args_t *check_flags(args_t *args, int ac, char **av)
 	args->progs->prev = NULL;
 	for (int i = 3; i < ac; i++) {
 		if ((av[i][0] == '-') && (av[i][1] == 'n')) {
-			args = check_prog_number(args, av[i++]);
+			args = check_prog_number(args, av[++i]);
 			continue;
 		} else if ((av[i][0] == '-') && (av[i][1] == 'a')) {
-			args = check_adress(args, av[i++]);
+			args = check_adress(args, av[++i]);
 			continue;
 		}
 		args = check_prog(args, av[i]);
