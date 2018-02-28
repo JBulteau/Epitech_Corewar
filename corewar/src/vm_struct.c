@@ -23,8 +23,9 @@ vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 		}
 		if (read(fd, &vm->arena[i % MEM_SIZE], 1) == -1)
 			return (NULL);
-		printf("hello%x\n", vm->arena[i]);
+		my_printf("%02x ", vm->arena[i]);
 	}
+	my_putchar('\n');
 	return (vm);
 }
 
@@ -34,23 +35,22 @@ vm_t *get_program_info(vm_t *vm, prog_name_t *prog_name, int free_memory)
 	char *str = malloc(sizeof(char) * 132);
 	int size;
 
-	read(fd, &size, 4);
-	my_put_nbr(size);
-	my_putchar('\n');
 	if (fd == -1 || str == NULL)
 		return (NULL);
 	if (read(fd, str, PROG_NAME_LENGTH + 8) == -1)
 		return (NULL);
+	my_printf("NAME -> %s\n", str + 4);
 	str = my_realloc(str, 5);
-	if (read(fd, &size, 4) == -1)
+	if (read(fd, &size, sizeof(int)) == -1)
 		return (NULL);
-	my_printf("%i\n", size);
-	prog_name->size = hexa_to_deca(str);
+	prog_name->size = rev_endiannes(size);
+	my_printf("SIZE -> %i\n", prog_name->size);
 	if (prog_name->size > free_memory)
 		return (NULL);
 	str = my_realloc(str, 2052);
-	if (read(fd, str, 2052) == -1)
+	if (read(fd, str, COMMENT_LENGTH + 4) == -1)
 		return (NULL);
+	my_printf("COMMENT -> %s\n", str);
 	vm = load_program_in_arena(vm, prog_name, fd);
 	free(str);
 	close(fd);
