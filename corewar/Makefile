@@ -12,7 +12,6 @@ SRC_DIR		=	$(realpath ./src)
 
 SRC_FILES	=	main.c\
 			check.c\
-			loading.c\
 			vm_struct.c
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))

@@ -85,9 +85,8 @@ int main(int ac, char **av)
 		return (0);
 	}
 	args = init_args(ac, av, &nb_prog);
-	vm = init_vm(nb_prog);
+	vm = init_vm(nb_prog, args);
 	if (vm == NULL)
 		return (84);
-	//load_vm(args, nb_prog);
 	return (0);
 }

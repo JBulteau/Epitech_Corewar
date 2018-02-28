@@ -30,6 +30,7 @@
 # define	T_LAB           8
 
 typedef char args_type_t;
+
 typedef struct
 {
 	char         *mnemonique;

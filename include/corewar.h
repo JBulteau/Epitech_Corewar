@@ -10,8 +10,6 @@
 
 #include "op.h"
 
-//NEW
-
 typedef struct {
 	char op_code;
 	char arg_type;
@@ -34,10 +32,9 @@ typedef struct {
 	int cycle_to_die;
 	int current_cycle;
 	prog_t *prog;
-	char arena[MEM_SIZE];
+	unsigned char arena[MEM_SIZE];
 } vm_t;
 
-//OLD
 typedef struct prog_name prog_name_t;
 
 struct prog_name {
@@ -45,6 +42,7 @@ struct prog_name {
 	char *name;
 	int adress;
 	int prog_nb;
+	int size;
 	prog_name_t *next;
 };
 
@@ -67,7 +65,7 @@ typedef struct {
 } cheval_shop_t;
 
 /* vm_struct.c */
-vm_t *init_vm(int prog_num);
+vm_t *init_vm(int prog_num, args_t *args);
 
 /* read_instru */
 in_struct_t read_instru(char *arena, int pos);
