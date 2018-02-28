@@ -91,7 +91,7 @@ args_t *check_dump(args_t *args, int ac, char **av, int nb_args)
 	if (my_strcmp(av[1], "-dump", -1)) {
 		if (av[2] == NULL)
 			error(NO_DUMP, args);
-		if (args->dump = hexa_to_deca(av[2]) == -1)
+		if ((args->dump = my_getnbr(av[2])) < 0)
 			error(NEG_DUMP, args);
 	} else
 		error(MISPLACED_DUMP, args);

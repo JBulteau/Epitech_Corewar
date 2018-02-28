@@ -34,6 +34,9 @@ vm_t *get_program_info(vm_t *vm, prog_name_t *prog_name, int free_memory)
 	char *str = malloc(sizeof(char) * 132);
 	int size;
 
+	read(fd, &size, 4);
+	my_put_nbr(size);
+	my_putchar('\n');
 	if (fd == -1 || str == NULL)
 		return (NULL);
 	if (read(fd, str, PROG_NAME_LENGTH + 8) == -1)
