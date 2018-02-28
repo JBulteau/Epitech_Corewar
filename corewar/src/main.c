@@ -85,6 +85,14 @@ int main(int ac, char **av)
 		my_printf(HELP, MEM_SIZE);
 		return (0);
 	}
+	//args = init_args(ac, av, &nb_prog);
+	//vm = init_vm(nb_prog, args);
+	//if (vm == NULL)
+	//	return (84);
+	unsigned char arena[] = {0x06, 0xb4, 0x00, 0x00, 0x00, 0x22, 0x00, 0x22, 0x01};
+	in_struct_t op = read_instru(arena, 0);
+	printf("OP_CODE: %02x\nARGS_TYPE: %02x\nARGS: %02x,%02x,%02x,%02x\n", op.op_code, op.arg_type, op.args[0], op.args[1], op.args[2], op.args[3]);
+	//load_vm(args, nb_prog);
 	args = init_args(ac, av, &nb_prog);
 	vm = init_vm(nb_prog, args);
 	if (vm == NULL)
