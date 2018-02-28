@@ -15,6 +15,7 @@
 
 vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 {
+//	printf("%i\n", prog->size);
 	for (int i = prog->adress; i < prog->adress + prog->size; i++) {
 		if (vm->arena[i % MEM_SIZE] != '\0') {
 			write(2, "Overlap\n", 8);
@@ -22,6 +23,7 @@ vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 		}
 		if (read(fd, &vm->arena[i % MEM_SIZE], 1) == -1)
 			return (NULL);
+		printf("hello%x\n", vm->arena[i]);
 	}
 	return (vm);
 }
@@ -29,15 +31,17 @@ vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 vm_t *get_program_info(vm_t *vm, prog_name_t *prog_name, int free_memory)
 {
 	int fd = open(prog_name->name, O_RDONLY);
-	unsigned char *str = malloc(sizeof(unsigned char) * 132);
+	char *str = malloc(sizeof(char) * 132);
+	int size;
 
-	if (fd == -1)
+	if (fd == -1 || str == NULL)
 		return (NULL);
-	if (read(fd, str, 132) == -1)
+	if (read(fd, str, PROG_NAME_LENGTH + 8) == -1)
 		return (NULL);
 	str = my_realloc(str, 5);
-	if (read(fd, str, 4) == -1)
+	if (read(fd, &size, 4) == -1)
 		return (NULL);
+	my_printf("%i\n", size);
 	prog_name->size = hexa_to_deca(str);
 	if (prog_name->size > free_memory)
 		return (NULL);

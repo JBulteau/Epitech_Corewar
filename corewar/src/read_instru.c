@@ -14,10 +14,10 @@ int load_n_arena(unsigned char *arena, int pos, int size)
 
 	for (int i = 0; i < size; i++) {
 		res = res << 8;
-		printf("-> %x\n", res);	
+//		printf("-> %x\n", res);	
 		res += arena[(pos + i) % MEM_SIZE];
 	}
-	printf("%x\n", res);
+//	printf("%x\n", res);
 	return (res);
 }
 
