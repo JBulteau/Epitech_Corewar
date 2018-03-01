@@ -21,7 +21,8 @@ SRC_FILES	=	main.c	\
 			debug.c	\
 			check_arg_ins.c	\
 			free.c	\
-			labels.c
+			labels.c	\
+			linked_list_handling.c	\
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

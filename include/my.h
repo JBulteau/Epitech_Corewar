@@ -11,6 +11,7 @@
 #define ERR_CODE 84
 #define READ_SIZE 1
 
+char *my_strcpy2(char *dest, char const *src);
 char *concat(char *src1, char *src2, int free1, int free2);
 int get_digits(int nb);
 char *get_next_line(int fd);
