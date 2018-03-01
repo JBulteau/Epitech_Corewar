@@ -42,7 +42,7 @@ typedef struct node_instruction_s {
 	in_struct_t info;
 	char *label[4];
 	struct node_instruction_s *next;
-	int adress;
+	int address;
 } node_t;
 
 /* endianness.c */

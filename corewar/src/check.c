@@ -38,13 +38,13 @@ args_t *check_prog(args_t *args, char *str)
 	return (args);
 }
 
-args_t *check_adress(args_t *args, char *str)
+args_t *check_address(args_t *args, char *str)
 {
-	int adress = hexa_to_deca(str);
+	int address = hexa_to_deca(str);
 
-	if (adress == -1)
+	if (address == -1)
 		error(INVALID_OFFSET, args);
-	args->progs->adress = adress % MEM_SIZE;
+	args->progs->address = address % MEM_SIZE;
 	return (args);
 }
 
@@ -60,7 +60,7 @@ args_t *check_prog_number(args_t *args, char *str)
 
 args_t *check_flags(args_t *args, int ac, char **av)
 {
-	args->progs = malloc(sizeof(prog_name_t));
+	args->progs = init_args_value();
 	if (args->progs == NULL)
 		error(NULL, args);
 	args->progs->prev = NULL;
@@ -69,11 +69,11 @@ args_t *check_flags(args_t *args, int ac, char **av)
 			args = check_prog_number(args, av[++i]);
 			continue;
 		} else if ((av[i][0] == '-') && (av[i][1] == 'a')) {
-			args = check_adress(args, av[++i]);
+			args = check_address(args, av[++i]);
 			continue;
 		}
 		args = check_prog(args, av[i]);
-		args->progs->next = malloc(sizeof(prog_name_t));
+		args->progs->next = init_args_value();
 		if (args->progs->next == NULL)
 			error(NULL, args);
 		args->progs->next->prev = args->progs;

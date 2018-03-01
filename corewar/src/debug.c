@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "corewar.h"
+#include <stdio.h>
 
 void disp_arena(vm_t *vm)
 {

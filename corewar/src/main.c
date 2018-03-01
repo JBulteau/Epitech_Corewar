@@ -82,12 +82,13 @@ int main(int ac, char **av)
 	vm_t *vm;
 	int nb_prog = 0;
 
-	if ((ac == 2) && (my_strcmp(av[1], "-h", -1)) \
-|| my_strcmp(av[1], "--help", -1)) {
+	if ((ac == 2) && (my_strcmp(av[1], "-h", -1) \
+|| my_strcmp(av[1], "--help", -1))) {
 		my_printf(HELP, MEM_SIZE);
 		return (0);
 	}
 	args = init_args(ac, av, &nb_prog);
+	args = fill_empty_args(args, nb_prog);
 	vm = init_vm(nb_prog, args);
 	if (vm == NULL)
 		return (84);

@@ -42,7 +42,7 @@ typedef struct prog_name prog_name_t;
 struct prog_name {
 	prog_name_t *prev;
 	char *name;
-	int adress;
+	int address;
 	int prog_nb;
 	int size;
 	prog_name_t *next;
@@ -82,9 +82,18 @@ in_struct_t read_instru(unsigned char *arena, int pos);
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
 args_t *check_flags(args_t *args, int ac, char **av);
 args_t *check_prog_number(args_t *args, char *str);
-args_t *check_adress(args_t *args, char *str);
+args_t *check_address(args_t *args, char *str);
 args_t *check_prog(args_t *args, char *str);
 void error(char *str, args_t *args);
+
+/* init_prog.c */
+
+prog_name_t *init_args_value(void);
+args_t *fill_empty_args(args_t *args, int nb_prog);
+int get_program_size(prog_name_t *prog);
+prog_name_t *fill_nb_prog(prog_name_t *prog);
+prog_name_t *fill_address(prog_name_t *prog, int nb_progs, int i, \
+int total_size);
 
 /* main.c */
 args_t *check_args(int ac, char **av);
@@ -102,7 +111,7 @@ int rev_endiannes(int nb);
 #define WRONG_MAGIC_NB	"Wrong executable magic number.\n"
 #define TOO_MANY_CHAMP	"The number of champion load is above the limit.\n"
 #define INVALID_OFFSET	"-a argument is invalid. Enter a valid memory offset.\n"
-#define NO_ADRESS	"-a argument is invalid. No address specified.\n"
+#define NO_address	"-a argument is invalid. No address specified.\n"
 #define INVALID_N_NB	"-n argument is invalid. Enter a number between 1 and 4.\n"
 #define NO_PROG_NB	"-n argument is invalid. No prog_number specified.\n"
 #define DOUBLE_NB	"-n argument is invalid. Double definition of prog_number.\n"

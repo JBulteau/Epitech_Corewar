@@ -52,7 +52,7 @@ prog_t *new_prog_case(int i, vm_t *vm)
 {
 	prog_t *new = malloc(sizeof(prog_t));
 
-	if (new = NULL)
+	if (new == NULL)
 		return (NULL);
 	new->next = NULL;
 	new->next_f = NULL;

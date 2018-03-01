@@ -15,10 +15,12 @@ SRC_FILES	=	main.c	\
 			vm_struct.c	\
 			read_instru.c	\
 			linked_list.c	\
-			debug.c
+			debug.c		\
+			init_prog.c	\
+
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
-CFLAGS		=	-W -Wextra  -I ../include
+CFLAGS		=	-W -Wextra -Wall -Wshadow  -I ../include
 
 OBJ		=	$(SRC:%.c=%.o)
 

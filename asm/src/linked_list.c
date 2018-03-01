@@ -69,7 +69,7 @@ char **buffer)
 	(*first)->info.op_code = 0;
 	(*first)->info.args_types = 0;
 	(*first)->next = *second;
-	(*first)->adress = -1;
+	(*first)->address = -1;
 	*save = *first;
 	*first = *second;
 }
@@ -90,7 +90,7 @@ char **buffer)
 	}
 	(*first)->info.op_code = 0;
 	(*first)->info.args_types = 0;
-	(*first)->adress = -1;
+	(*first)->address = -1;
 	(*first)->next = NULL;
 }
 

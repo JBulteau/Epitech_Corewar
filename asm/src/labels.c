@@ -14,7 +14,7 @@ int find_labeladdr(node_t *entry, char *label_n)
 	for (node_t *c = entry; c != NULL; c = c->next) {
 		if (c->info.op_code == 0 \
 && my_strcmp(label_n, c->label[0], -1)) {
-			return (c->adress);
+			return (c->address);
 		}
 	}
 }
@@ -26,14 +26,14 @@ int replace_labels(node_t *entry)
 	if (entry == NULL)
 		return (-1);
 	for (node_t *c = entry; c != NULL; c = c->next) {
-		c->adress = addr;
+		c->address = addr;
 		addr += size(c->info);
 	}
 	for (node_t *c = entry; c != NULL; c = c->next) {
 		for (int i = 0; i < 4; i++) {
 			if (c->info.args[i] == -1) {
 				addr = find_labeladdr(entry, c->label[i]);
-				c->info.args[i] = addr - c->adress;
+				c->info.args[i] = addr - c->address;
 			}
 		}
 	}

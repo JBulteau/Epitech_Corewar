@@ -15,7 +15,7 @@
 
 vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 {
-	for (int i = prog->adress; i < prog->adress + prog->size; i++) {
+	for (int i = prog->address; i < prog->address + prog->size; i++) {
 		if (vm->arena[i % MEM_SIZE] != '\0') {
 			write(2, "Overlap\n", 8);
 			return (NULL);
@@ -29,14 +29,13 @@ vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 vm_t *get_program_info(vm_t *vm, prog_name_t *prog_name, int free_memory)
 {
 	int fd = open(prog_name->name, O_RDONLY);
-	char *str = malloc(sizeof(char) * 132);
+	char *str = malloc(sizeof(char) * (PROG_NAME_LENGTH + 8));
 	int size;
 
 	if (fd == -1 || str == NULL)
 		return (NULL);
 	if (read(fd, str, PROG_NAME_LENGTH + 8) == -1)
 		return (NULL);
-	str = my_realloc(str, 5);
 	if (read(fd, &size, sizeof(int)) == -1)
 		return (NULL);
 	prog_name->size = rev_endiannes(size);
@@ -84,6 +83,7 @@ vm_t *init_vm(int prog_num, args_t *args)
 	for (int i = 0; i < prog_num; i++)
 		vm->live = 0;
 	vm = init_arena(vm, args, prog_num);
+	disp_arena(vm);
 	return (vm);
 }
 
