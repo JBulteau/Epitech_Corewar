@@ -13,32 +13,6 @@
 #include "my.h"
 #include "asm.h"
 
-int write_exec(char *filename, node_t *entry)
-{
-	int error = 0;
-	int i;
-	char *pathname = NULL;
-	int fd;
-	int total_size = 0;
-
-	for (i = my_strlen(filename); i >= 0 && filename[i] != '/'; i--);
-	filename = (filename[i] == '/') ? filename + i + 1 : filename;
-	pathname = concat(filename, ".cor", 0, 0);
-	fd = open(pathname, O_CREAT | O_RDWR, 0444);
-	if ((pathname == NULL) || (fd == -1)) {
-		if (filename)
-			free(pathname);
-		return (-1);
-	}
-	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
-		total_size += size(curr->info);
-	write_header(fd, entry->label[0], entry->next->label[0], total_size);
-	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
-		write_op(fd, curr->info);
-	free(pathname);
-	return (0);
-}
-
 int write_header(int fd, char *name, char *comment, int size)
 {
 	int magic = rev_endiannes_int(COREWAR_EXEC_MAGIC);

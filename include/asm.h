@@ -50,7 +50,6 @@ int rev_endiannes_int(int nb);
 short rev_endiannes_short(short nb);
 
 /* writing.c */
-int write_exec(char *filename, node_t *entry);
 int write_header(int fd, char *name, char *comment, int size);
 int write_arg(int fd, in_struct_t op, int arg);
 int write_special(int fd, in_struct_t op, int arg);
@@ -101,6 +100,7 @@ node_t *init_node(void);
 
 /* free.c */
 void free_ll(node_t *ll);
+int write_exec(char *filename, node_t *entry);
 
 /* labels.c */
 int replace_labels(node_t *entry);

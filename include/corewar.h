@@ -70,7 +70,6 @@ typedef struct {
 int fill_struct_vm_prog(int nb_prog, vm_t *vm);
 prog_t *new_prog_case(int i, vm_t *vm);
 void init_prog_struct(prog_t *new);
-prog_t *new_fork_case(vm_t *vm, int prog_f, int prog_nb);
 
 /* vm_struct.c */
 vm_t *init_vm(int prog_num, args_t *args);
@@ -84,9 +83,9 @@ args_t *check_flags(args_t *args, int ac, char **av);
 args_t *check_prog_number(args_t *args, char *str);
 args_t *check_adress(args_t *args, char *str);
 args_t *check_prog(args_t *args, char *str);
-void error(char *str, args_t *args);
 
 /* main.c */
+void error(char *str, args_t *args);
 args_t *check_args(int ac, char **av);
 int rev_endiannes(int nb);
 
