@@ -1,7 +1,7 @@
-.name " maxidef "
-.comment " module de defense"
+.name "maxidef"
+.comment "module de defense"
 
-loop:	live %0
+loop:	live %1
 	zjmp %8
 
 gobepc:	st r1,6			# 03 70 01 00 06			5
