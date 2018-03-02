@@ -103,6 +103,8 @@ prog_name_t *init_args_value(void)
 
 	if (prog == NULL)
 		return (NULL);
+	prog->name = NULL;
+	prog->next = NULL;
 	prog->address = -1;
 	prog->prog_nb = -1;
 	prog->size = 0;

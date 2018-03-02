@@ -76,7 +76,7 @@ vm_t *init_vm(int prog_num, args_t *args)
 		vm->arena[i] = 0;
 	vm->current_cycle = 0;
 	vm->cycle_to_die = 0;
-	vm->live = malloc(sizeof(int) * prog_num + 1);
+	vm->live = malloc(sizeof(int) * (prog_num + 1));
 	vm->prog = malloc(sizeof(prog_t) * (prog_num + 1));
 	if ((vm->live == NULL) || (vm->prog == NULL))
 		return (NULL);
