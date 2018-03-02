@@ -85,6 +85,9 @@ args_t *check_prog_number(args_t *args, char *str);
 args_t *check_address(args_t *args, char *str);
 args_t *check_prog(args_t *args, char *str);
 
+/* size_ins.c */
+int size(in_struct_t op);
+
 /* init_prog.c */
 
 prog_name_t *init_args_value(void);
@@ -98,6 +101,13 @@ int total_size);
 void error(char *str, args_t *args);
 args_t *check_args(int ac, char **av);
 int rev_endiannes(int nb);
+
+/* debug.c */
+void disp_instruction(in_struct_t op);
+void disp_arena(vm_t *vm);
+
+/* scheduler */
+int scheduler(vm_t *vm);
 
 #define HELP		"USAGE\n\t./corewar [-dump nbr_cycle] [[-n prog_number] [-a load_address] prog_name] ...\n\nDESCRIPTION\n\t-dump nbr_cycle\tdumps the memory after the nbr_cycle execution (if the round isn’t\n\t\t\talready over) with the following format: 32 bytes/line in\n\t\t\thexadecimal (A0BCDEFE1DD3...)\n\t-n prog_number\tsets the next program’s number. By default, the first free number\n\t\t\tin the parameter order\n\t-a load_address\tsets the next program’s loading address. When no address is\n\t\t\tspecified, optimize the addresses so that the processes are as far\n\t\t\taway from each other as possible. The addresses are %i modulo.\n"
 #define TOO_BIG_PROG	"Wrong program size in the header : Program is too big.\n"
