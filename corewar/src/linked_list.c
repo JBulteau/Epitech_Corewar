@@ -44,6 +44,7 @@ void init_prog_struct(prog_t *new)
 	new->carry = 0;
 	new->cycle_wait = 0;
 	new->pc = 0;
+	new->nb_prog = 0;
 	for (int i = 0; i < REG_NUMBER; i++)
 		new->reg[i] = 0;
 }

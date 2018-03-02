@@ -22,6 +22,7 @@ struct prog_s {
 	prog_t *next;
 	prog_t *next_f;
 	prog_t *prev;
+	int nb_prog;
 	int pc;
 	int carry;
 	int reg[REG_NUMBER];
