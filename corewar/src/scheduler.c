@@ -35,6 +35,7 @@ int execute(vm_t *vm, prog_t *prog)
 
 	my_printf("%i EXEC --> %s\n", prog->pc, op_tab[prog->instr.op_code - 1].mnemonique);
 	if (return_v > 0) {
+		printf("Live %i\n", return_v);
 		for (; vm->live[prog_c] != -2; prog_c++);
 		if (return_v <= prog_c && vm->live[return_v - 1] == 0) {
 			vm->live[return_v - 1] = 1;
@@ -47,9 +48,8 @@ int scheduler(vm_t *vm)
 {
 	char changesCarry[] = {2, 3, 4, 5, 6, 7, 8, 10, 13, 14, 0};
 
-	for (int i = 0; i < 30; i++) //FORCED CYCLES
+	//for (int i = 0; i < 30; i++) //FORCED CYCLES
 	for (prog_t *current = vm->prog[0]; current != NULL; current = current->next) {
-		usleep(100);
 		if (current->cycle_wait == 0) {
 			//my_putchar('\n');
 			if (indexof(current->instr.op_code, changesCarry) != -1) {

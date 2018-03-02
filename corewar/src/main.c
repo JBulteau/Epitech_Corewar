@@ -77,7 +77,7 @@ args_t *init_args(int ac, char **av, int *nb_progs)
 
 int count_alive(vm_t *vm)
 {
-	int alive;
+	int alive = 0;
 
 	for (int i = 0; vm->live[i] != -2; i++)
 		if (vm->live[i] == 1)
@@ -91,9 +91,10 @@ int main(int ac, char **av)
 	vm_t *vm;
 	int i = 0;
 	int nb_prog = 0;
+	int alive = 0;
 
 	if ((ac == 2) && (my_strcmp(av[1], "-h", -1) \
-|| my_strcmp(av[1], "--help", -1))) {
+			  || my_strcmp(av[1], "--help", -1))) {
 		my_printf(HELP, MEM_SIZE);
 		return (0);
 	}
@@ -110,7 +111,36 @@ int main(int ac, char **av)
 	}
 	if (vm == NULL)
 		return (84);
-	scheduler(vm);
-	my_put_nbr(count_alive(vm));
+	do {
+		for (int i = 0; vm->live[i] != -2; i++)
+			if (vm->live[i] == 1)
+				vm->live[i] = 0;
+		for (; vm->current_cycle < 100; vm->current_cycle++)
+			scheduler(vm);
+		vm->current_cycle = 0;
+		vm->cycle_to_die -= CYCLE_DELTA;
+		alive = count_alive(vm);
+		for (int i = 0; vm->live[i] != -2; i++)
+			if (vm->live[i] == 0) {
+				free_dead_prog(vm->live[i]);
+				my_printf("Champion n°%i died.\n", i + 1);
+			}
+	} while (alive > 1);
+	for (int i = 0; vm->live[i] != -2; i++)
+		if (vm->live[i] && (vm->cycle_to_die > 0))
+			my_printf("Champion n°%i won.\n", i + 1);
+	free(vm->live);
+	free(vm->prog);
+	free(vm);
+	free(args);
 	return (0);
+} /* main */
+
+void free_progs(prog_t *prog)
+{
+	if (prog == NULL)
+		return;
+	if (prog->next)
+		free_progs(prog->next);
+	free(prog);
 }

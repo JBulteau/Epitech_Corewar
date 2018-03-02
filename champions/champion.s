@@ -2,7 +2,6 @@
 .comment "testing fncs"
 
 live %1
-
 ld 34,r3
 ld %34,r3
 st r2,34
@@ -20,6 +19,8 @@ and %34, 34, r2
 and r1, %34, r2
 and 34, %34, r2
 and %34, %34, r2
+
+live %1
 
 or r1, r1, r2
 or 34, r1, r2
