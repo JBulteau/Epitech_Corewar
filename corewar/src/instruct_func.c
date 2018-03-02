@@ -100,3 +100,23 @@ int fork_exec(char *arena, prog_t *prog)
 {
 	return (0);
 }
+
+int lld(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
+int lldi(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
+int lfork(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
+int aff(char *arena, prog_t *prog)
+{
+	return (!my_putchar((prog->reg[(prog->instr.args[0]) - 1]) % 256));
+}
