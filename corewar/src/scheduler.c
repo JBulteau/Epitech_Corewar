@@ -9,6 +9,31 @@
 #include "my.h"
 #include "corewar.h"
 
+int (*exec_fnc[16])(unsigned char *arena, prog_t *prog) = {
+	&live,
+	&ld,
+	&st,
+	&add,
+	&sub,
+	&and,
+	&or,
+	&xor,
+	&zjmp,
+	&ldi,
+	&sti,
+	&fork_exec,
+	&lld,
+	&lldi,
+	&lfork,
+	&aff
+};
+
+int execute(vm_t *vm, prog_t *prog)
+{
+	my_printf("%i EXEC --> %s\n", prog->pc, op_tab[prog->instr.op_code - 1].mnemonique);
+	exec_fnc[prog->instr.op_code - 1](vm->arena, prog);
+}
+
 int scheduler(vm_t *vm)
 {
 	char changesCarry[] = {2, 3, 4, 5, 6, 7, 8, 10, 13, 14, 0};
@@ -24,6 +49,7 @@ int scheduler(vm_t *vm)
 				current->carry = 0;
 			}
 			if (current->instr.op_code > 0) {
+				execute(vm, current);
 				//my_putstr("\nEXECUTE\n");
 				//my_putstr("MV PC to next instru\n");
 				current->pc = (current->pc + size(current->instr)) % MEM_SIZE;

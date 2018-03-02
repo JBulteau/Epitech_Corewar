@@ -84,7 +84,7 @@ in_struct_t read_instru(unsigned char *arena, int pos)
 	for (int i = 0; i < 4; i++)
 		op.args[i] = 0;
 	op.arg_type = 0;
-	if ((op.op_code < 1) || (op.op_code > 16)) {
+	if ((op.op_code < 1) || (op.op_code > REG_NUMBER)) {
 		op.op_code = -1;
 		return (op);
 	}

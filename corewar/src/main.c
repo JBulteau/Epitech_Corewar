@@ -94,7 +94,10 @@ int main(int ac, char **av)
 	fill_struct_vm_prog(nb_prog, vm);
 	for (prog_name_t *curr = args->progs; curr->next != NULL; (curr = curr->next) && i++) {
 		vm->prog[i]->pc = curr->address;
-	}	
+		vm->prog[i]->start_adr = curr->address;
+		vm->prog[i]->size = curr->size;
+		vm->prog[i]->nb_prog = i;
+	}
 	if (vm == NULL)
 		return (84);
 	scheduler(vm);

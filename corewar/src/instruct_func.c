@@ -12,13 +12,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int live(char *arena, prog_t *prog)
+int live(unsigned char *arena, prog_t *prog)
 {
 	arena = arena;
 	return (prog->instr.args[0]);
 }
 
-int ld(char *arena, prog_t *prog)
+int ld(unsigned char *arena, prog_t *prog)
 {
 	int reg = prog->instr.args[1];
 	int arg = prog->instr.arg_type >> (6 - (0 * 2)) & 0b11;
@@ -31,7 +31,7 @@ int ld(char *arena, prog_t *prog)
 	return (0);
 }
 
-int st(char *arena, prog_t *prog)
+int st(unsigned char *arena, prog_t *prog)
 {
 	int reg = prog->instr.args[0];
 	int type_arg = prog->instr.arg_type >> (6 - (1 * 2)) & 0b11;
@@ -44,7 +44,7 @@ prog->reg[reg - 1];
 	return (0);
 }
 
-int add(char *arena, prog_t *prog)
+int add(unsigned char *arena, prog_t *prog)
 {
 	prog->reg[(prog->instr.args[2]) - 1] = \
 prog->reg[(prog->instr.args[1]) - 1] + prog->reg[(prog->instr.args[0]) - 1];
@@ -53,7 +53,7 @@ prog->reg[(prog->instr.args[1]) - 1] + prog->reg[(prog->instr.args[0]) - 1];
 	return (0);
 }
 
-int sub(char *arena, prog_t *prog)
+int sub(unsigned char *arena, prog_t *prog)
 {
 	prog->reg[(prog->instr.args[2]) - 1] = \
 prog->reg[(prog->instr.args[1]) - 1] - prog->reg[(prog->instr.args[0]) - 1];
@@ -62,22 +62,22 @@ prog->reg[(prog->instr.args[1]) - 1] - prog->reg[(prog->instr.args[0]) - 1];
 	return (0);
 }
 
-int and(char *arena, prog_t *prog)
+int and(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int or(char *arena, prog_t *prog)
+int or(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int xor(char *arena, prog_t *prog)
+int xor(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int zjmp(char *arena, prog_t *prog)
+int zjmp(unsigned char *arena, prog_t *prog)
 {
 	if (prog->carry != 1)
 		return (0);
@@ -86,37 +86,37 @@ int zjmp(char *arena, prog_t *prog)
 	return (0);
 }
 
-int ldi(char *arena, prog_t *prog)
+int ldi(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int sti(char *arena, prog_t *prog)
+int sti(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int fork_exec(char *arena, prog_t *prog)
+int fork_exec(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int lld(char *arena, prog_t *prog)
+int lld(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int lldi(char *arena, prog_t *prog)
+int lldi(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int lfork(char *arena, prog_t *prog)
+int lfork(unsigned char *arena, prog_t *prog)
 {
 	return (0);
 }
 
-int aff(char *arena, prog_t *prog)
+int aff(unsigned char *arena, prog_t *prog)
 {
 	return (!my_putchar((prog->reg[(prog->instr.args[0]) - 1]) % 256));
 }
