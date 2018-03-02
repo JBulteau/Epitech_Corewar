@@ -76,12 +76,13 @@ vm_t *init_vm(int prog_num, args_t *args)
 		vm->arena[i] = 0;
 	vm->current_cycle = 0;
 	vm->cycle_to_die = 0;
-	vm->live = malloc(sizeof(char) * prog_num);
+	vm->live = malloc(sizeof(int) * prog_num + 1);
 	vm->prog = malloc(sizeof(prog_t) * (prog_num + 1));
 	if ((vm->live == NULL) || (vm->prog == NULL))
 		return (NULL);
+	vm->live[prog_num] = -2;
 	for (int i = 0; i < prog_num; i++)
-		vm->live = 0;
+		vm->live[i] = 0;
 	vm = init_arena(vm, args, prog_num);
 	return (vm);
 }

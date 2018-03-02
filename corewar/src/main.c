@@ -97,6 +97,7 @@ int main(int ac, char **av)
 		vm->prog[i]->start_adr = curr->address;
 		vm->prog[i]->size = curr->size;
 		vm->prog[i]->nb_prog = i;
+		vm->prog[i]->reg[0] = i + 1;
 	}
 	if (vm == NULL)
 		return (84);
