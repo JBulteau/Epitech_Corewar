@@ -42,7 +42,7 @@ void load_args(unsigned char *arena, in_struct_t *op)
 	int cursor = 2;
 
 	for (int i = 0; i < 4; i++) {
-		arg = op->arg_type >> 6 - (i * 2) & 0b11;
+		arg = op->arg_type >> (6 - (i * 2)) & 0b11;
 		if (arg == 0b01) {
 			op->args[i] = load_n_arena(arena, cursor, 1);
 			cursor += 1;
@@ -64,7 +64,7 @@ void load_index(unsigned char *arena, in_struct_t *op)
 	int cursor = 2;
 
 	for (int i = 0; i < 4; i++) {
-		arg = op->arg_type >> 6 - (i * 2) & 0b11;
+		arg = op->arg_type >> (6 - (i * 2)) & 0b11;
 		if (arg == 0b01) {
 			op->args[i] = load_n_arena(arena, cursor, 1);
 			cursor += 1;

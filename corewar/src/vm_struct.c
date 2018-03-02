@@ -86,4 +86,3 @@ vm_t *init_vm(int prog_num, args_t *args)
 	disp_arena(vm);
 	return (vm);
 }
-
