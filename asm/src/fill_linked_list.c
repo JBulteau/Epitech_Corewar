@@ -63,10 +63,10 @@ int parsing_first_word(char **buffer, node_t **new, int *inc)
 	if (*new == NULL)
 		*new = init_node();
 	if (*new == NULL)
-		return (84);
+		return (-1);
 	for (; (*buffer)[*inc] != '\0'; (*inc)++) {
-		if ((*buffer)[*inc] == COMMENT_CHAR || (*buffer)[*inc] == DIRECT_CHAR || \
-(*buffer)[*inc] == SEPARATOR_CHAR)
+		if ((*buffer)[*inc] == COMMENT_CHAR || (*buffer)[*inc] == \
+DIRECT_CHAR || (*buffer)[*inc] == SEPARATOR_CHAR)
 			return (-6);
 		if ((*buffer)[*inc] == ' ' || (*buffer)[*inc] == LABEL_CHAR)
 			break;
@@ -99,23 +99,20 @@ int parsing(node_t *first, char **buffer, int fd)
 	int inc = 0;
 	int check = 0;
 	node_t *new = NULL;
-	int dirty = 1;
 
 	*buffer = get_next_line(fd);
 	if (*buffer == NULL)
 		return (0);
 	*buffer = clear_str(*buffer);
-	for (; *buffer != NULL; (*buffer = get_next_line(fd)) && (inc = 0)) {
+	for (int i = 0; *buffer != NULL; (*buffer = get_next_line(fd)) && \
+(inc = 0) && i++) {
 		if ((*buffer)[0] == '\0')
 			continue;
-		if (dirty == 0)
-			*buffer = clear_str(*buffer);
-		dirty = 0;
+		*buffer = (i > 0) ? clear_str(*buffer) : *buffer;
 		if ((check = parsing_first_word(buffer, &new, &inc)) == 2)
 			continue;
-		else if (check != 0)
-			return (check);
-		if ((check = parsing_instru(buffer, &inc, first, new)) < 0)
+		else if (check < 0 || (check = \
+parsing_instru(buffer, &inc, first, new)) < 0)
 			return (check);
 		first = new;
 		if (first->next != NULL)
@@ -126,28 +123,4 @@ int parsing(node_t *first, char **buffer, int fd)
 		new = NULL;
 	}
 	return (0);
-}
-
-void write_args_type(in_struct_t *op, int type)
-{
-	if (op->op_code == 1 || op->op_code == 9 || op->op_code == 12 \
-|| op->op_code == 15)
-		return;
-	if (type == T_DIR)
-		op->args_types += 2;
-	else if (type == T_REG)
-		op->args_types += 1;
-	else
-		op->args_types += 3;
-	op->args_types = op->args_types << 2;
-}
-
-void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg)
-{
-	if ((type == T_DIR && strarg[1] != LABEL_CHAR) || type == T_REG)
-		op->args[nb_arg] = my_getnbr(strarg + 1);
-	else if (type == T_DIR && strarg[1] == LABEL_CHAR)
-		op->args[nb_arg] = -1;
-	else
-		op->args[nb_arg] = my_getnbr(strarg);
 }
