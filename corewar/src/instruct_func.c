@@ -62,11 +62,41 @@ prog->reg[(prog->instr.args[1]) - 1] - prog->reg[(prog->instr.args[0]) - 1];
 	return (0);
 }
 
+int and(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
+int or(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
+int xor(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
 int zjmp(char *arena, prog_t *prog)
 {
 	if (prog->carry != 1)
 		return (0);
 	prog->pc = (prog->pc + prog->instr.args[0]) % IDX_MOD;
 	arena = arena;
+	return (0);
+}
+
+int ldi(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
+int sti(char *arena, prog_t *prog)
+{
+	return (0);
+}
+
+int fork(char *arena, prog_t *prog)
+{
 	return (0);
 }
