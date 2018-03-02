@@ -18,10 +18,13 @@ SRC_FILES	=	main.c	\
 			debug.c		\
 			init_prog.c	\
 			instruct_func.c	\
+			scheduler.c	\
+			op.c	\
+			size_ins.c	\
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
-CFLAGS		=	-W -Wextra -Wall -Wshadow  -I ../include
+CFLAGS		=	-W -Wextra  -I ../include
 
 OBJ		=	$(SRC:%.c=%.o)
 

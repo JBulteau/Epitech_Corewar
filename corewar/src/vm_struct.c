@@ -54,7 +54,7 @@ vm_t *init_arena(vm_t *vm, args_t *args, int nb_prog)
 {
 	int free_memory = MEM_SIZE;
 	prog_name_t *current = args->progs;
-	
+
 	for (int i = 0; i < nb_prog; i++) {
 		if (args->progs->prev != NULL)
 			free_memory -= args->progs->prev->size;
@@ -83,6 +83,5 @@ vm_t *init_vm(int prog_num, args_t *args)
 	for (int i = 0; i < prog_num; i++)
 		vm->live = 0;
 	vm = init_arena(vm, args, prog_num);
-	disp_arena(vm);
 	return (vm);
 }

@@ -80,6 +80,7 @@ int main(int ac, char **av)
 {
 	args_t *args = NULL;
 	vm_t *vm;
+	int i = 0;
 	int nb_prog = 0;
 
 	if ((ac == 2) && (my_strcmp(av[1], "-h", -1) \
@@ -90,7 +91,12 @@ int main(int ac, char **av)
 	args = init_args(ac, av, &nb_prog);
 	args = fill_empty_args(args, nb_prog);
 	vm = init_vm(nb_prog, args);
+	fill_struct_vm_prog(nb_prog, vm);
+	for (prog_name_t *curr = args->progs; curr->next != NULL; (curr = curr->next) && i++) {
+		vm->prog[i]->pc = curr->address;
+	}	
 	if (vm == NULL)
 		return (84);
+	scheduler(vm);
 	return (0);
 }
