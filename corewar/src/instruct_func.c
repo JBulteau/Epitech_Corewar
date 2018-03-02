@@ -61,3 +61,12 @@ prog->reg[(prog->instr.args[1]) - 1] - prog->reg[(prog->instr.args[0]) - 1];
 	arena = arena;
 	return (0);
 }
+
+int zjmp(char *arena, prog_t *prog)
+{
+	if (prog->carry != 1)
+		return (0);
+	prog->pc = (prog->pc + prog->instr.args[0]) % IDX_MOD;
+	arena = arena;
+	return (0);
+}
