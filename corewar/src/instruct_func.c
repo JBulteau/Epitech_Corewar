@@ -21,11 +21,25 @@ int live(char *arena, prog_t *prog)
 int ld(char *arena, prog_t *prog)
 {
 	int reg = prog->instr.args[1];
-	int arg = prog->instr.arg_type >> (6 - (nb_arg * 2)) & 0b11;
+	int arg = prog->instr.arg_type >> (6 - (0 * 2)) & 0b11;
 
 	if (arg == 3)
 		prog->reg[reg - 1] = (prog->pc + prog->instr.args[0]) % IDX_MOD;
 	else
 		prog->reg[reg - 1] = arena[prog->instr.args[0]];
 	prog->carry = 1;
+	return (0);
+}
+
+int st(char *arena, prog_t *prog)
+{
+	int reg = prog->instr.args[0];
+	int arg = prog->instr.arg_type >> (6 - (1 * 2)) & 0b11;
+
+	if (arg != 3)
+		prog->reg[(prog->instr.args[1]) - 1] = prog->reg[reg - 1];
+	else
+		arena[((prog->pc) + (prog->instr.args[1]) % IDX_MOD)] = \
+prog->reg[reg - 1];
+	return (0);
 }
