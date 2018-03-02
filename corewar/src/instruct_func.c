@@ -96,7 +96,7 @@ int sti(char *arena, prog_t *prog)
 	return (0);
 }
 
-int fork(char *arena, prog_t *prog)
+int fork_exec(char *arena, prog_t *prog)
 {
 	return (0);
 }
