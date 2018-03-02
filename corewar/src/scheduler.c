@@ -32,10 +32,15 @@ int execute(vm_t *vm, prog_t *prog)
 {
 	int prog_c = 0;
 	int return_v = exec_fnc[prog->instr.op_code - 1](vm->arena, prog);
-	
+
 	my_printf("%i EXEC --> %s\n", prog->pc, op_tab[prog->instr.op_code - 1].mnemonique);
-	//for (; vm->live[prog_c] != -2; prog_c++);
-	//my_put_nbr(prog_c);
+	if (return_v > 0) {
+		for (; vm->live[prog_c] != -2; prog_c++);
+		if (return_v <= prog_c && vm->live[return_v - 1] == 0) {
+			vm->live[return_v - 1] = 1;
+			my_printf("programm %i is alive !\n", return_v);
+		}
+	}
 }
 
 int scheduler(vm_t *vm)

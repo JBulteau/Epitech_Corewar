@@ -75,6 +75,15 @@ args_t *init_args(int ac, char **av, int *nb_progs)
 	return (args);
 }
 
+int count_alive(vm_t *vm)
+{
+	int alive;
+
+	for (int i = 0; vm->live[i] != -2; i++)
+		if (vm->live[i] == 1)
+			alive++;
+	return (alive);
+}
 
 int main(int ac, char **av)
 {
@@ -102,5 +111,6 @@ int main(int ac, char **av)
 	if (vm == NULL)
 		return (84);
 	scheduler(vm);
+	my_put_nbr(count_alive(vm));
 	return (0);
 }
