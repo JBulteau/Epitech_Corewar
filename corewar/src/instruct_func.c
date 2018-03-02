@@ -34,12 +34,30 @@ int ld(char *arena, prog_t *prog)
 int st(char *arena, prog_t *prog)
 {
 	int reg = prog->instr.args[0];
-	int arg = prog->instr.arg_type >> (6 - (1 * 2)) & 0b11;
+	int type_arg = prog->instr.arg_type >> (6 - (1 * 2)) & 0b11;
 
-	if (arg != 3)
+	if (type_arg != 3)
 		prog->reg[(prog->instr.args[1]) - 1] = prog->reg[reg - 1];
 	else
 		arena[((prog->pc) + (prog->instr.args[1]) % IDX_MOD)] = \
 prog->reg[reg - 1];
+	return (0);
+}
+
+int add(char *arena, prog_t *prog)
+{
+	prog->reg[(prog->instr.args[2]) - 1] = \
+prog->reg[(prog->instr.args[1]) - 1] + prog->reg[(prog->instr.args[0]) - 1];
+	prog->carry = 1;
+	arena = arena;
+	return (0);
+}
+
+int sub(char *arena, prog_t *prog)
+{
+	prog->reg[(prog->instr.args[2]) - 1] = \
+prog->reg[(prog->instr.args[1]) - 1] - prog->reg[(prog->instr.args[0]) - 1];
+	prog->carry = 1;
+	arena = arena;
 	return (0);
 }
