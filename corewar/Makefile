@@ -17,6 +17,7 @@ SRC_FILES	=	main.c	\
 			linked_list.c	\
 			debug.c		\
 			init_prog.c	\
+			instruct_func.c	\
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
