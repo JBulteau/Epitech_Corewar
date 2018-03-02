@@ -32,14 +32,14 @@ void read_one_arg(unsigned char *arena, int pos, in_struct_t *op)
 		op->args[0] = load_n_arena(arena, pos + 1, 4);
 		return;
 	}
-	// JZMP / FORK / LFROK TODO
+	// JZMP / FORK / LFROK
 	op->args[0] = load_n_arena(arena, pos + 1, 2);
 }
 
-void load_args(unsigned char *arena, in_struct_t *op)
+void load_args(unsigned char *arena, in_struct_t *op, int pos)
 {
 	int arg = 0;
-	int cursor = 2;
+	int cursor = 2 + pos;
 
 	for (int i = 0; i < 4; i++) {
 		arg = op->arg_type >> (6 - (i * 2)) & 0b11;
@@ -58,10 +58,10 @@ void load_args(unsigned char *arena, in_struct_t *op)
 	}
 }
 
-void load_index(unsigned char *arena, in_struct_t *op)
+void load_index(unsigned char *arena, in_struct_t *op, int pos)
 {
 	int arg = 0;
-	int cursor = 2;
+	int cursor = 2 + pos;
 
 	for (int i = 0; i < 4; i++) {
 		arg = op->arg_type >> (6 - (i * 2)) & 0b11;
@@ -94,8 +94,8 @@ in_struct_t read_instru(unsigned char *arena, int pos)
 	}
 	op.arg_type = load_n_arena(arena, pos + 1, 1);
 	if ((op.op_code == 0x0e) || (op.op_code == 0x0b) || (op.op_code == 0x0a))
-		load_index(arena, &op);
+		load_index(arena, &op, pos);
 	else
-		load_args(arena, &op);
+		load_args(arena, &op, pos);
 	return (op);
 }

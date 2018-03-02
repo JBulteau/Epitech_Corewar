@@ -13,8 +13,9 @@ int scheduler(vm_t *vm)
 {
 	char changesCarry[] = {2, 3, 4, 5, 6, 7, 8, 10, 13, 14, 0};
 
-	//for (int i = 0; i < 35; i++)
+	for (int i = 0; i < 2725; i++)
 	for (prog_t *current = vm->prog[0]; current != NULL; current = current->next) {
+		usleep(100);
 		if (current->cycle_wait == 0) {
 			//my_putchar('\n');
 			if (indexof(current->instr.op_code, changesCarry) != -1) {
@@ -22,8 +23,8 @@ int scheduler(vm_t *vm)
 				//my_putstr("RESET CARRY\n");
 				current->carry = 0;
 			}
-			if (current->instr.arg_type > 0) {
-				//my_putstr("EXECUTE\n");
+			if (current->instr.op_code > 0) {
+				//my_putstr("\nEXECUTE\n");
 				//my_putstr("MV PC to next instru\n");
 				current->pc = (current->pc + size(current->instr)) % MEM_SIZE;
 			}
@@ -34,8 +35,6 @@ int scheduler(vm_t *vm)
 				current->pc++;
 				//my_putstr("Mv PC to +1\n");
 				continue;
-			} else {
-				
 			}
 			current->cycle_wait = op_tab[current->instr.op_code - 1].nbr_cycles;
 		} else {

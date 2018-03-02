@@ -20,5 +20,5 @@ void disp_arena(vm_t *vm)
 
 void disp_instruction(in_struct_t op)
 {
-	printf("OP_CODE: %02x\nARGS_TYPE: %02x\nARGS: %02x,%02x,%02x,%02x\n", op.op_code, op.arg_type, op.args[0], op.args[1], op.args[2], op.args[3]);
+	my_printf("OP_CODE: %02x\nARGS_TYPE: %02x\nARGS: %02i,%02i,%02i,%02i\n", op.op_code, op.arg_type, op.args[0], op.args[1], op.args[2], op.args[3]);
 }
