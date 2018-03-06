@@ -1,8 +1,7 @@
-.name           "42"
+.name ""
 .comment        "Just a basic Winner Program"
-
-entree:	live	%42		# entree
-	fork	%:tir
+	live 	%42
+live %42
 	ld	%0,r5
 	zjmp	%:bite
 

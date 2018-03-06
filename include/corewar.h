@@ -12,7 +12,7 @@
 
 typedef struct {
 	int op_code;
-	int arg_type;
+	int arg_type; //arg = instr->arg_type >> (6 - (nb_arg * 2)) & 0b11
 	int args[4];
 } in_struct_t;
 

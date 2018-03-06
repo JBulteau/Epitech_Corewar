@@ -1,3 +1,3 @@
-.name    "sebc"
-.comment "sebc"
+.name    "sebc-name"
+.comment "sebc-comment"
 

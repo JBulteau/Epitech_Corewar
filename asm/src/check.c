@@ -8,6 +8,7 @@
 #include "my.h"
 #include "asm.h"
 #include "op.h"
+#include <stdlib.h>
 
 int write_args(node_t *op, int type, char **args, int op_code)
 {
@@ -51,8 +52,11 @@ int find_instru(char *str)
 	while (str[i++] != '\0' && str[i] != ' ');
 	str[i] = '\0';
 	for (int j = 0; op_tab[j].mnemonique != 0; j++)
-		if (my_strcmp(str, op_tab[j].mnemonique, -1) == 1)
+		if (my_strcmp(str, op_tab[j].mnemonique, -1) == 1) {
+			free(str);
 			return (j + 1);
+		}
+	free(str);
 	return (-1);
 
 }

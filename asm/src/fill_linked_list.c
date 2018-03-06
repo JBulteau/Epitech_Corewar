@@ -28,7 +28,7 @@ int parse_words(char **buffer, int *inc, node_t *middle, node_t **first)
 		middle->label[0][i] = (*buffer)[i];
 	middle->next = new;
 	*buffer += (*inc + 2);
-	check = find_instru(*buffer);
+	check = find_instru(my_strdup(*buffer));
 	new->info.op_code = check;
 	if (check == -1)
 		return (84);
@@ -39,7 +39,6 @@ int parse_words(char **buffer, int *inc, node_t *middle, node_t **first)
 
 int label_parsing(char **buffer, int *inc, node_t *middle, node_t **first)
 {
-
 	if ((*buffer)[*inc + 1] == ' ') {
 		return (parse_words(buffer, inc, middle, first));
 	} else {
@@ -102,10 +101,10 @@ int parsing(node_t *first, char **buffer, int fd)
 
 	*buffer = get_next_line(fd);
 	if (*buffer == NULL)
-		return (0);
+		return (42);
 	*buffer = clear_str(*buffer);
 	for (int i = 0; *buffer != NULL; (*buffer = get_next_line(fd)) && \
-(inc = 0) && i++) {
+((inc = 0) == 0) && i++) {
 		if ((*buffer)[0] == '\0')
 			continue;
 		*buffer = (i > 0) ? clear_str(*buffer) : *buffer;
@@ -117,6 +116,9 @@ parsing_instru(buffer, &inc, first, new)) < 0)
 		first = new;
 		if (first->next != NULL)
 			first = first->next;
+		(*buffer)[(indexof(COMMENT_CHAR, (*buffer)) == -1) ? 0 : \
+indexof(COMMENT_CHAR, (*buffer))] = (indexof(COMMENT_CHAR, (*buffer)) == -1) \
+? (*buffer)[0] : '\0';
 		if ((check = check_args(check, *buffer + inc + 1, first)) < 0)
 			return (check);
 		first->next = NULL;
