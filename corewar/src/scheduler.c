@@ -46,13 +46,13 @@ int execute(vm_t *vm, prog_t *prog)
 
 int scheduler(vm_t *vm)
 {
-	char changesCarry[] = {2, 3, 4, 5, 6, 7, 8, 10, 13, 14, 0};
+	char changes_carry[] = {2, 3, 4, 5, 6, 7, 8, 10, 13, 14, 0};
 
 	//for (int i = 0; i < 30; i++) //FORCED CYCLES
 	for (prog_t *current = vm->prog[0]; current != NULL; current = current->next) {
 		if (current->cycle_wait == 0) {
 			//my_putchar('\n');
-			if (indexof(current->instr.op_code, changesCarry) != -1) {
+			if (indexof(current->instr.op_code, changes_carry) != -1) {
 				//my_put_nbr(current->instr.op_code);
 				//my_putstr("RESET CARRY\n");
 				current->carry = 0;
