@@ -101,8 +101,14 @@ int total_size);
 
 /* main.c */
 void error(char *str, args_t *args);
-args_t *check_args(int ac, char **av);
 int rev_endiannes(int nb);
+void check_cycle(vm_t *vm, int i);
+
+/* check_main */
+void help(int ac, char **av);
+args_t *check_args(int ac, char **av);
+void free_progs(prog_t *prog);
+void free_vm(vm_t *vm, args_t *args);
 
 /* debug.c */
 void disp_instruction(in_struct_t op);

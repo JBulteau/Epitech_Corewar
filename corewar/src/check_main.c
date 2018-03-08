@@ -15,6 +15,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void free_vm(vm_t *vm, args_t *args)
+{
+	free(vm->live);
+	free(vm->prog);
+	free(vm);
+	free(args);
+}
+
+void help(int ac, char **av)
+{
+	if ((ac == 2) && (my_strcmp(av[1], "-h", -1)		\
+			  || my_strcmp(av[1], "--help", -1))) {
+		my_printf(HELP, MEM_SIZE);
+		exit(0);
+	}
+}
+
 args_t *check_args(int ac, char **av)
 {
 	int nb_args = 0;
@@ -26,4 +43,13 @@ args_t *check_args(int ac, char **av)
 		if (my_strcmp(av[i], "-dump", -1))
 			nb_args++;
 	return (check_dump(args, ac, av, nb_args));
+}
+
+void free_progs(prog_t *prog)
+{
+	if (prog == NULL)
+		return;
+	if (prog->next)
+		free_progs(prog->next);
+	free(prog);
 }
