@@ -79,7 +79,7 @@ node_t *fill_linked_list(char *filename, int *error)
 		return (NULL);
 	if (*error = parsing(all[0], &buffer, fd) < 0)
 		return (NULL);
-	if (*error = 42)
+	if (*error == 42)
 		return (all[0]);
 	return (all[2]);
 }
