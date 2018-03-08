@@ -21,13 +21,13 @@ int live(unsigned char *arena, prog_t *prog)
 int ld(unsigned char *arena, prog_t *prog)
 {
 	int reg = prog->instr.args[1];
-	int arg = prog->instr.arg_type >> (6 - (0 * 2)) & 0b11;
+	int arg = prog->instr.arg_type >> 6 & 0b11;
 
-	if (arg == 3)
+	if (arg == 1)
+		prog->reg[reg - 1] = prog->reg[prog->instr[0] - 1];
+	else
 		prog->reg[reg - 1] = \
 arena[(prog->pc + prog->instr.args[0]) % IDX_MOD];
-	else
-		prog->reg[reg - 1] = arena[prog->instr.args[0]];
 	prog->carry = 1;
 	return (0);
 }
@@ -35,7 +35,7 @@ arena[(prog->pc + prog->instr.args[0]) % IDX_MOD];
 int st(unsigned char *arena, prog_t *prog)
 {
 	int reg = prog->instr.args[0];
-	int type_arg = prog->instr.arg_type >> (6 - (1 * 2)) & 0b11;
+	int type_arg = prog->instr.arg_type >> 4 & 0b11;
 
 	if (type_arg == 1)
 		prog->reg[(prog->instr.args[1]) - 1] = prog->reg[reg - 1];
@@ -170,6 +170,24 @@ arena[(prog->instr.args[0] + prog->instr.args[1]) % IDX_MOD];
 
 int sti(unsigned char *arena, prog_t *prog)
 {
+	int reg = prog->instr.args[0];
+	int type_arg_1 = prog->instr.arg_type >> 4 & 0b11;
+	int type_arg_2 = prog->instr.arg_type >> 2 & 0b11;
+
+	if (type_arg_1 == 1)
+		if (type_arg_2 == 1)
+			arena[(prog->pc + prog->reg[prog->instr.args[1] - 1] + \
+prog->reg[prog->instr.args[2] - 1) % IDX_MOD] = prog->reg[reg - 1];
+		else
+			arena[(prog->pc + prog->reg[prog->instr.args[1] - 1] + \
+prog->instr.args[2]) % IDX_MOD] = prog->reg[reg - 1];
+	else
+		if (type_arg_2 == 1)
+			arena[(prog->pc + prog->instr.args[1] + \
+prog->reg[prog->instr.args[2] - 1]) % IDX_MOD] = prog->reg[reg - 1];
+		else
+			arena[(prog->pc + prog->instr.args[1] + \
+prog->instr.args[2]) % IDX_MOD] = prog->reg[reg - 1];
 	return (0);
 }
 
