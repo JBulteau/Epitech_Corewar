@@ -53,6 +53,8 @@ char *clear_str(char *buffer)
 
 	if (buffer == NULL)
 		return (NULL);
+	if (buffer[0] == '\0')
+		return (buffer);
 	init_clear_str(buffer, &result);
 	for (int i = 0; buffer[i] != '\0'; i++) {
 		if ((buffer[i] == ' ' || buffer[i] == '\t')) {
