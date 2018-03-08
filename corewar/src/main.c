@@ -89,7 +89,7 @@ void check_cycle(vm_t *vm, int i)
 		alive = count_alive(vm);
 		for (int i = 0; vm->live[i] != -2; i++)
 			if (vm->live[i] == 0) {
-				free_dead_prog(vm->live[i]);
+				vm->live[i] = -1;
 				my_printf("Champion n°%i died.\n", i + 1);
 			}
 	} while (alive > 1);
