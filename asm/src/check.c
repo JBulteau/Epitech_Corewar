@@ -39,7 +39,6 @@ int check_args(int op_code, char *args_str, node_t *op)
 	if (type > op_tab[op_code - 1].nbr_args)
 		return (-11);
 	if ((type = write_args(op, type, args, op_code)) < 0) {
-		my_printf("%iTYPE --> %x\n", type, op->info.args_types);	
 		return (type);
 	}
 	if (op->info.args_types == 4)
