@@ -17,7 +17,6 @@ int write_file(int *error, char *name, node_t *to_write)
 	int fd = 0;
 
 	if (*error == 42) {
-		my_putstr("SGRGTDEFGTFR");
 		fd = _open(name);
 		if (fd == -1) {
 			return (-1);
