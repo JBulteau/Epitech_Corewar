@@ -39,9 +39,12 @@ static int check_label(char *arg)
 
 static int check_dir(char *arg)
 {
-	for (int i = 1; arg[i]; i++)
+	for (int i = 1; arg[i]; i++) {
+		if ((i == 1) && arg[i] == '-')
+			continue;
 		if ((arg[i] < '0') || (arg[i] > '9'))
 			return (-10);
+	}
 	return (T_DIR);
 }
 

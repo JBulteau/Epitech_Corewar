@@ -36,8 +36,9 @@ int check_args(int op_code, char *args_str, node_t *op)
 	for (type = 0; args[type]; type++);
 	if (type > op_tab[op_code - 1].nbr_args)
 		return (-11);
-	if (type = write_args(op, type, args, op_code) < 0)
+	if (type = write_args(op, type, args, op_code) < 0) {
 		return (type);
+	}
 	if (op->info.args_types == 4)
 		op->info.args_types = op->info.args_types << 4;
 	if (op_tab[op_code - 1].nbr_args == 2)
