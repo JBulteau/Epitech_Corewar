@@ -31,6 +31,9 @@ void error(char *str, args_t *args)
 {
 	if (str != NULL)
 		write(2, str, my_strlen(str));
+	
+	// TODO : free arggs fnc
+	// TODO : vérifier args != NULL
 	if (args->progs != NULL) {
 		while (args->progs->next != NULL)
 			args->progs = args->progs->next;
