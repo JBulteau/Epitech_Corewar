@@ -49,7 +49,6 @@ int main(int ac, char **av)
 		return (84);
 	if (write_file(&error, name, to_write))
 		return (84);
-	my_put_nbr(error);
 	if (error && error != 42)
 		return (84);
 	free_ll(to_write);
