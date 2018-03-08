@@ -31,7 +31,7 @@ int replace_labels(node_t *entry)
 	}
 	for (node_t *c = entry; c != NULL; c = c->next) {
 		for (int i = 0; i < 4; i++) {
-			if (c->info.args[i] == -1) {
+			if (c->info.args[i] == -1 && c->label[i][0] != '\0') {
 				addr = find_labeladdr(entry, c->label[i]);
 				c->info.args[i] = addr - c->address;
 			}
