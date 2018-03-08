@@ -77,7 +77,7 @@ node_t *fill_linked_list(char *filename, int *error)
 		return (NULL);
 	if (fill_second_case(&(all[0]), &(all[1]), &(all[2]), &buffer) == -1)
 		return (NULL);
-	if (*error = parsing(all[0], &buffer, fd) < 0)
+	if ((*error = parsing(all[0], &buffer, fd)) < 0)
 		return (NULL);
 	if (*error == 42)
 		return (all[0]);
