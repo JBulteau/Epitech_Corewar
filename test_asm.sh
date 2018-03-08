@@ -26,20 +26,18 @@ for f in $CHAMPIONS_PATH; do
 	./binaires-champ-corewar/asm $f
 	if [[ -f $f ]]
 	then
-		echo "OK - ASM EXAMPLE"
 		hexdump -C $compiled > a
 		mv $compiled $name'-EXAMPLE.cor'
 	else
-		echo "PAS OK"
+		echo "PAS OK ---- SYNTAX EXAMPLE"
 	fi
 
 	./asm/asm $f
 	if [[ -f $f ]]
 	then
-		echo "OK - ASM"
 		hexdump -C $compiled > b
 	else
-		echo "PAS OK"
+		echo "PAS OK ----- SYNTAX"
 	fi
 
 	diff -y a b > c
@@ -52,7 +50,6 @@ for f in $CHAMPIONS_PATH; do
 		mv c res/${name%.*}'.res'
 		((dif++))
 	else
-        	echo "NO DIFF"
 		rm a b c
 		((no_dif++))
 	fi

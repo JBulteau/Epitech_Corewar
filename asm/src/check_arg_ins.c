@@ -27,10 +27,6 @@ static int check_reg(char *arg)
 
 static int check_label(char *arg, int type)
 {
-	int len = my_strlen(arg);
-
-	if (len == 2)
-		return (-18);
 	for (int i = 0; arg[i]; i++)
 		if (indexof(arg[i], LABEL_CHARS) == -1)
 			return (-7);
@@ -69,6 +65,7 @@ int is_valid_arg(char *arg, node_t *op, int i)
 	} else if (arg[0] == DIRECT_CHAR) {
 		if (arg[1] == LABEL_CHAR) {
 			op->label[i] = my_strdup(arg + 2);
+			op->info.args[i] = -1;
 			return (check_label(arg + 2, 1));
 		} else {
 			return (check_dir(arg));
@@ -76,6 +73,7 @@ int is_valid_arg(char *arg, node_t *op, int i)
 	} else  {
 		if (arg[0] == LABEL_CHAR) {
 			op->label[i] = my_strdup(arg + 1);
+			op->info.args[i] = -1;
 			return (check_label(arg + 1, 0));
 		} else {
 			return (check_ind(arg));

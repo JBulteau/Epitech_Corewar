@@ -88,10 +88,18 @@ void write_args_type(in_struct_t *op, int type)
 
 void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg)
 {
-	if ((type == T_DIR && strarg[1] != LABEL_CHAR) || type == T_REG)
+	if (type == T_REG) {
+		//my_putstr("REG\n");
 		op->args[nb_arg] = my_getnbr(strarg + 1);
-	else if (type == T_DIR && strarg[1] == LABEL_CHAR)
-		op->args[nb_arg] = -1;
-	else
-		op->args[nb_arg] = my_getnbr(strarg);
+	} else if (op->args[nb_arg] == -1) {
+		//my_putstr("LABEL\n");
+	} else {
+		if (type == T_DIR) {
+			//my_putstr("DIRECT\n");
+			op->args[nb_arg] = my_getnbr(strarg + 1);
+		} else if (type == T_IND) {
+			//my_putstr("INDIRECT\n");
+			op->args[nb_arg] = my_getnbr(strarg);			
+		}
+	}
 }
