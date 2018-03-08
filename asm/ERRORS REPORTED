@@ -1,0 +1,25 @@
+Avec test.s
+Si on ne met pas de \n entre le comment et la declaration de label error vaut 42
+
+
+
+
+#Exemple valide
+.name "aze"
+.comment "testing fncs"
+
+l2:
+sti r1,%:live,%1
+
+#Exemple invalide
+.name "aze"
+.comment "testing fncs"
+l2:
+sti r1,%:live,%1
+
+
+#IDEM AVEC simpletest3 (Need un line jump après comment)
+.name "simple"
+.comment "live 1"
+
+live %3
