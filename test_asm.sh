@@ -34,8 +34,9 @@ for f in $CHAMPIONS_PATH; do
 		echo "PAS OK"
 	fi
 
-	diff a b > c
-	if [ -s c ]
+	diff -y a b > c
+	diff a b > d
+	if [ -s d ]
 	then
         	echo "DIFF"
 		rm a b
@@ -50,4 +51,5 @@ for f in $CHAMPIONS_PATH; do
 done
 echo "NB DIFF : $dif"
 echo "NB NO DIFF : $no_dif"
+rm d
 rm -f *.cor
