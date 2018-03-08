@@ -6,6 +6,8 @@ rm -rf res
 mkdir res
 rm -f res/*.res
 
+dif = 0
+no_dif = 0
 for f in $CHAMPIONS_PATH; do
 	echo "---------------------------------------------------------"
 	echo "Compiling "$f
@@ -39,9 +41,13 @@ for f in $CHAMPIONS_PATH; do
 		rm a b
 		mv $compiled $name'-EXAMPLE.cor' 'res/'
 		mv c res/${name%.*}'.res'
+		((dif++))
 	else
         	echo "NO DIFF"
 		rm a b c
+		((no_dif++))
 	fi
 done
+echo "NB DIFF : $dif"
+echo "NB NO DIFF : $no_dif"
 rm -f *.cor
