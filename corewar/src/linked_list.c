@@ -75,13 +75,11 @@ int fill_struct_vm_prog(int nb_prog, vm_t *vm)
 	if (vm->prog == NULL)
 		return (-1);
 	for (int i = 0; i < nb_prog; i++) {
-		//vm->prog[i] = malloc(sizeof(prog_t));
 		vm->prog[i] = new_prog_case(i, vm);
 		vm->prog[i]->instr = (in_struct_t){0, 0, {0, 0, 0, 0}};
 		if (vm->prog[i] == NULL)
 			return (-1);
 	}
-	vm->prog[nb_prog] = vm->prog[nb_prog - 1];	
+	vm->prog[nb_prog] = vm->prog[nb_prog - 1];
 	return (0);
 }
-

@@ -33,7 +33,8 @@ int execute(vm_t *vm, prog_t *prog)
 	int prog_c = 0;
 	int return_v = exec_fnc[prog->instr.op_code - 1](vm->arena, prog);
 
-	my_printf("%i EXEC --> %s\n", prog->pc, op_tab[prog->instr.op_code - 1].mnemonique);
+	my_printf("%i EXEC --> %s\n", prog->pc, \
+op_tab[prog->instr.op_code - 1].mnemonique);
 	if (return_v > 0) {
 		printf("Live %i\n", return_v);
 		for (; vm->live[prog_c] != -2; prog_c++);

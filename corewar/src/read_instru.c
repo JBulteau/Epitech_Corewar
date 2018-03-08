@@ -14,7 +14,7 @@ int load_n_arena(unsigned char *arena, int pos, int size)
 
 	for (int i = 0; i < size; i++) {
 		res = res << 8;
-//		printf("-> %x\n", res);	
+//		printf("-> %x\n", res);
 		res += arena[(pos + i) % MEM_SIZE];
 	}
 //	printf("%x\n", res);
@@ -84,16 +84,17 @@ in_struct_t read_instru(unsigned char *arena, int pos)
 	for (int i = 0; i < 4; i++)
 		op.args[i] = 0;
 	op.arg_type = 0;
-	if ((op.op_code < 1) || (op.op_code > REG_NUMBER)) {
+	if (op.op_code < 1 || op.op_code > REG_NUMBER) {
 		op.op_code = -1;
 		return (op);
 	}
-	if ((op.op_code == 1) || (op.op_code == 9) || (op.op_code == 12) || (op.op_code == 15) || (op.op_code == 16)) {
+	if (op.op_code == 1 || op.op_code == 9 || op.op_code == 12 \
+|| op.op_code == 15 || op.op_code == 16) {
 		read_one_arg(arena, pos, &op);
 		return (op);
 	}
 	op.arg_type = load_n_arena(arena, pos + 1, 1);
-	if ((op.op_code == 0x0e) || (op.op_code == 0x0b) || (op.op_code == 0x0a))
+	if (op.op_code == 0x0e || op.op_code == 0x0b || op.op_code == 0x0a)
 		load_index(arena, &op, pos);
 	else
 		load_args(arena, &op, pos);

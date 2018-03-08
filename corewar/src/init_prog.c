@@ -14,7 +14,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-prog_name_t *fill_address(prog_name_t *prog, int nb_progs, int i, int total_size)
+prog_name_t *fill_address(prog_name_t *prog, int nb_progs, int i, \
+int total_size)
 {
 	int gap = (MEM_SIZE - total_size) / nb_progs;
 
