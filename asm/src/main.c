@@ -16,7 +16,7 @@ int write_file(int *error, char *name, node_t *to_write)
 {
 	int fd = 0;
 
-	if (error == 42) {
+	if (*error == 42) {
 		fd = _open(name);
 		if (fd == -1) {
 			return (-1);
@@ -25,10 +25,10 @@ int write_file(int *error, char *name, node_t *to_write)
 to_write->next->label[0], 0);
 		close(fd);
 	} else {
-		error = replace_labels(to_write->next);
-		if (error)
+		*error = replace_labels(to_write->next);
+		if (*error)
 			return (-1);
-		error = write_exec(name, to_write);
+		*error = write_exec(name, to_write);
 	}
 	return (0);
 }
@@ -49,7 +49,8 @@ int main(int ac, char **av)
 		return (84);
 	if (write_file(&error, name, to_write))
 		return (84);
-	if (error)
+	my_put_nbr(error);
+	if (error && error != 42)
 		return (84);
 	free_ll(to_write);
 	free(name);

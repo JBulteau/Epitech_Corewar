@@ -24,7 +24,7 @@ int ld(unsigned char *arena, prog_t *prog)
 	int arg = prog->instr.arg_type >> 6 & 0b11;
 
 	if (arg == 1)
-		prog->reg[reg - 1] = prog->reg[prog->instr[0] - 1];
+		prog->reg[reg - 1] = prog->reg[prog->instr.args[0] - 1];
 	else
 		prog->reg[reg - 1] = \
 arena[(prog->pc + prog->instr.args[0]) % IDX_MOD];
@@ -177,7 +177,7 @@ int sti(unsigned char *arena, prog_t *prog)
 	if (type_arg_1 == 1)
 		if (type_arg_2 == 1)
 			arena[(prog->pc + prog->reg[prog->instr.args[1] - 1] + \
-prog->reg[prog->instr.args[2] - 1) % IDX_MOD] = prog->reg[reg - 1];
+prog->reg[prog->instr.args[2]] - 1) % IDX_MOD] = prog->reg[reg - 1];
 		else
 			arena[(prog->pc + prog->reg[prog->instr.args[1] - 1] + \
 prog->instr.args[2]) % IDX_MOD] = prog->reg[reg - 1];
