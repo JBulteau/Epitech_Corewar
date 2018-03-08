@@ -84,10 +84,9 @@ args_t *fill_empty_args(args_t *args, int nb_prog)
 	}
 	args->progs = first;
 	for (int i = 0; i < nb_prog; i++) {
-		if (args->progs->address == -1) {
+		if (args->progs->address == -1)
 			args->progs = fill_address(args->progs, nb_prog, i, \
 total_size);
-		}
 		if (args->progs->prog_nb == -1) {
 			args->progs = fill_nb_prog(args->progs);
 		}
