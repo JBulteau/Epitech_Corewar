@@ -54,12 +54,12 @@ char **buffer)
 
 	for (int i = 10; (*buffer)[i] != '"'; i++)
 		nb++;
-	(*first)->label[1] = malloc(sizeof(char) * (nb + 2));
+	(*first)->label[0] = malloc(sizeof(char) * (nb + 2));
 	if ((*first)->label[0] == NULL)
 		return (-1);
-	(*first)->label[1] = my_strcpy2((*first)->label[0], (*buffer + 10));
-	(*first)->label[1][nb] = '\0';
-	for (int i = 2; i <= 4; i++) {
+	(*first)->label[0] = my_strcpy2((*first)->label[0], (*buffer + 10));
+	(*first)->label[0][nb] = '\0';
+	for (int i = 1; i <= 4; i++) {
 		(*first)->label[i] = malloc(1);
 		if ((*first)->label[i] == NULL)
 			return (-1);
