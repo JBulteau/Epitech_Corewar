@@ -24,7 +24,8 @@ int ld(unsigned char *arena, prog_t *prog)
 	int arg = prog->instr.arg_type >> (6 - (0 * 2)) & 0b11;
 
 	if (arg == 3)
-		prog->reg[reg - 1] = arena[(prog->pc + prog->instr.args[0]) % IDX_MOD];
+		prog->reg[reg - 1] = \
+arena[(prog->pc + prog->instr.args[0]) % IDX_MOD];
 	else
 		prog->reg[reg - 1] = arena[prog->instr.args[0]];
 	prog->carry = 1;

@@ -46,7 +46,8 @@ int check_buff(char **buffer, int *error, int fd, char *to_check)
 int name_handling(node_t **all, int fd, char **buffer, int *error)
 {
 	*buffer = get_next_line(fd);
-	for (; *buffer != NULL && ((*buffer)[0] == '\0' || (*buffer)[0] == COMMENT_CHAR); *buffer = get_next_line(fd));
+	for (; *buffer != NULL && ((*buffer)[0] == '\0' || (*buffer)[0] == \
+COMMENT_CHAR); *buffer = get_next_line(fd));
 	if (check_buff(buffer, error, fd, NAME_CMD_STRING) == -1)
 		return (-1);
 	if (test_synt_name(*buffer + my_strlen(NAME_CMD_STRING), error) < 0)
@@ -63,23 +64,17 @@ node_t *fill_linked_list(char *filename, int *error)
 	char *buffer = NULL;
 	node_t *all[3] = {NULL, NULL, NULL};
 
-	if (fd == -1) {
-		*error = -1;
+	if (fd == -1 && (*error = -1) == -1)
 		return (NULL);
-	}
 	if (name_handling(all, fd, &buffer, error) == -1)
 		return (NULL);
 	buffer = get_next_line(fd);
-	for (; buffer != NULL && (buffer[0] == '\0' || buffer[0] == COMMENT_CHAR); buffer = get_next_line(fd));
-	if (check_buff(&buffer, error, fd, COMMENT_CMD_STRING) == -1)
+	for (; buffer != NULL && (buffer[0] == '\0' || buffer[0] == \
+COMMENT_CHAR); buffer = get_next_line(fd));
+	if (check_buff(&buffer, error, fd, COMMENT_CMD_STRING) < 0 || \
+test_synt_name(buffer + my_strlen(COMMENT_CMD_STRING), error) < 0 || \
+fill_second_case(&(all[0]), &(all[1]), &(all[2]), &buffer) < 0 || \
+(*error = parsing(all[0], &buffer, fd)) < 0)
 		return (NULL);
-	if (test_synt_name(buffer + my_strlen(COMMENT_CMD_STRING), error) < 0)
-		return (NULL);
-	if (fill_second_case(&(all[0]), &(all[1]), &(all[2]), &buffer) == -1)
-		return (NULL);
-	if ((*error = parsing(all[0], &buffer, fd)) < 0)
-		return (NULL);
-	if (*error == 42)
-		return (all[0]);
-	return (all[2]);
+	return (all[0]);
 }
