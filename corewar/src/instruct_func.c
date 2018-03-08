@@ -219,7 +219,7 @@ int lldi(unsigned char *arena, prog_t *prog)
 	if (type_arg_1 == 1)
 		if (type_arg_2 == 1)
 			prog->reg[reg - 1] = arena[prog->pc + prog->reg[prog->\
-instr.args[0] - 1] + prog->reg[prog->instr.args[1] - 1])];
+instr.args[0] - 1] + prog->reg[prog->instr.args[1] - 1]];
 		else
 			prog->reg[reg - 1] = arena[prog->pc + prog->reg[prog->\
 instr.args[0] - 1] + prog->instr.args[1]];
