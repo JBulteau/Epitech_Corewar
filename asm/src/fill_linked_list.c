@@ -100,9 +100,14 @@ int parsing(node_t *first, char **buffer, int fd)
 	node_t *new = NULL;
 
 	*buffer = get_next_line(fd);
+	//*buffer = clear_str(*buffer);
+	/*for (; *buffer != NULL || (*buffer)[0] == '\0';) {
+		*buffer = get_next_line(fd);
+		*buffer = clear_str(*buffer);
+	}*/
 	if (*buffer == NULL)
 		return (42);
-	*buffer = clear_str(*buffer);
+	//*buffer = clear_str(*buffer);
 	for (int i = 0; *buffer != NULL; (*buffer = get_next_line(fd)) && \
 ((inc = 0) == 0) && i++) {
 		if ((*buffer)[0] == '\0')
