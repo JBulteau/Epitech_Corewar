@@ -1,2 +1,3 @@
 --> Décalration d'un label au début = error
 --> Pas de saut de ligne après .comment = error
+--> Ne pas clearstr le comment et name (only la partie entre quote)

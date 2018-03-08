@@ -1,5 +1,5 @@
 .name	"Booster !"
-.comment "Alors la, si ca marche, trop content !  :)"
+.comment " "
 
 boost:	ld %12,r2
 	ld %3,r3
