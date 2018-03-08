@@ -30,7 +30,7 @@ int _open(char *filename)
 	for (i = my_strlen(filename); i >= 0 && filename[i] != '/'; i--);
 	filename = (filename[i] == '/') ? filename + i + 1 : filename;
 	pathname = concat(filename, ".cor", 0, 0);
-	fd = open(pathname, O_CREAT | O_RDWR, 0444);
+	fd = open(pathname, O_CREAT | O_RDWR, 0644);
 	if ((pathname == NULL) || (fd == -1)) {
 		if (pathname)
 			free(pathname);

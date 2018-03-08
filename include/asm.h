@@ -101,6 +101,7 @@ node_t *init_node(void);
 /* free.c */
 void free_ll(node_t *ll);
 int write_exec(char *filename, node_t *entry);
+int _open(char *filename);
 
 /* labels.c */
 int replace_labels(node_t *entry);

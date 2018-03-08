@@ -6,6 +6,7 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 #include "op.h"
 #include "my.h"
@@ -24,15 +25,18 @@ int main(int ac, char **av)
 	if (name == NULL)
 		return (84);
 	to_write = fill_linked_list(name, &error);
-	if (error != 0 && error != 42)
+	if (error != 0 && error != 42 || (to_write == NULL))
 		return (84);
 	if (error == 42) {
-		//WRITE HEADER
-		//fd = _open(name);
+		fd = _open(name);
+		if (fd == -1) {
+			return (84);
+		}
+		write_header(fd, to_write->label[0], to_write->next->label[0], 0);
+		close(fd);
 		return (0);
-		//write_header(fd, to_write->label[0], to_write->next->label[0], 0);
 	} else {
-		error = replace_labels(to_write->next->next);
+		error = replace_labels(to_write->next);
 		if (error)
 			return (84);
 		error = write_exec(name, to_write);

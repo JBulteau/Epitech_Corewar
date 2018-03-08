@@ -76,5 +76,7 @@ test_synt_name(buffer + my_strlen(COMMENT_CMD_STRING), error) < 0 || \
 fill_second_case(&(all[0]), &(all[1]), &(all[2]), &buffer) < 0 || \
 (*error = parsing(all[0], &buffer, fd)) < 0)
 		return (NULL);
-	return (all[0]);
+	if (*error == 42)
+		return (all[2]);
+	return (all[2]);
 }
