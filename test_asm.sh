@@ -7,7 +7,9 @@ mkdir res
 rm -f res/*.res
 
 for f in $CHAMPIONS_PATH; do
+	echo "---------------------------------------------------------"
 	echo "Compiling "$f
+	echo "---------------------------------------------------------"
 	name=`echo $f | rev | cut -d'/' -f1 | rev`
 	compiled=${name%.*}'.cor'
 	
@@ -16,6 +18,7 @@ for f in $CHAMPIONS_PATH; do
 	then
 		echo "OK - ASM EXAMPLE"
 		hexdump -C $compiled > a
+		mv $compiled $name'-EXAMPLE.cor'
 	else
 		echo "PAS OK"
 	fi
@@ -34,6 +37,7 @@ for f in $CHAMPIONS_PATH; do
 	then
         	echo "DIFF"
 		rm a b
+		mv $compiled $name'-EXAMPLE.cor' 'res/'
 		mv c res/${name%.*}'.res'
 	else
         	echo "NO DIFF"

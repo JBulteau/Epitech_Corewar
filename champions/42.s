@@ -1,5 +1,6 @@
 .name ""
 .comment        "Just a basic Winner Program"
+entree:
 	live 	%42
 live %42
 	ld	%0,r5
