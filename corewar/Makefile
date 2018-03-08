@@ -21,6 +21,7 @@ SRC_FILES	=	main.c	\
 			scheduler.c	\
 			op.c	\
 			size_ins.c	\
+			check_main.c	\
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

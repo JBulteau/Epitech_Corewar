@@ -31,7 +31,6 @@ void error(char *str, args_t *args)
 {
 	if (str != NULL)
 		write(2, str, my_strlen(str));
-	
 	// TODO : free arggs fnc
 	// TODO : vérifier args != NULL
 	if (args->progs != NULL) {
@@ -45,19 +44,6 @@ void error(char *str, args_t *args)
 	}
 	free(args);
 	exit(84);
-}
-
-args_t *check_args(int ac, char **av)
-{
-	int nb_args = 0;
-	args_t *args = malloc(sizeof(args_t));
-
-	if (args == NULL)
-		exit(84);
-	for (int i = 1; av[i] != NULL; i++)
-		if (my_strcmp(av[i], "-dump", -1))
-			nb_args++;
-	return (check_dump(args, ac, av, nb_args));
 }
 
 args_t *init_args(int ac, char **av, int *nb_progs)
@@ -138,12 +124,3 @@ int main(int ac, char **av)
 	free(args);
 	return (0);
 } /* main */
-
-void free_progs(prog_t *prog)
-{
-	if (prog == NULL)
-		return;
-	if (prog->next)
-		free_progs(prog->next);
-	free(prog);
-}
