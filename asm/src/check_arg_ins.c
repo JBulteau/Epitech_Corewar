@@ -25,16 +25,16 @@ static int check_reg(char *arg)
 	return (T_REG);
 }
 
-static int check_label(char *arg)
+static int check_label(char *arg, int type)
 {
 	int len = my_strlen(arg);
 
 	if (len == 2)
 		return (-18);
-	for (int i = 2; arg[i]; i++)
+	for (int i = 0; arg[i]; i++)
 		if (indexof(arg[i], LABEL_CHARS) == -1)
 			return (-7);
-	return (T_DIR);
+	return ((type) ? T_DIR : T_IND);
 }
 
 static int check_dir(char *arg)
@@ -50,9 +50,12 @@ static int check_dir(char *arg)
 
 static int check_ind(char *arg)
 {
-	for (int i = 0; arg[i]; i++)
+	for (int i = 0; arg[i]; i++) {
+		if (i == 0 && (arg[i] == '-' || arg[i] == LABEL_CHAR))
+			continue;
 		if ((arg[i] < '0') || (arg[i] > '9'))
 			return (-10);
+	}
 	return (T_IND);
 }
 
@@ -61,14 +64,21 @@ int is_valid_arg(char *arg, node_t *op, int i)
 	int reg;
 	int len = my_strlen(arg);
 
-	if (arg[0] == 'r')
+	if (arg[0] == 'r') {
 		return (check_reg(arg));
-	else if (arg[0] == DIRECT_CHAR) {
+	} else if (arg[0] == DIRECT_CHAR) {
 		if (arg[1] == LABEL_CHAR) {
 			op->label[i] = my_strdup(arg + 2);
-			return (check_label(arg));
-		} else
+			return (check_label(arg + 2, 1));
+		} else {
 			return (check_dir(arg));
-	} else
-		return (check_ind(arg));
+		}
+	} else  {
+		if (arg[0] == LABEL_CHAR) {
+			op->label[i] = my_strdup(arg + 1);
+			return (check_label(arg + 1, 0));
+		} else {
+			return (check_ind(arg));
+		}
+	}
 }
