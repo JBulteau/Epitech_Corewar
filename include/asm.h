@@ -99,9 +99,9 @@ int is_valid_arg(char *arg, node_t *op, int i);
 node_t *init_node(void);
 
 /* free.c */
-void free_ll(node_t *ll);
+void free_linked_list(node_t *linked_list);
 int write_exec(char *filename, node_t *entry);
-int _open(char *filename);
+int open_new_file(char *filename);
 
 /* labels.c */
 int replace_labels(node_t *entry);

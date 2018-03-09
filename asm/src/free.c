@@ -12,16 +12,16 @@
 #include "asm.h"
 #include "my.h"
 
-void free_ll(node_t *ll)
+void free_linked_list(node_t *linked_list)
 {
-	if (ll == NULL)
+	if (linked_list == NULL)
 		return;
-	if (ll->next != NULL)
-		free_ll(ll->next);
-	free(ll);
+	if (linked_list->next != NULL)
+		free_linked_list(linked_list->next);
+	free(linked_list);
 }
 
-int _open(char *filename)
+int open_new_file(char *filename)
 {
 	char *pathname = NULL;
 	int i;
@@ -43,7 +43,7 @@ int _open(char *filename)
 int write_exec(char *filename, node_t *entry)
 {
 	int error = 0;
-	int fd = _open(filename);
+	int fd = open_new_file(filename);
 	int total_size = 0;
 
 	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
