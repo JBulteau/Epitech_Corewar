@@ -71,15 +71,23 @@ prog_t *new_prog_case(int i, vm_t *vm)
 
 int fill_struct_vm_prog(int nb_prog, vm_t *vm)
 {
-	vm->prog = malloc(sizeof(prog_t*) * (nb_prog + 1));
+	vm->prog = malloc(sizeof(prog_t *) * (nb_prog + 1));
 	if (vm->prog == NULL)
 		return (-1);
 	for (int i = 0; i < nb_prog; i++) {
 		vm->prog[i] = new_prog_case(i, vm);
-		vm->prog[i]->instr = (in_struct_t){0, 0, {0, 0, 0, 0}};
+		vm->prog[i]->instr = (in_struct_t) {0, 0, {0, 0, 0, 0}};
 		if (vm->prog[i] == NULL)
 			return (-1);
 	}
 	vm->prog[nb_prog] = vm->prog[nb_prog - 1];
+	for (prog_name_t *curr = args->progs; curr->next != NULL; \
+(curr = curr->next) && i++) {
+		vm->prog[i]->pc = curr->address;
+		vm->prog[i]->start_adr = curr->address;
+		vm->prog[i]->size = curr->size;
+		vm->prog[i]->nb_prog = i;
+		vm->prog[i]->reg[0] = i + 1;
+	}
 	return (0);
 }
