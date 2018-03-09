@@ -94,7 +94,7 @@ void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg)
 		if (type == T_DIR) {
 			op->args[nb_arg] = my_getnbr(strarg + 1);
 		} else if (type == T_IND) {
-			op->args[nb_arg] = my_getnbr(strarg);			
+			op->args[nb_arg] = my_getnbr(strarg);
 		}
 	}
 }
