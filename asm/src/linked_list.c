@@ -35,7 +35,6 @@ int check_buff(char **buffer, int *error, int fd, char *to_check)
 *buffer = get_next_line(fd));
 	if (*buffer == NULL)
 		return (*error = -1);
-	//TODO: NE PAS CLEAR SI ENTRE QUOTES
 	*buffer = clear_str(*buffer);
 	if ((my_strncmp(*buffer, to_check, 5) != 0)) {
 		*error = -6;
