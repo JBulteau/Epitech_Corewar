@@ -8,29 +8,27 @@
 #ifndef __ASM__
 #define __ASM__
 
-/* Text messages */
-
-/*-1*/#define ERR_EMPTY	"The file is empty."
-/*-2*/#define USAGE		"USAGE\n\t./asm file_name[.s]\nDESCRIPTION\n\tfile_name\tfile in assembly language to be converted into file_name.cor, an\n\t\t\texecutable in the Virtual Machine.\n"
-/*-3*/#define NO_NAME 	"No name specified."
-/*-4*/#define NO_COMMENT 	"No comment specified."
-/*-5*/#define ERR_SYNTAX	"Syntax error."
-/*-6*/#define ERR_INV_INS 	"Invalid instruction."
-/*-7*/#define ERR_INV_LAB 	"Invalid label name."
-/*-8*/#define ERR_MUL_LAB	"Multiple definition of the same label."
-/*-9*/#define ERR_INV_REG	"Invalid register number."
-/*-10*/#define ERR_INV_ARG	"The argument given to the instruction is invalid."
-/*-11*/#define ERR_TOOMANY_ARGS	"Too many arguments given to the instruction."
-/*-12*/#define ERR_MANY_NAMES	"The name can only be defined once."
-/*-13*/#define ERR_MANY_COMMENT	"The comment can only be defined once."
-/*-14*/#define ERR_NAME_FIRSTLN	"The name of your program must be the first line."
-/*-15*/#define ERR_TOOLONG_NAME	"The program name is too long."
-/*-16*/#define ERR_COMM_AFTER_NAME	"The comment must be just after the name."
-/*-17*/#define ERR_TOOLONG_COMM	"The comment is too long."
-/*-18*/#define ERR_UNDEF_LAB	"Undefined label."
-/*-19*/#define ERR_UNDEF_COMM	"No comment specified."
-/*-20*/#define ERR_UNDEF_NAME	"No name specified."
-/*-21*/#define FILE_NOTFOUND	"Error in function open: No such file or directory."
+#define ERR_EMPTY	"The file is empty."
+#define USAGE		"USAGE\n\t./asm file_name[.s]\nDESCRIPTION\n\tfile_name\tfile in assembly language to be converted into file_name.cor, an\n\t\t\texecutable in the Virtual Machine.\n"
+#define NO_NAME 	"No name specified."
+#define NO_COMMENT 	"No comment specified."
+#define ERR_SYNTAX	"Syntax error."
+#define ERR_INV_INS 	"Invalid instruction."
+#define ERR_INV_LAB 	"Invalid label name."
+#define ERR_MUL_LAB	"Multiple definition of the same label."
+#define ERR_INV_REG	"Invalid register number."
+#define ERR_INV_ARG	"The argument given to the instruction is invalid."
+#define ERR_TOOMANY_ARGS	"Too many arguments given to the instruction."
+#define ERR_MANY_NAMES	"The name can only be defined once."
+#define ERR_MANY_COMMENT	"The comment can only be defined once."
+#define ERR_NAME_FIRSTLN	"The name of your program must be the first line."
+#define ERR_TOOLONG_NAME	"The program name is too long."
+#define ERR_COMM_AFTER_NAME	"The comment must be just after the name."
+#define ERR_TOOLONG_COMM	"The comment is too long."
+#define ERR_UNDEF_LAB	"Undefined label."
+#define ERR_UNDEF_COMM	"No comment specified."
+#define ERR_UNDEF_NAME	"No name specified."
+#define FILE_NOTFOUND	"Error in function open: No such file or directory."
 
 typedef struct {
 	int op_code;
@@ -45,23 +43,19 @@ typedef struct node_instruction_s {
 	int address;
 } node_t;
 
-/* endianness.c */
 int rev_endiannes_int(int nb);
 short rev_endiannes_short(short nb);
 
-/* writing.c */
 int write_header(int fd, char *name, char *comment, int size);
 int write_arg(int fd, in_struct_t op, int arg);
 int write_special(int fd, in_struct_t op, int arg);
 int write_op(int fd, in_struct_t op);
 
-/* linked_list.c */
 node_t *fill_linked_list(char *filename, int *error);
 int check_buff(char **buffer, int *error, int fd, char *to_check);
 int test_synt_name(char *name, int *error);
 int name_handling(node_t **all, int fd, char **buffer, int *error);
 
-/* linked_list_handling.c */
 int fill_second_case(node_t **first, node_t **second, node_t **save, \
 char **buffer);
 int fill_first_case(node_t **first, node_t **second, node_t **save, \
@@ -70,40 +64,32 @@ void fill_first_case_two(node_t **first, node_t **second);
 void write_args_type(in_struct_t *op, int type);
 void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg);
 
-/* clean_str.c */
 char *clear_str(char *buffer);
 void spaces_handle(int *a, char *result, int *i, char *buffer);
 void init_clear_str(char *buffer, char **result);
 char *get_fn(char *pathname);
 
-/* size_ins.c */
 int size(in_struct_t op);
 int size_arg(int args);
 int size_indexes(int arg);
 int size_notype(int opcode);
 
-/* fill_linked_list.c */
 int parsing(node_t *first, char **buffer, int fd);
 int parsing_first_word(char **buffer, node_t **new, int *inc);
 int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new);
 
-/* check.c */
 int check_args(int op_code, char *args, node_t *op);
 int find_instru(char *str);
 int check_label_chars(char **buffer, int inc);
 
-/*check_arg_ins*/
 int is_valid_arg(char *arg, node_t *op, int i);
 
-/* debug.c */
 node_t *init_node(void);
 
-/* free.c */
 void free_linked_list(node_t *linked_list);
 int write_exec(char *filename, node_t *entry);
 int open_new_file(char *filename);
 
-/* labels.c */
 int replace_labels(node_t *entry);
 
 #endif
