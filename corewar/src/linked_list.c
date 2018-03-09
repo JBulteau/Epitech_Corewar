@@ -69,8 +69,10 @@ prog_t *new_prog_case(int i, vm_t *vm)
 	}
 }
 
-int fill_struct_vm_prog(int nb_prog, vm_t *vm)
+int fill_struct_vm_prog(int nb_prog, vm_t *vm, args_t *args)
 {
+	int i = 0;
+
 	vm->prog = malloc(sizeof(prog_t *) * (nb_prog + 1));
 	if (vm->prog == NULL)
 		return (-1);

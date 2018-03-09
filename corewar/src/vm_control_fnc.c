@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2017
-** main.c
+** scheduler.c
 ** File description:
-** Fd
+** Scheduler
 */
 
 #include "my.h"
@@ -59,7 +59,7 @@ int count_alive(vm_t *vm)
 	return (alive);
 }
 
-void check_cycle(vm_t *vm, int i)
+void check_cycle(vm_t *vm)
 {
 	int alive = 0;
 

@@ -30,17 +30,16 @@ int main(int ac, char **av)
 {
 	args_t *args = NULL;
 	vm_t *vm;
-	int i = 0;
 	int nb_prog = 0;
 
 	help(ac, av);
 	args = init_args(ac, av, &nb_prog);
 	args = fill_empty_args(args, nb_prog);
 	vm = init_vm(nb_prog, args);
-	fill_struct_vm_prog(nb_prog, vm);
+	fill_struct_vm_prog(nb_prog, vm, args);
 	if (vm == NULL)
 		return (84);
-	check_cycle(vm, i);
+	check_cycle(vm);
 	for (int i = 0; vm->live[i] != -2; i++)
 		if (vm->live[i] && (vm->cycle_to_die > 0))
 			my_printf("Champion n°%i won.\n", i + 1);

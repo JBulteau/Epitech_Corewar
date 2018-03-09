@@ -58,72 +58,6 @@ struct args {
 	prog_name_t *progs;
 };
 
-/* linked_list.c */
-int fill_struct_vm_prog(int nb_prog, vm_t *vm);
-prog_t *new_prog_case(int i, vm_t *vm);
-void init_prog_struct(prog_t *new);
-
-/* vm_struct.c */
-vm_t *init_vm(int prog_num, args_t *args);
-
-/* read_instru */
-in_struct_t read_instru(unsigned char *arena, int pos);
-
-/* check.c */
-args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
-args_t *check_flags(args_t *args, int ac, char **av);
-args_t *check_prog_number(args_t *args, char *str);
-args_t *check_address(args_t *args, char *str);
-args_t *check_prog(args_t *args, char *str);
-
-/* size_ins.c */
-int size(in_struct_t op);
-
-/* init_prog.c */
-
-prog_name_t *init_args_value(void);
-args_t *fill_empty_args(args_t *args, int nb_prog);
-int get_program_size(prog_name_t *prog);
-prog_name_t *fill_nb_prog(prog_name_t *prog);
-prog_name_t *fill_address(prog_name_t *prog, int nb_progs, int i, \
-int total_size);
-
-/* main.c */
-void error(char *str, args_t *args);
-int rev_endiannes(int nb);
-void check_cycle(vm_t *vm, int i);
-
-/* check_main */
-void help(int ac, char **av);
-args_t *check_args(int ac, char **av);
-void free_progs(prog_t *prog);
-void free_vm(vm_t *vm, args_t *args);
-
-/* debug.c */
-void disp_instruction(in_struct_t op);
-void disp_arena(vm_t *vm);
-
-/* scheduler */
-int scheduler(vm_t *vm);
-
-/* exec fnc */
-int live(unsigned char *arena, prog_t *prog);
-int ld(unsigned char *arena, prog_t *prog);
-int st(unsigned char *arena, prog_t *prog);
-int add(unsigned char *arena, prog_t *prog);
-int sub(unsigned char *arena, prog_t *prog);
-int and(unsigned char *arena, prog_t *prog);
-int or(unsigned char *arena, prog_t *prog);
-int xor(unsigned char *arena, prog_t *prog);
-int zjmp(unsigned char *arena, prog_t *prog);
-int ldi(unsigned char *arena, prog_t *prog);
-int sti(unsigned char *arena, prog_t *prog);
-int fork_exec(unsigned char *arena, prog_t *prog);
-int lld(unsigned char *arena, prog_t *prog);
-int lldi(unsigned char *arena, prog_t *prog);
-int lfork(unsigned char *arena, prog_t *prog);
-int aff(unsigned char *arena, prog_t *prog);
-
 #define HELP		"USAGE\n\t./corewar [-dump nbr_cycle] [[-n prog_number] [-a load_address] prog_name] ...\n\nDESCRIPTION\n\t-dump nbr_cycle\tdumps the memory after the nbr_cycle execution (if the round isn’t\n\t\t\talready over) with the following format: 32 bytes/line in\n\t\t\thexadecimal (A0BCDEFE1DD3...)\n\t-n prog_number\tsets the next program’s number. By default, the first free number\n\t\t\tin the parameter order\n\t-a load_address\tsets the next program’s loading address. When no address is\n\t\t\tspecified, optimize the addresses so that the processes are as far\n\t\t\taway from each other as possible. The addresses are %i modulo.\n"
 #define TOO_BIG_PROG	"Wrong program size in the header : Program is too big.\n"
 #define DOUBLE_DUMP	"Double definition of option dump.\n"
@@ -140,5 +74,77 @@ int aff(unsigned char *arena, prog_t *prog);
 #define INVALID_N_NB	"-n argument is invalid. Enter a number between 1 and 4.\n"
 #define NO_PROG_NB	"-n argument is invalid. No prog_number specified.\n"
 #define DOUBLE_NB	"-n argument is invalid. Double definition of prog_number.\n"
+
+void free_vm(vm_t *vm, args_t *args);
+void help(int ac, char **av);
+args_t *check_args(int ac, char **av);
+void free_progs(prog_t *prog);
+
+args_t *check_prog(args_t *args, char *str);
+args_t *check_address(args_t *args, char *str);
+args_t *check_prog_number(args_t *args, char *str);
+args_t *check_flags(args_t *args, int ac, char **av);
+args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
+
+void disp_arena(vm_t *vm);
+void disp_instruction(in_struct_t op);
+
+int st(unsigned char *arena, prog_t *prog);
+int add(unsigned char *arena, prog_t *prog);
+int sub(unsigned char *arena, prog_t *prog);
+int and(unsigned char *arena, prog_t *prog);
+int or(unsigned char *arena, prog_t *prog);
+
+int fork_exec(unsigned char *arena, prog_t *prog);
+int lld(unsigned char *arena, prog_t *prog);
+int lldi(unsigned char *arena, prog_t *prog);
+int lfork(unsigned char *arena, prog_t *prog);
+int aff(unsigned char *arena, prog_t *prog);
+
+int xor(unsigned char *arena, prog_t *prog);
+int zjmp(unsigned char *arena, prog_t *prog);
+int ldi(unsigned char *arena, prog_t *prog);
+int sti(unsigned char *arena, prog_t *prog);
+
+int live(unsigned char *arena, prog_t *prog);
+int ld(unsigned char *arena, prog_t *prog);
+
+prog_name_t *fill_nb_prog(prog_name_t *prog);
+int get_program_size(prog_name_t *prog);
+args_t *fill_empty_args(args_t *args, int nb_prog);
+prog_name_t *init_args_value(void);
+
+void free_dead_prog(prog_t *to_kill);
+prog_t *new_fork_case(vm_t *vm, int prog_f, int nb_prog);
+void init_prog_struct(prog_t *new);
+prog_t *new_prog_case(int i, vm_t *vm);
+int fill_struct_vm_prog(int nb_prog, vm_t *vm, args_t *args);
+
+int rev_endiannes(int nb);
+
+int load_n_arena(unsigned char *arena, int pos, int size);
+void read_one_arg(unsigned char *arena, int pos, in_struct_t *op);
+void load_args(unsigned char *arena, in_struct_t *op, int pos);
+void load_index(unsigned char *arena, in_struct_t *op, int pos);
+in_struct_t read_instru(unsigned char *arena, int pos);
+
+int execute(vm_t *vm, prog_t *prog);
+int scheduler_cycle(prog_t *current, vm_t *vm);
+int scheduler(vm_t *vm);
+
+static int size_arg(int args);
+static int size_indexes(int args);
+static int size_notype(int opcode);
+int size(in_struct_t op);
+
+void error(char *str, args_t *args);
+args_t *init_args(int ac, char **av, int *nb_progs);
+int count_alive(vm_t *vm);
+void check_cycle(vm_t *vm);
+
+vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd);
+vm_t *get_program_info(vm_t *vm, prog_name_t *prog_name, int free_memory);
+vm_t *init_arena(vm_t *vm, args_t *args, int nb_prog);
+vm_t *init_vm(int prog_num, args_t *args);
 
 #endif

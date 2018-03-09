@@ -12,6 +12,7 @@ SRC_DIR		=	$(realpath ./src)
 
 SRC_FILES	=	main.c	\
 			check.c	\
+			vm_control_fnc.c	\
 			vm_struct.c	\
 			read_instru.c	\
 			linked_list.c	\
