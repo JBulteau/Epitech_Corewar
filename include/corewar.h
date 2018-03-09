@@ -12,7 +12,7 @@
 
 typedef struct {
 	int op_code;
-	int arg_type; //arg = instr->arg_type >> (6 - (nb_arg * 2)) & 0b11
+	int arg_type;
 	int args[4];
 } in_struct_t;
 
@@ -57,17 +57,6 @@ struct args {
 	int dump;
 	prog_name_t *progs;
 };
-
-typedef struct {
-	int p1;
-	int p2;
-	int p3;
-	int p4;
-	int i1;
-	int i2;
-	int i3;
-	int i4;
-} cheval_shop_t;
 
 /* linked_list.c */
 int fill_struct_vm_prog(int nb_prog, vm_t *vm);

@@ -14,25 +14,22 @@ int load_n_arena(unsigned char *arena, int pos, int size)
 
 	for (int i = 0; i < size; i++) {
 		res = res << 8;
-//		printf("-> %x\n", res);
 		res += arena[(pos + i) % MEM_SIZE];
 	}
-//	printf("%x\n", res);
 	return (res);
 }
 
 void read_one_arg(unsigned char *arena, int pos, in_struct_t *op)
 {
-	if (op->op_code == 0x10) { // AFF
+	if (op->op_code == 0x10) {
 		op->arg_type = arena[(pos + 1) % MEM_SIZE];
 		op->args[0] = arena[(pos + 2) % MEM_SIZE];
 		return;
 	}
-	if (op->op_code == 0x01) { // LIVE
+	if (op->op_code == 0x01) {
 		op->args[0] = load_n_arena(arena, pos + 1, 4);
 		return;
 	}
-	// JZMP / FORK / LFROK
 	op->args[0] = load_n_arena(arena, pos + 1, 2);
 }
 
