@@ -16,7 +16,7 @@ int write_file(int *error, char *name, node_t *to_write)
 	int fd = 0;
 
 	if (*error == 42) {
-		fd = _open(name);
+		fd = open_new_file(name);
 		if (fd == -1) {
 			return (-1);
 		}
@@ -50,7 +50,7 @@ int main(int ac, char **av)
 		return (84);
 	if (error && error != 42)
 		return (84);
-	free_ll(to_write);
+	free_linked_list(to_write);
 	free(name);
 	return (0);
 }
