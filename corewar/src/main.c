@@ -12,7 +12,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 int rev_endiannes(int nb)
@@ -105,7 +104,8 @@ int main(int ac, char **av)
 	args = fill_empty_args(args, nb_prog);
 	vm = init_vm(nb_prog, args);
 	fill_struct_vm_prog(nb_prog, vm);
-	for (prog_name_t *curr = args->progs; curr->next != NULL; (curr = curr->next) && i++) {
+	for (prog_name_t *curr = args->progs; curr->next != NULL; \
+(curr = curr->next) && i++) {
 		vm->prog[i]->pc = curr->address;
 		vm->prog[i]->start_adr = curr->address;
 		vm->prog[i]->size = curr->size;
@@ -120,4 +120,4 @@ int main(int ac, char **av)
 			my_printf("Champion n°%i won.\n", i + 1);
 	free_vm(vm, args);
 	return (0);
-} /* main */
+}

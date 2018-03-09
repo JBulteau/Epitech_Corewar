@@ -5,7 +5,6 @@
 ** Functions that read instructions in the arena
 */
 
-#include <stdio.h>
 #include "corewar.h"
 
 int load_n_arena(unsigned char *arena, int pos, int size)

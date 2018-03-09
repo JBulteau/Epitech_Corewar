@@ -6,7 +6,6 @@
 */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
 #include "op.h"
 #include "my.h"

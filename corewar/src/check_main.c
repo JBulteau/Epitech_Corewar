@@ -12,7 +12,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 void free_vm(vm_t *vm, args_t *args)

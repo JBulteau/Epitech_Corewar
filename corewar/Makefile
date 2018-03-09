@@ -17,7 +17,10 @@ SRC_FILES	=	main.c	\
 			linked_list.c	\
 			debug.c		\
 			init_prog.c	\
-			instruct_func.c	\
+			exec_vm0.c	\
+			exec_vm1.c	\
+			exec_vm2.c	\
+			exec_vm3.c	\
 			scheduler.c	\
 			op.c	\
 			size_ins.c	\
