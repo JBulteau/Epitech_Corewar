@@ -99,12 +99,9 @@ int parsing(node_t *first, char **buffer, int fd)
 	int check = 0;
 	node_t *new = NULL;
 
-	*buffer = get_next_line(fd);
-	*buffer = clear_str(*buffer);
-	while (*buffer != NULL && *buffer[0] == '\n') {
-		*buffer = get_next_line(fd);
-		*buffer = clear_str(*buffer);
-	}
+	for ((*buffer = get_next_line(fd)) && (*buffer = clear_str(*buffer)); \
+*buffer != NULL && *buffer[0] == '\n' && (*buffer = get_next_line(fd)) != \
+NULL && (*buffer = clear_str(*buffer)) != NULL; );
 	if (*buffer == NULL)
 		return (42);
 	*buffer = clear_str(*buffer);
