@@ -93,35 +93,56 @@ int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new)
 	return (check);
 }
 
+int parsing_loop_first(int *i, char **buffer, node_t **first, node_t **new)
+{
+	int check = 0;
+
+	if ((*buffer)[0] == '\0')
+		return (2);
+	*buffer = (i[0] > 0) ? clear_str(*buffer) : *buffer;
+	if ((check = parsing_first_word(buffer, new, &(i[1]))) == 2)
+		return (2);
+	else if (check < 0 || (check = \
+parsing_instru(buffer, &(i[1]), *first, *new)) < 0)
+		return (check);
+	*first = *new;
+	if ((*first)->next != NULL)
+		*first = (*first)->next;
+	return (0);
+}
+
 int parsing(node_t *first, char **buffer, int fd)
 {
-	int inc = 0;
 	int check = 0;
 	node_t *new = NULL;
 
 	for ((*buffer = get_next_line(fd)) && (*buffer = clear_str(*buffer)); \
 *buffer != NULL && *buffer[0] == '\n' && (*buffer = get_next_line(fd)) != \
-NULL && (*buffer = clear_str(*buffer)) != NULL; );
+NULL && (*buffer = clear_str(*buffer)) != NULL;);
 	if (*buffer == NULL)
 		return (42);
 	*buffer = clear_str(*buffer);
-	for (int i = 0; *buffer != NULL; (*buffer = get_next_line(fd)) && \
-((inc = 0) == 0) && i++) {
-		if ((*buffer)[0] == '\0')
+	for (int i[] = {!(*buffer = clear_str(*buffer)), 0}; *buffer != NULL; \
+(*buffer = get_next_line(fd)) && ((i[1] = 0) == 0) && (i[0])++) {
+		if ((check = parsing_loop_first(i, buffer, &first, &new)) == 2)
 			continue;
-		*buffer = (i > 0) ? clear_str(*buffer) : *buffer;
-		if ((check = parsing_first_word(buffer, &new, &inc)) == 2)
+		else if (check < 0)
+			return (check);
+		/*if ((*buffer)[0] == '\0')
+			continue;
+		*buffer = (i[0] > 0) ? clear_str(*buffer) : *buffer;
+		if ((check = parsing_first_word(buffer, &new, &(i[1]))) == 2)
 			continue;
 		else if (check < 0 || (check = \
-parsing_instru(buffer, &inc, first, new)) < 0)
+parsing_instru(buffer, &(i[1]), first, new)) < 0)
 			return (check);
 		first = new;
 		if (first->next != NULL)
-			first = first->next;
+			first = first->next;*/
 		(*buffer)[(indexof(COMMENT_CHAR, (*buffer)) == -1) ? 0 : \
 indexof(COMMENT_CHAR, (*buffer))] = (indexof(COMMENT_CHAR, (*buffer)) == -1) \
 ? (*buffer)[0] : '\0';
-		if ((check = check_args(check, *buffer + inc + 1, first)) < 0)
+		if ((check = check_args(check, *buffer + i[1] + 1, first)) < 0)
 			return (check);
 		first->next = NULL;
 		new = NULL;
