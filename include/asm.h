@@ -89,6 +89,7 @@ node_t *init_node(void);
 void free_linked_list(node_t *linked_list);
 int write_exec(char *filename, node_t *entry);
 int open_new_file(char *filename);
+int parsing_loop(node_t **first, node_t **new, char **buffer, int *i);
 
 int replace_labels(node_t *entry);
 

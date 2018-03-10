@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include "asm.h"
 #include "my.h"
+#include "op.h"
 
 void free_linked_list(node_t *linked_list)
 {
@@ -51,5 +52,25 @@ int write_exec(char *filename, node_t *entry)
 	write_header(fd, entry->label[0], entry->next->label[0], total_size);
 	for (node_t *curr = entry->next->next; curr != NULL; curr = curr->next)
 		write_op(fd, curr->info);
+	return (0);
+}
+
+int parsing_loop(node_t **first, node_t **new, char **buffer, int *i)
+{
+	int check = 0;
+
+	if (check < 0 || (check = \
+parsing_instru(buffer, &(i[1]), *first, *new)) < 0)
+		return (check);
+	*first = *new;
+	if ((*first)->next != NULL)
+		*first = (*first)->next;
+	(*buffer)[(indexof(COMMENT_CHAR, (*buffer)) == -1) ? 0 : \
+indexof(COMMENT_CHAR, (*buffer))] = (indexof(COMMENT_CHAR, (*buffer)) == -1) \
+? (*buffer)[0] : '\0';
+	if ((check = check_args(check, *buffer + i[1] + 1, *first)) < 0)
+		return (check);
+	(*first)->next = NULL;
+	*new = NULL;
 	return (0);
 }
