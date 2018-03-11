@@ -16,10 +16,12 @@ int st(unsigned char *arena, prog_t *prog)
 	int reg = prog->instr.args[0];
 	int type_arg = prog->instr.arg_type >> 4 & 0b11;
 
+	if (reg < 1 || reg > REG_NUMBER)
+		return (-1);
 	if (type_arg == 1)
 		prog->reg[(prog->instr.args[1]) - 1] = prog->reg[reg - 1];
 	else
-		arena[(((prog->pc) + (prog->instr.args[1])) % IDX_MOD)] = \
+		arena[((((prog->pc) + (prog->instr.args[1])) % IDX_MOD) % MEM_SIZE)] = \
 prog->reg[reg - 1];
 	return (0);
 }
