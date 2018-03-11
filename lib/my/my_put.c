@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2017
 ** my_putchar
 ** File description:
-** my_put*** functions
+** my_put functions
 */
 
 #include "my.h"
