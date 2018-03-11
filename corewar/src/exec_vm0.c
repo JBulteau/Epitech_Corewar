@@ -19,7 +19,7 @@ int st(unsigned char *arena, prog_t *prog)
 	if (type_arg == 1)
 		prog->reg[(prog->instr.args[1]) - 1] = prog->reg[reg - 1];
 	else
-		arena[((prog->pc) + (prog->instr.args[1]) % IDX_MOD)] = \
+		arena[(((prog->pc) + (prog->instr.args[1])) % IDX_MOD)] = \
 prog->reg[reg - 1];
 	return (0);
 }

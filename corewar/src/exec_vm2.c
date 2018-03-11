@@ -16,21 +16,21 @@ int xor(unsigned char *arena, prog_t *prog)
 	int type_arg_1 = prog->instr.arg_type >> 6 & 0b11;
 	int type_arg_2 = prog->instr.arg_type >> 4 & 0b11;
 
-	(void)arena;
-	if (type_arg_1 == 1)
+	if ((int*)arena && type_arg_1 == 1) {
 		if (type_arg_2 == 1)
 			prog->reg[(prog->instr.args[2]) - 1] = \
 prog->reg[(prog->instr.args[0]) - 1] ^ prog->reg[(prog->instr.args[1]) - 1];
 		else
 			prog->reg[(prog->instr.args[2]) - 1] = \
 prog->reg[(prog->instr.args[0]) - 1] ^ prog->instr.args[1];
-	else
+	} else {
 		if (type_arg_2 == 1)
 			prog->reg[(prog->instr.args[2]) - 1] = \
 prog->instr.args[0] ^ prog->reg[(prog->instr.args[1]) - 1];
 		else
 			prog->reg[(prog->instr.args[0]) - 1] = \
 prog->instr.args[0] ^ prog->instr.args[1];
+	}
 	prog->carry = 1;
 	return (0);
 }
