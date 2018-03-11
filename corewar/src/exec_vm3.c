@@ -30,3 +30,10 @@ arena[(prog->pc + prog->instr.args[0]) % IDX_MOD];
 	prog->carry = 1;
 	return (0);
 }
+
+void cp_reg_to_arena(unsigned char *arena, int pos, int reg_v)
+{
+	for (int i = REG_SIZE - 1; i >= 0; i--)
+		arena[(pos + (-i) + REG_SIZE - 1) % MEM_SIZE] = \
+(reg_v >> 8 * i) & 0xff;
+}

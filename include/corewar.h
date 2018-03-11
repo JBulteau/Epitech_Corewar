@@ -110,6 +110,7 @@ int sti(unsigned char *arena, prog_t *prog);
 
 int live(unsigned char *arena, prog_t *prog);
 int ld(unsigned char *arena, prog_t *prog);
+void cp_reg_to_arena(unsigned char *arena, int pos, int reg_v);
 
 prog_name_t *fill_nb_prog(prog_name_t *prog);
 int get_program_size(prog_name_t *prog);
