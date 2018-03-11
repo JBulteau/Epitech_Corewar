@@ -1,5 +1,6 @@
 #!/bin/bash
 
+make
 if [ $# -eq 0 ]
 then
 	CHAMPIONS_PATH=./champions/*.s
