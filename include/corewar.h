@@ -75,6 +75,7 @@ struct args {
 #define INVALID_N_NB	"-n argument is invalid. Enter a number between 1 and 4.\n"
 #define NO_PROG_NB	"-n argument is invalid. No prog_number specified.\n"
 #define DOUBLE_NB	"-n argument is invalid. Double definition of prog_number.\n"
+#define FILE_NOT_FOUND	"corewar: %s: No such file\n"
 
 void free_vm(vm_t *vm, args_t *args);
 void help(int ac, char **av);

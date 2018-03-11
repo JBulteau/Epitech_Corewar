@@ -19,8 +19,10 @@ args_t *check_prog(args_t *args, char *str)
 	int fd = open(str, O_RDONLY);
 	int magic_number = 0;
 
-	if (fd == -1)
+	if (fd == -1) {
+		my_printf(FILE_NOT_FOUND, str);
 		error(NULL, args);
+	}
 	my_revstr(str);
 	if (!my_strcmp(str, "roc.", 4)) {
 		write(2, my_revstr(str), my_strlen(str));
