@@ -41,7 +41,7 @@ int main(int ac, char **av)
 		return (84);
 	check_cycle(vm);
 	for (int i = 0; vm->live[i] != -2; i++)
-		if (vm->live[i] && (vm->cycle_to_die > 0))
+		if (vm->live[i] == 1 && (vm->cycle_to_die > 0))
 			my_printf("Champion n°%i won.\n", i + 1);
 	free_vm(vm, args);
 	return (0);
