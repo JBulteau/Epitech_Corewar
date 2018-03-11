@@ -64,5 +64,7 @@ int main(int ac, char **av)
 		return (disp_err_msg(error));
 	free_linked_list(to_write);
 	free(name);
+	if (ac > 2)
+		main(ac - 1, av + 1);
 	return (0);
 }
