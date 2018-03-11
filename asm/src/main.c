@@ -1,7 +1,7 @@
 /*
 ** EPITECH PROJECT, 2017
 ** main.c
-** File description
+** File description:
 ** Main file
 */
 
