@@ -1,2 +1,0 @@
---> Pas de saut de ligne après .comment = error OK. JULO
---> Ne pas clearstr le comment et name (only la partie entre quote)

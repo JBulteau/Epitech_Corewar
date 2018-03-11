@@ -39,7 +39,7 @@ int replace_labels(node_t *entry)
 	}
 	if (check_mul_lab(entry) < 0)
 		return (-8);
-	for (node_t *c = entry; c != NULL; c = c->next)
+	for (node_t *c = entry->next; c != NULL; c = c->next)
 		for (int i = 0; i < 4; i++) {
 			if ((c->info.args[i] == -1) && (c->label[i][0] != \
 '\0')) {

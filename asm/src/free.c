@@ -74,3 +74,13 @@ indexof(COMMENT_CHAR, (*buffer))] = (indexof(COMMENT_CHAR, (*buffer)) == -1) \
 	*new = NULL;
 	return (0);
 }
+
+void fill_op(node_t *new, int op_code)
+{
+	new->info.op_code = op_code;
+	new->info.args_types = 0;
+	new->info.args[0] = 0;
+	new->info.args[1] = 0;
+	new->info.args[2] = 0;
+	new->info.args[3] = 0;
+}

@@ -1,13 +1,19 @@
 #!/bin/bash
 
+check_return()
+{
+        if [ $? == $1 ]; then
+                echo "RETURN VALUE: OK"
+        else
+                echo "NOPE"
+        fi
+}
+
 make
 if [ $# -eq 0 ]
 then
 	CHAMPIONS_PATH=./champions/invalid/*.s
 else
-	#for var in "$@"; do
-	#	echo "$var"
-	#done
 	CHAMPIONS_PATH=$1
 fi
 
@@ -24,5 +30,6 @@ for f in $CHAMPIONS_PATH; do
 	
 	./binaires-champ-corewar/asm $f
 	./asm/asm $f
+	check_return 84
 done
 rm *.cor

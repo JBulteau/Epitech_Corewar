@@ -27,7 +27,7 @@ buffer[i + 1] == '\t'; i++);
 	if (buffer[0] == ' ' || buffer[0] == '\t')
 		nb--;
 	*result = malloc(sizeof(char) * (nb + 2));
-	(*result)[nb] = '\0';
+	(*result)[nb + 1] = '\0';
 
 }
 

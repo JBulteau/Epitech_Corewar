@@ -29,7 +29,7 @@ int parse_words(char **buffer, int *inc, node_t *middle, node_t **first)
 	middle->next = new;
 	*buffer += (*inc + 2);
 	check = find_instru(my_strdup(*buffer));
-	new->info.op_code = check;
+	fill_op(new, check);
 	if (check == -1)
 		return (84);
 	*inc = 0;
