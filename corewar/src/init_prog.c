@@ -46,7 +46,7 @@ prog_name_t *fill_nb_prog(prog_name_t *prog)
 	prog = current;
 	while (prog->next != NULL) {
 		prog = prog->next;
-		if (prog->prog_nb == current->prog_nb){
+		if (prog->prog_nb == current->prog_nb) {
 			current->prog_nb++;
 		}
 	}
