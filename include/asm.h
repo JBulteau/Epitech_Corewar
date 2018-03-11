@@ -45,17 +45,14 @@ typedef struct node_instruction_s {
 
 int rev_endiannes_int(int nb);
 short rev_endiannes_short(short nb);
-
 int write_header(int fd, char *name, char *comment, int size);
 int write_arg(int fd, in_struct_t op, int arg);
 int write_special(int fd, in_struct_t op, int arg);
 int write_op(int fd, in_struct_t op);
-
 node_t *fill_linked_list(char *filename, int *error);
 int check_buff(char **buffer, int *error, int fd, char *to_check);
 int test_synt_name(char *name, int *error);
 int name_handling(node_t **all, int fd, char **buffer, int *error);
-
 int fill_second_case(node_t **first, node_t **second, node_t **save, \
 char **buffer);
 int fill_first_case(node_t **first, node_t **second, node_t **save, \
@@ -63,35 +60,27 @@ char **buffer);
 void fill_first_case_two(node_t **first, node_t **second);
 void write_args_type(in_struct_t *op, int type);
 void write_args_stru(in_struct_t *op, char *strarg, int type, int nb_arg);
-
 char *clear_str(char *buffer);
 void spaces_handle(int *a, char *result, int *i, char *buffer);
 void init_clear_str(char *buffer, char **result);
 char *get_fn(char *pathname);
-
 int size(in_struct_t op);
 int size_arg(int args);
 int size_indexes(int arg);
 int size_notype(int opcode);
-
 int parsing(node_t *first, char **buffer, int fd);
 int parsing_first_word(char **buffer, node_t **new, int *inc);
 int parsing_instru(char **buffer, int *inc, node_t *first, node_t *new);
-
 int check_args(int op_code, char *args, node_t *op);
 int find_instru(char *str);
 int check_label_chars(char **buffer, int inc);
-
 int is_valid_arg(char *arg, node_t *op, int i);
-
 node_t *init_node(void);
-
 void free_linked_list(node_t *linked_list);
 int write_exec(char *filename, node_t *entry);
 int open_new_file(char *filename);
 int parsing_loop(node_t **first, node_t **new, char **buffer, int *i);
 void fill_op(node_t *new, int op_code);
-
 int replace_labels(node_t *entry);
 
 #endif

@@ -39,4 +39,5 @@ char **my_str_to_word(char *buffer);
 char *my_realloc(char *str, int size);
 int my_strncmp(char const *s1, char const *s2, int n);
 int str_find(char *src, char *to_find);
+
 #endif
