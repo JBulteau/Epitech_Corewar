@@ -16,12 +16,12 @@ int fork_exec(unsigned char *arena, prog_t *prog)
 	int i;
 
 	if (prog->pc >= prog->start_adr)
-		for (i = prog->pc; i < prog->start_adr + prog->size; i++)
+		for (i = prog->pc + 3; i < prog->start_adr + prog->size; i++)
 			arena[((i + prog->instr.args[0]) % IDX_MOD) % MEM_SIZE]\
 = arena[i % MEM_SIZE];
 	else
-		for (i = prog->pc; i < prog->start_adr + prog->size - MEM_SIZE;\
-i++)
+		for (i = prog->pc + 3; i < prog->start_adr + prog->size - \
+MEM_SIZE; i++)
 			arena[((i + prog->instr.args[0]) % IDX_MOD) % MEM_SIZE]\
 = arena[i % MEM_SIZE];
 	if ((prog->next_f = new_fork_case(prog)) == NULL)
@@ -76,11 +76,11 @@ int lfork(unsigned char *arena, prog_t *prog)
 	int i;
 
 	if (prog->pc >= prog->start_adr)
-		for (i = prog->pc; i < prog->start_adr + prog->size; i++)
+		for (i = prog->pc + 3; i < prog->start_adr + prog->size; i++)
 			arena[(i + prog->instr.args[0]) % MEM_SIZE] = \
 arena[i % MEM_SIZE];
 	else
-		for (i = prog->pc; i < prog->start_adr + prog->size - MEM_SIZE;\
+		for (i = prog->pc + 3; i < prog->start_adr + prog->size - MEM_SIZE;\
 i++)
 			arena[(i + prog->instr.args[0]) % MEM_SIZE] = \
 arena[i % MEM_SIZE];
