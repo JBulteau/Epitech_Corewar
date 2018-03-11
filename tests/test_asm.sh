@@ -1,9 +1,9 @@
 #!/bin/bash
 
-make
+make -C ..
 if [ $# -eq 0 ]
 then
-	CHAMPIONS_PATH=./champions/*.s
+	CHAMPIONS_PATH=../champions/*.s
 else
 	#for var in "$@"; do
 	#	echo "$var"
@@ -11,9 +11,9 @@ else
 	CHAMPIONS_PATH=$1
 fi
 
-rm -rf res
-mkdir res
-rm -f res/*.res
+rm -rf ../res
+mkdir ../res
+rm -f ../res/*.res
 
 dif=0
 no_dif=0
@@ -24,7 +24,7 @@ for f in $CHAMPIONS_PATH; do
 	name=`echo $f | rev | cut -d'/' -f1 | rev`
 	compiled=${name%.*}'.cor'
 	
-	./binaires-champ-corewar/asm $f
+	../binaires-champ-corewar/asm $f
 	if [[ -f $f ]]
 	then
 		hexdump -C $compiled > a
@@ -33,7 +33,7 @@ for f in $CHAMPIONS_PATH; do
 		echo "PAS OK ---- SYNTAX EXAMPLE"
 	fi
 
-	./asm/asm $f
+	../asm/asm $f
 	if [[ -f $f ]]
 	then
 		hexdump -C $compiled > b

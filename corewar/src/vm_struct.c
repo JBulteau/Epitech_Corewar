@@ -15,13 +15,19 @@
 
 vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 {
+	int read_sz = 0;
+
 	for (int i = prog->address; i < prog->address + prog->size; i++) {
 		if (vm->arena[i % MEM_SIZE] != '\0') {
 			write(2, "Overlap\n", 8);
 			return (NULL);
 		}
-		if (read(fd, &vm->arena[i % MEM_SIZE], 1) == -1)
+		if ((read_sz = read(fd, &vm->arena[i % MEM_SIZE], 1)) == -1)
 			return (NULL);
+		if (read_sz != prog->size) {
+			my_putstr(WRONG_SIZE);
+			return (NULL);
+		}
 	}
 	return (vm);
 }

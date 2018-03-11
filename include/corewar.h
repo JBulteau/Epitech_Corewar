@@ -69,6 +69,7 @@ struct args {
 #define NO_DUMP		"No arguments to -dump\n"
 #define NOT_EXEC	" is not an executable.\n"
 #define WRONG_MAGIC_NB	"Wrong executable magic number.\n"
+#define WRONG_SIZE	"Wrong executable size.\n"
 #define TOO_MANY_CHAMP	"The number of champion load is above the limit.\n"
 #define INVALID_OFFSET	"-a argument is invalid. Enter a valid memory offset.\n"
 #define NO_address	"-a argument is invalid. No address specified.\n"
