@@ -23,6 +23,7 @@ SRC_FILES	=	main.c	\
 			exec_vm2.c	\
 			exec_vm3.c	\
 			exec_vm4.c	\
+			exec_vm5.c	\
 			scheduler.c	\
 			op.c	\
 			size_ins.c	\
