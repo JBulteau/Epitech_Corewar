@@ -22,6 +22,8 @@ int ld(unsigned char *arena, prog_t *prog)
 	int reg = prog->instr.args[1];
 	int arg = prog->instr.arg_type >> 6 & 0b11;
 
+	if (reg < 1 || reg > REG_NUMBER)
+		return (-1);
 	if (arg == 1)
 		prog->reg[reg - 1] = prog->reg[prog->instr.args[0] - 1];
 	else
