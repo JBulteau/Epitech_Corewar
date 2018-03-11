@@ -39,7 +39,8 @@ int zjmp(unsigned char *arena, prog_t *prog)
 {
 	if (prog->carry != 1)
 		return (0);
-	prog->pc = (prog->pc + prog->instr.args[0]) % IDX_MOD;
+	my_printf("[%i] zjump from %i to %i\n", prog->nb_prog, prog->pc, (prog->pc + (short)(prog->instr.args[0]) % IDX_MOD) % MEM_SIZE);
+	prog->pc = (prog->pc + (short)(prog->instr.args[0]) % IDX_MOD) % MEM_SIZE;
 	arena = arena;
 	return (0);
 }
@@ -74,7 +75,7 @@ int sti(unsigned char *arena, prog_t *prog)
 	int type_arg_1 = prog->instr.arg_type >> 4 & 0b11;
 	int type_arg_2 = prog->instr.arg_type >> 2 & 0b11;
 	 
-	if (reg > REG_NUMBER)
+	if (reg < 0 || reg > REG_NUMBER)
 		return (-1);
 	if (type_arg_1 == 1)
 		if (type_arg_2 == 1)
