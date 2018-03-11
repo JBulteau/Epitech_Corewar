@@ -80,8 +80,8 @@ int lfork(unsigned char *arena, prog_t *prog)
 			arena[(i + prog->instr.args[0]) % MEM_SIZE] = \
 arena[i % MEM_SIZE];
 	else
-		for (i = prog->pc + 3; i < prog->start_adr + prog->size - MEM_SIZE;\
-i++)
+		for (i = prog->pc + 3; i < prog->start_adr + prog->size - \
+MEM_SIZE; i++)
 			arena[(i + prog->instr.args[0]) % MEM_SIZE] = \
 arena[i % MEM_SIZE];
 	if ((prog->next_f = new_fork_case(prog)) == NULL)
