@@ -27,7 +27,6 @@ int size(in_struct_t op)
 	return (size);
 }
 
-/* Get size for std opcodes */
 int size_arg(int args)
 {
 	int size = 0;
@@ -45,7 +44,6 @@ int size_arg(int args)
 	return (size);
 }
 
-/* get size for ldi sti lldi*/
 int size_indexes(int args)
 {
 	int arg_code;
@@ -61,7 +59,6 @@ int size_indexes(int args)
 	return (size);
 }
 
-/* get size live / zjump / fork / lfork */
 int size_notype(int opcode)
 {
 	if (opcode == 1)

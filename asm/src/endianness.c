@@ -7,7 +7,6 @@
 
 #include "my.h"
 
-/* Returns 0 if system is in Little Endian and 1 otherwise */
 int check_endianness(void)
 {
 	if (1 >> sizeof(int))
@@ -16,7 +15,6 @@ int check_endianness(void)
 		return (1);
 }
 
-/* Changes the endiannes of an int */
 int rev_endiannes_int(int nb)
 {
 	int res = 0;

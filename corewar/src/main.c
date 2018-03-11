@@ -36,6 +36,8 @@ int main(int ac, char **av)
 	args = init_args(ac, av, &nb_prog);
 	args = fill_empty_args(args, nb_prog);
 	vm = init_vm(nb_prog, args);
+	if (vm == NULL)
+		return (84);
 	fill_struct_vm_prog(nb_prog, vm, args);
 	if (vm == NULL)
 		return (84);

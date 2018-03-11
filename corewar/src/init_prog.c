@@ -46,7 +46,7 @@ prog_name_t *fill_nb_prog(prog_name_t *prog)
 	prog = current;
 	while (prog->next != NULL) {
 		prog = prog->next;
-		if (prog->prog_nb == current->prog_nb){
+		if (prog->prog_nb == current->prog_nb) {
 			current->prog_nb++;
 		}
 	}
@@ -66,7 +66,6 @@ int get_program_size(prog_name_t *prog)
 		return (-1);
 	if (read(fd, &size, sizeof(int)) == -1)
 		return (-1);
-	//TODO CHECK PROG SIZE AFTER LOAD
 	prog->size = rev_endiannes(size);
 	free(str);
 	close(fd);
