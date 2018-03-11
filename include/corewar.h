@@ -84,7 +84,7 @@ void free_progs(prog_t *prog);
 args_t *check_prog(args_t *args, char *str);
 args_t *check_address(args_t *args, char *str);
 args_t *check_prog_number(args_t *args, char *str);
-args_t *check_flags(args_t *args, int ac, char **av);
+args_t *check_flags(args_t *args, int ac, char **av, int i);
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args);
 
 void disp_arena(vm_t *vm);

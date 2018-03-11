@@ -68,7 +68,7 @@ void check_cycle(vm_t *vm)
 			if (vm->live[i] == 1)
 				vm->live[i] = 0;
 		for (; vm->current_cycle < vm->cycle_to_die \
-&& vm->current_cycle < vm->dump; vm->current_cycle++)
+&& vm->current_cycle != vm->dump; vm->current_cycle++)
 			scheduler(vm);
 		if (vm->current_cycle == vm->dump) {
 			disp_arena(vm);

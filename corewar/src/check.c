@@ -58,13 +58,13 @@ args_t *check_prog_number(args_t *args, char *str)
 	return (args);
 }
 
-args_t *check_flags(args_t *args, int ac, char **av)
+args_t *check_flags(args_t *args, int ac, char **av, int i)
 {
 	args->progs = init_args_value();
 	if (args->progs == NULL)
 		error(NULL, args);
 	args->progs->prev = NULL;
-	for (int i = 3; i < ac; i++) {
+	for (; i < ac; i++) {
 		if ((av[i][0] == '-') && (av[i][1] == 'n')) {
 			args = check_prog_number(args, av[++i]);
 			continue;
@@ -84,10 +84,12 @@ args_t *check_flags(args_t *args, int ac, char **av)
 
 args_t *check_dump(args_t *args, int ac, char **av, int nb_args)
 {
-	if (nb_args > 1)
+	if (nb_args > 1) {
 		error(DOUBLE_DUMP, args);
-	else if (nb_args == 0)
-		error(NO_DUMP, args);
+	} else if (nb_args == 0) {
+		args->dump = -1;
+		return (check_flags(args, ac, av, 1));
+	}
 	if (my_strcmp(av[1], "-dump", -1)) {
 		if (av[2] == NULL)
 			error(NO_DUMP, args);
@@ -95,5 +97,5 @@ args_t *check_dump(args_t *args, int ac, char **av, int nb_args)
 			error(NEG_DUMP, args);
 	} else
 		error(MISPLACED_DUMP, args);
-	return (check_flags(args, ac, av));
+	return (check_flags(args, ac, av, 3));
 }
