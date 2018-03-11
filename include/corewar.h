@@ -108,6 +108,11 @@ int zjmp(unsigned char *arena, prog_t *prog);
 int ldi(unsigned char *arena, prog_t *prog);
 int sti(unsigned char *arena, prog_t *prog);
 
+int and_bis(prog_t *prog, int reg2, int type_arg_2, int reg1);
+int and_bis2(int reg1, prog_t *prog);
+int or_bis(prog_t *prog, int reg2, int type_arg_2, int reg1);
+int or_bis2(int reg1, prog_t *prog);
+
 int live(unsigned char *arena, prog_t *prog);
 int ld(unsigned char *arena, prog_t *prog);
 void cp_reg_to_arena(unsigned char *arena, int pos, int reg_v);
