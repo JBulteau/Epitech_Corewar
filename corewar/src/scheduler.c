@@ -37,7 +37,8 @@ int execute(vm_t *vm, prog_t *prog)
 		for (; vm->live[prog_c] != -2; prog_c++);
 		if (return_v <= prog_c && vm->live[return_v - 1] == 0) {
 			vm->live[return_v - 1] = 1;
-			my_printf("[%i] Programm %i is alive !\n", prog->nb_prog, return_v);
+			my_printf("[%i] Programm %i is alive !\n", \
+prog->nb_prog, return_v);
 		}
 		return (0);
 	}
@@ -52,13 +53,12 @@ int scheduler_cycle(prog_t *current, vm_t *vm)
 	if (current->cycle_wait == 0) {
 		if (indexof(current->instr.op_code, changes_carry) != -1)
 			current->carry = 0;
-		if (current->instr.op_code > 0) {
+		if (current->instr.op_code > 0)
 			if (execute(vm, current) != -1) {
-				current->pc = (current->instr.op_code == 9) ? current->pc : (current->pc + size(current->instr)) % MEM_SIZE;
-			} else {
+				current->pc = (current->instr.op_code == 9) \
+? current->pc : (current->pc + size(current->instr)) % MEM_SIZE;
+			} else
 				current->pc++;
-			}
-		}
 		current->instr = read_instru(vm->arena, current->pc);
 		if ((current->instr.arg_type == -1) || \
 (current->instr.op_code == -1)) {
@@ -67,9 +67,8 @@ int scheduler_cycle(prog_t *current, vm_t *vm)
 		}
 		current->cycle_wait = \
 op_tab[current->instr.op_code - 1].nbr_cycles;
-	} else {
+	} else
 		current->cycle_wait--;
-	}
 }
 
 int scheduler(vm_t *vm)
