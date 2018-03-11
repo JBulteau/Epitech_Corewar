@@ -73,7 +73,7 @@ int sti(unsigned char *arena, prog_t *prog)
 	int reg = prog->instr.args[0];
 	int type_arg_1 = prog->instr.arg_type >> 4 & 0b11;
 	int type_arg_2 = prog->instr.arg_type >> 2 & 0b11;
-	 
+
 	if (reg > REG_NUMBER)
 		return (-1);
 	if (type_arg_1 == 1)
@@ -87,9 +87,9 @@ tr.args[1] - 1] + prog->instr.args[2]) % IDX_MOD, prog->reg[reg - 1]);
 	else
 		if (type_arg_2 == 1)
 			cp_reg_to_arena(arena, prog->pc + (prog->instr.args[1\
-] + prog->reg[prog->instr.args[2] - 1]) % IDX_MOD, prog->reg[reg - 1]);	
+] + prog->reg[prog->instr.args[2] - 1]) % IDX_MOD, prog->reg[reg - 1]);
 		else
 			cp_reg_to_arena(arena, prog->pc + (prog->instr.args[1\
-] + prog->instr.args[2]) % IDX_MOD, prog->reg[reg - 1]);	
+] + prog->instr.args[2]) % IDX_MOD, prog->reg[reg - 1]);
 	return (0);
 }
