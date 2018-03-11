@@ -36,6 +36,7 @@ typedef struct {
 	int *live;
 	int cycle_to_die;
 	int current_cycle;
+	int dump;
 	prog_t **prog;
 	unsigned char arena[MEM_SIZE];
 } vm_t;
@@ -115,7 +116,7 @@ args_t *fill_empty_args(args_t *args, int nb_prog);
 prog_name_t *init_args_value(void);
 
 void free_dead_prog(prog_t *to_kill);
-prog_t *new_fork_case(vm_t *vm, int prog_f, int nb_prog);
+prog_t *new_fork_case(prog_t *prog);
 void init_prog_struct(prog_t *new);
 prog_t *new_prog_case(int i, vm_t *vm);
 int fill_struct_vm_prog(int nb_prog, vm_t *vm, args_t *args);

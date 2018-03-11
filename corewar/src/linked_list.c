@@ -23,19 +23,22 @@ void free_dead_prog(prog_t *to_kill)
 	free(to_kill);
 }
 
-prog_t *new_fork_case(vm_t *vm, int prog_f, int nb_prog)
+prog_t *new_fork_case(prog_t *prog)
 {
 	prog_t *new = malloc(sizeof(prog_t));
+	prog_t *curr = prog;
 
 	if (new == NULL)
 		return (NULL);
 	new->next = NULL;
 	new->next_f = NULL;
 	init_prog_struct(new);
-	vm->prog[nb_prog]->next = new;
-	new->prev = vm->prog[nb_prog];
-	vm->prog[prog_f - 1]->next_f = new;
-	vm->prog[nb_prog] = new;
+	prog->next_f = new;
+	while (prog->next != NULL)
+		prog = prog->next;
+	prog->next = new;
+	new->prev = prog;
+	prog = curr;
 	return (new);
 }
 

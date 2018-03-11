@@ -67,10 +67,14 @@ void check_cycle(vm_t *vm)
 		for (int i = 0; vm->live[i] != -2; i++)
 			if (vm->live[i] == 1)
 				vm->live[i] = 0;
-		for (; vm->current_cycle < 100; vm->current_cycle++)
+		for (; vm->current_cycle < vm->cycle_to_die \
+&& vm->current_cycle < vm->dump; vm->current_cycle++)
 			scheduler(vm);
-		vm->current_cycle = 0;
-		vm->cycle_to_die -= CYCLE_DELTA;
+		if (vm->current_cycle == vm->dump) {
+			disp_arena(vm);
+			break;
+		}
+		vm->cycle_to_die += vm->cycle_to_die - CYCLE_DELTA;
 		alive = count_alive(vm);
 		for (int i = 0; vm->live[i] != -2; i++)
 			if (vm->live[i] == 0) {

@@ -74,6 +74,7 @@ vm_t *init_vm(int prog_num, args_t *args)
 		return (NULL);
 	for (int i = 0; i < MEM_SIZE; i++)
 		vm->arena[i] = 0;
+	vm->dump = args->dump;
 	vm->current_cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->live = malloc(sizeof(int) * (prog_num + 1));
