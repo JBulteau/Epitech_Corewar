@@ -42,7 +42,10 @@ op_tab[prog->instr.op_code - 1].mnemonique);
 			vm->live[return_v - 1] = 1;
 			my_printf("[%i] programm %i is alive !\n", prog->nb_prog, return_v);
 		}
+		return (0);
 	}
+	return (return_v);
+
 }
 
 int scheduler_cycle(prog_t *current, vm_t *vm)
@@ -53,12 +56,19 @@ int scheduler_cycle(prog_t *current, vm_t *vm)
 		if (indexof(current->instr.op_code, changes_carry) != -1)
 			current->carry = 0;
 		if (current->instr.op_code > 0) {
-			execute(vm, current);
-			current->pc = (current->instr.op_code == 9) ? current->pc : (current->pc + size(current->instr)) % MEM_SIZE;
+			if (current->instr.op_code == 2)
+				my_printf("HERE %i", size(current->instr));
+			if (execute(vm, current) != -1) {
+				current->pc = (current->instr.op_code == 9) ? current->pc : (current->pc + size(current->instr)) % MEM_SIZE;
+			} else {
+				my_printf("EXEc returned -1\n");
+				current->pc++;
+			}
 		}
 		current->instr = read_instru(vm->arena, current->pc);
 		if ((current->instr.arg_type == -1) || \
 (current->instr.op_code == -1)) {
+			my_printf("[%i] SKIPPING CYCLE PC = %i\n", current->nb_prog, current->pc);
 			current->pc++;
 			return (-42);
 		}

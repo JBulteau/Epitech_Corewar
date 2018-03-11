@@ -64,6 +64,7 @@ void check_cycle(vm_t *vm)
 	int alive = 0;
 
 	for (int j = 0; alive > 1 || j == 0; j++) {
+		my_printf("RESET LIVE\n");
 		for (int i = 0; vm->live[i] != -2; i++)
 			if (vm->live[i] == 1)
 				vm->live[i] = 0;
