@@ -24,8 +24,8 @@ void free_vm(vm_t *vm, args_t *args)
 
 void help(int ac, char **av)
 {
-	if ((ac == 2) && (my_strcmp(av[1], "-h", -1)		\
-			  || my_strcmp(av[1], "--help", -1))) {
+	if ((ac == 2) && (my_strcmp(av[1], "-h", -1) \
+|| my_strcmp(av[1], "--help", -1))) {
 		my_printf(HELP, MEM_SIZE);
 		exit(0);
 	}

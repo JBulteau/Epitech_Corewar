@@ -24,8 +24,8 @@ args_t *check_prog(args_t *args, char *str)
 		error(NULL, args);
 	}
 	my_revstr(str);
-	if (!my_strcmp(str, "roc.", 4) &&
-	    (write(2, my_revstr(str), my_strlen(str) > 0)))
+	if (!my_strcmp(str, "roc.", 4) && \
+(write(2, my_revstr(str), my_strlen(str) > 0)))
 		error(NOT_EXEC, args);
 	read(fd, &magic_number, 4);
 	magic_number = rev_endiannes(magic_number);

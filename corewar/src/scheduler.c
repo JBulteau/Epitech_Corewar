@@ -9,7 +9,7 @@
 #include "my.h"
 #include "corewar.h"
 
-int (*exec_fnc[16])(unsigned char *arena, prog_t *prog) = 
+int (*exec_fnc[16])(unsigned char *arena, prog_t *prog) =
 {
 	&live,
 	&ld,
