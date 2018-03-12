@@ -50,25 +50,21 @@ int scheduler_cycle(prog_t *current, vm_t *vm)
 {
 	char changes_carry[] = {2, 3, 4, 5, 6, 7, 8, 10, 13, 14, 0};
 
-	if (current->cycle_wait == 0) {
-		if (indexof(current->instr.op_code, changes_carry) != -1)
-			current->carry = 0;
-		if (current->instr.op_code > 0)
-			if (execute(vm, current) != -1) {
-				current->pc = (current->instr.op_code == 9) \
-? current->pc : (current->pc + size(current->instr)) % MEM_SIZE;
-			} else
-				current->pc++;
-		current->instr = read_instru(vm->arena, current->pc);
-		if ((current->instr.arg_type == -1) || \
-(current->instr.op_code == -1)) {
+	if (indexof(current->instr.op_code, changes_carry) != -1)
+		current->carry = 0;
+	if (current->instr.op_code > 0)
+		if (execute(vm, current) != -1) {
+			current->pc = (current->instr.op_code == 9) ? \
+current->pc : (current->pc + size(current->instr)) % MEM_SIZE;
+		} else
 			current->pc++;
-			return (-42);
-		}
-		current->cycle_wait = \
-op_tab[current->instr.op_code - 1].nbr_cycles;
-	} else
-		current->cycle_wait--;
+	current->instr = read_instru(vm->arena, current->pc);
+	if ((current->instr.arg_type == -1) || \
+(current->instr.op_code == -1)) {
+		current->pc++;
+		return (-42);
+	}
+	current->cycle_wait = op_tab[current->instr.op_code - 1].nbr_cycles;
 }
 
 int scheduler(vm_t *vm)
@@ -76,7 +72,10 @@ int scheduler(vm_t *vm)
 
 	for (prog_t *current = vm->prog[0]; current != NULL; current = \
 current->next) {
-		scheduler_cycle(current, vm);
+		if (current->cycle_wait == 0)
+			scheduler_cycle(current, vm);
+		else
+			current->cycle_wait--;
 	}
 	return (0);
 }
