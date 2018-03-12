@@ -9,7 +9,8 @@
 #include "my.h"
 #include "corewar.h"
 
-int (*exec_fnc[16])(unsigned char *arena, prog_t *prog) = {
+int (*exec_fnc[16])(unsigned char *arena, prog_t *prog) = 
+{
 	&live,
 	&ld,
 	&st,
@@ -43,7 +44,6 @@ prog->nb_prog, return_v);
 		return (0);
 	}
 	return (return_v);
-
 }
 
 int scheduler_cycle(prog_t *current, vm_t *vm)
@@ -69,7 +69,6 @@ current->pc : (current->pc + size(current->instr)) % MEM_SIZE;
 
 int scheduler(vm_t *vm)
 {
-
 	for (prog_t *current = vm->prog[0]; current != NULL; current = \
 current->next) {
 		if (current->cycle_wait == 0)
