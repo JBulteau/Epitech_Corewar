@@ -21,12 +21,12 @@ int xor_bis(unsigned char *arena, prog_t *prog)
 	if (reg2 < 1 || reg2 > REG_NUMBER)
 		return (-1);
 	if (type_arg_2 == 1) {
-	        if (reg1 < 1 || reg1 > REG_NUMBER)
-		        return (-1);
+		if (reg1 < 1 || reg1 > REG_NUMBER)
+			return (-1);
 		prog->reg[(prog->instr.args[2]) - 1] = prog->reg[(prog->instr\
 .args[0]) - 1] ^ prog->reg[(prog->instr.args[1]) - 1];
 	} else
-	        prog->reg[(prog->instr.args[2]) - 1] = prog->reg[(prog->instr\
+		prog->reg[(prog->instr.args[2]) - 1] = prog->reg[(prog->instr\
 .args[0]) - 1] ^ prog->instr.args[1];
 	return (0);
 }
@@ -40,7 +40,7 @@ int xor_ter(unsigned char *arena, prog_t *prog)
 
 	if (type_arg_2 == 1) {
 		if (reg1 < 1 || reg1 > REG_NUMBER)
-		        return (-1);
+			return (-1);
 		prog->reg[(prog->instr.args[2]) - 1] = prog->instr.args[0] \
 ^ prog->reg[(prog->instr.args[1]) - 1];
 	} else
@@ -59,14 +59,14 @@ int ldi_bis(unsigned char *arena, prog_t *prog)
 	int type_arg_2 = prog->instr.arg_type >> 4 & 0b11;
 
 	if (reg2 < 1 || reg2 > REG_NUMBER)
-	        return (-1);
+		return (-1);
 	if (type_arg_2 == 1) {
-	        if (reg1 < 1 || reg1 > REG_NUMBER)
-		        return (-1);
+		if (reg1 < 1 || reg1 > REG_NUMBER)
+			return (-1);
 		prog->reg[reg - 1] = arena[(prog->pc + prog->reg[prog->instr\
 .args[0] - 1] + prog->reg[prog->instr.args[1] - 1]) % IDX_MOD];
 		} else
-		        prog->reg[reg - 1] = arena[(prog->pc + prog->reg[prog\
+			prog->reg[reg - 1] = arena[(prog->pc + prog->reg[prog\
 ->instr.args[0] - 1] + prog->instr.args[1]) % IDX_MOD];
 	return (0);
 }
@@ -80,12 +80,12 @@ int ldi_ter(unsigned char *arena, prog_t *prog)
 	int type_arg_2 = prog->instr.arg_type >> 4 & 0b11;
 
 	if (type_arg_2 == 1) {
-	        if (reg1 < 1 || reg2 > REG_NUMBER)
-	                return (-1);
-	        prog->reg[reg - 1] = arena[(prog->instr.args[0] + prog->reg\
+		if (reg1 < 1 || reg2 > REG_NUMBER)
+			return (-1);
+		prog->reg[reg - 1] = arena[(prog->instr.args[0] + prog->reg\
 [prog->instr.args[1]]) % IDX_MOD];
 	} else
-	        prog->reg[reg - 1] = arena[(prog->instr.args[0] + prog->instr\
+		prog->reg[reg - 1] = arena[(prog->instr.args[0] + prog->instr\
 .args[1]) % IDX_MOD];
 	prog->carry = 1;
 	return (0);
