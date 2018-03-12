@@ -21,13 +21,12 @@ int lldi_bis(int reg2, int type_arg_2, prog_t *prog, unsigned char *arena)
 	if (type_arg_2 == 1) {
 		if (reg1 < 1 || reg1 > REG_NUMBER)
 			return (-1);
-		prog->reg[reg - 1] =
-			arena[(prog->pc + prog->reg[prog->instr.args[0] - 1] +
-			       prog->reg[prog->instr.args[1] - 1]) % MEM_SIZE];
+		prog->reg[reg - 1] = arena[(prog->pc + \
+prog->reg[prog->instr.args[0] - 1] + prog->reg[prog->instr.args[1] - 1]) % \
+MEM_SIZE];
 	} else
-                prog->reg[reg - 1] =
-			arena[prog->pc + prog->reg[prog->instr.args[0] - 1]
-			     + prog->instr.args[1]];
+		prog->reg[reg - 1] = arena[(prog->pc + \
+prog->reg[prog->instr.args[0] - 1] + prog->instr.args[1]) % MEM_SIZE];
 	return (0);
 }
 
@@ -36,6 +35,6 @@ int lldi_bis2(int reg1, prog_t *prog, unsigned char *arena, int reg)
 	if (reg1 < 1 || reg1 > REG_NUMBER)
 		return (-1);
 	prog->reg[reg - 1] = \
-		arena[prog->instr.args[0] + prog->reg[prog->instr.args[1]]];
+arena[prog->instr.args[0] + prog->reg[prog->instr.args[1]]];
 	return (0);
 }

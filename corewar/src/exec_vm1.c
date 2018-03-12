@@ -17,13 +17,13 @@ int fork_exec(unsigned char *arena, prog_t *prog)
 
 	if (prog->pc >= prog->start_adr)
 		for (i = prog->pc + 3; i < prog->start_adr + prog->size; i++)
-			arena[((i + prog->instr.args[0]) % IDX_MOD) % MEM_SIZE]\
-= arena[i % MEM_SIZE];
+			arena[((i + prog->instr.args[0]) % IDX_MOD) % \
+MEM_SIZE] = arena[i % MEM_SIZE];
 	else
 		for (i = prog->pc + 3; i < prog->start_adr + prog->size - \
 MEM_SIZE; i++)
-			arena[((i + prog->instr.args[0]) % IDX_MOD) % MEM_SIZE]\
-= arena[i % MEM_SIZE];
+			arena[((i + prog->instr.args[0]) % IDX_MOD) % \
+MEM_SIZE] = arena[i % MEM_SIZE];
 	if ((prog->next_f = new_fork_case(prog)) == NULL)
 			return (-1);
 	prog->next_f->start_adr = ((prog->pc + prog->instr.args[0]) % IDX_MOD) \
@@ -63,9 +63,9 @@ int lldi(unsigned char *arena, prog_t *prog)
 		if (lldi_bis(reg2, type_arg_2, prog, arena) == -1)
 			return (-1);
 	else
-		if (type_arg_2 == 1 && lldi_bis2(reg1, prog, arena, reg) == -1) {
+		if (type_arg_2 == 1 && lldi_bis2(reg1, prog, arena, reg) == -1)
 			return (-1);
-		} else
+		else
 			prog->reg[reg - 1] = \
 arena[prog->instr.args[0] + prog->instr.args[1]];
 	prog->carry = 1;

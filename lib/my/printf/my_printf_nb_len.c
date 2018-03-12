@@ -27,7 +27,7 @@ int unsigned_len(unsigned int n, char *base)
 	int len = 0;
 	int b_len = my_strlen(base);
 
-	while (n >= (unsigned int){b_len}) {
+	while (n >= (unsigned int) {b_len}) {
 		n /= b_len;
 		len++;
 	}

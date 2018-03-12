@@ -76,8 +76,8 @@ int and(unsigned char *arena, prog_t *prog)
 		if (type_arg_2 == 1 && and_bis2(reg1, prog) == -1) {
 			return (-1);
 		} else
-			prog->reg[(prog->instr.args[2]) - 1] =		\
-				prog->instr.args[0] & prog->instr.args[1];
+			prog->reg[(prog->instr.args[2]) - 1] = \
+prog->instr.args[0] & prog->instr.args[1];
 	prog->carry = 1;
 	return (0);
 }
@@ -100,8 +100,8 @@ int or(unsigned char *arena, prog_t *prog)
 		if (type_arg_2 == 1 && or_bis2(reg1, prog) == -1) {
 			return (-1);
 		} else
-			prog->reg[(prog->instr.args[2]) - 1] =		\
-				prog->instr.args[0] | prog->instr.args[1];
+			prog->reg[(prog->instr.args[2]) - 1] = \
+prog->instr.args[0] | prog->instr.args[1];
 	prog->carry = 1;
 	return (0);
 }

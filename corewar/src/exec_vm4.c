@@ -19,12 +19,10 @@ int and_bis(prog_t *prog, int reg2, int type_arg_2, int reg1)
 		if (reg1 < 1 || reg1 > REG_NUMBER)
 			return (-1);
 		prog->reg[(prog->instr.args[2]) - 1] = \
-			prog->reg[(prog->instr.args[0]) - 1]
-			& prog->reg[(prog->instr.args[1]) - 1];
+prog->reg[(prog->instr.args[0]) - 1] & prog->reg[(prog->instr.args[1]) - 1];
 	} else
 		prog->reg[(prog->instr.args[2]) - 1] = \
-			prog->reg[(prog->instr.args[0]) - 1]
-			& prog->instr.args[1];
+prog->reg[(prog->instr.args[0]) - 1] & prog->instr.args[1];
 	return (0);
 }
 
@@ -33,8 +31,7 @@ int and_bis2(int reg1, prog_t *prog)
 	if (reg1 < 1 || reg1 > REG_NUMBER)
 		return (-1);
 	prog->reg[(prog->instr.args[2]) - 1] = \
-		prog->instr.args[0] & \
-		prog->reg[(prog->instr.args[1]) - 1];
+prog->instr.args[0] & prog->reg[(prog->instr.args[1]) - 1];
 	return (0);
 }
 
@@ -45,13 +42,11 @@ int or_bis(prog_t *prog, int reg2, int type_arg_2, int reg1)
 	if (type_arg_2 == 1) {
 		if (reg1 < 1 || reg1 > REG_NUMBER)
 			return (-1);
-		prog->reg[(prog->instr.args[2]) - 1] =			\
-			prog->reg[(prog->instr.args[0]) - 1]
-			| prog->reg[(prog->instr.args[1]) - 1];
+		prog->reg[(prog->instr.args[2]) - 1] = \
+prog->reg[(prog->instr.args[0]) - 1] | prog->reg[(prog->instr.args[1]) - 1];
 	} else
 		prog->reg[(prog->instr.args[2]) - 1] = \
-			prog->reg[(prog->instr.args[0]) - 1]
-			| prog->instr.args[1];
+prog->reg[(prog->instr.args[0]) - 1] | prog->instr.args[1];
 	return (0);
 }
 
@@ -60,7 +55,6 @@ int or_bis2(int reg1, prog_t *prog)
 	if (reg1 < 1 || reg1 > REG_NUMBER)
 		return (-1);
 	prog->reg[(prog->instr.args[2]) - 1] = \
-		prog->instr.args[0] \
-		| prog->reg[(prog->instr.args[1]) - 1];
+prog->instr.args[0] | prog->reg[(prog->instr.args[1]) - 1];
 	return (0);
 }
