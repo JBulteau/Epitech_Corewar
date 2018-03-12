@@ -24,10 +24,6 @@ vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 		}
 		if ((read_sz = read(fd, &vm->arena[i % MEM_SIZE], 1)) == -1)
 			return (NULL);
-		if (read_sz != prog->size) {
-			my_putstr(WRONG_SIZE);
-			return (NULL);
-		}
 	}
 	return (vm);
 }
