@@ -11,10 +11,7 @@
 void disp_arena(vm_t *vm)
 {
 	for (int i = 0; i < MEM_SIZE; i++) {
-		if (vm->arena[i] == 0)
-			my_printf("-- ");
-		else
-			my_printf("%02x ", vm->arena[i]);
+		my_printf("%02x ", vm->arena[i]);
 		if ((i + 1) % 32 == 0)
 			my_putchar('\n');
 	}

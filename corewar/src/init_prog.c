@@ -99,7 +99,7 @@ total_size);
 
 prog_name_t *init_args_value(void)
 {
-	prog_name_t *prog = malloc(sizeof(prog_t));
+	prog_name_t *prog = malloc(sizeof(prog_name_t));
 
 	if (prog == NULL)
 		return (NULL);

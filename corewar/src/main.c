@@ -14,6 +14,16 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+void display_winner(args_t *args, vm_t *vm)
+{
+	for (int i = 0; vm->live[i] != -2; i++) {
+		if (vm->live[i] == 1 && (vm->cycle_to_die > 0))
+			my_printf("The player %i(%s) has won.\n", i + 1, \
+&args->progs->prog_name[4]);
+		args->progs = args->progs->next;
+	}
+}
+
 int rev_endiannes(int nb)
 {
 	int res = 0;
@@ -41,10 +51,8 @@ int main(int ac, char **av)
 	fill_struct_vm_prog(nb_prog, vm, args);
 	if (vm == NULL)
 		return (84);
-	check_cycle(vm);
-	for (int i = 0; vm->live[i] != -2; i++)
-		if (vm->live[i] == 1 && (vm->cycle_to_die > 0))
-			my_printf("Champion n°%i has won.\n", i + 1);
+	check_cycle(vm, args);
+	display_winner(args, vm);
 	free_vm(vm, args);
 	return (0);
 }

@@ -31,19 +31,18 @@ vm_t *load_program_in_arena(vm_t *vm, prog_name_t *prog, int fd)
 vm_t *get_program_info(vm_t *vm, prog_name_t *prog_name, int free_memory)
 {
 	int fd = open(prog_name->name, O_RDONLY);
-	char *str = malloc(sizeof(char) * (PROG_NAME_LENGTH + 8));
+	char *str = malloc(sizeof(char) * (COMMENT_LENGTH + 4));
 	int size;
 
 	if (fd == -1 || str == NULL)
 		return (NULL);
-	if (read(fd, str, PROG_NAME_LENGTH + 8) == -1)
+	if (read(fd, prog_name->prog_name, PROG_NAME_LENGTH + 8) == -1)
 		return (NULL);
 	if (read(fd, &size, sizeof(int)) == -1)
 		return (NULL);
 	prog_name->size = rev_endiannes(size);
 	if (prog_name->size > free_memory)
 		return (NULL);
-	str = my_realloc(str, 2052);
 	if (read(fd, str, COMMENT_LENGTH + 4) == -1)
 		return (NULL);
 	vm = load_program_in_arena(vm, prog_name, fd);

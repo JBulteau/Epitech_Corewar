@@ -59,7 +59,7 @@ int count_alive(vm_t *vm)
 	return (alive);
 }
 
-void check_cycle(vm_t *vm)
+void check_cycle(vm_t *vm, args_t *args)
 {
 	int alive = 0;
 
@@ -69,7 +69,7 @@ void check_cycle(vm_t *vm)
 				vm->live[i] = 0;
 		for (; vm->current_cycle < vm->cycle_to_die \
 && vm->current_cycle != vm->dump; vm->current_cycle++)
-			scheduler(vm);
+			scheduler(vm, args);
 		if (vm->current_cycle == vm->dump) {
 			disp_arena(vm);
 			break;
@@ -79,7 +79,6 @@ void check_cycle(vm_t *vm)
 		for (int i = 0; vm->live[i] != -2; i++)
 			if (vm->live[i] == 0) {
 				vm->live[i] = -1;
-				my_printf("Champion n°%i died.\n", i + 1);
 			}
 	}
 }
