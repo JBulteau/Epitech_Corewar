@@ -65,8 +65,7 @@ void check_cycle(vm_t *vm, args_t *args)
 
 	for (int j = 0; alive > 1 || j == 0; j++) {
 		for (int i = 0; vm->live[i] != -2; i++)
-			if (vm->live[i] == 1)
-				vm->live[i] = 0;
+			vm->live[i] = (vm->live[i] == 1) ? 0 : vm->live[i];
 		for (; vm->current_cycle < vm->cycle_to_die \
 && vm->current_cycle != vm->dump; vm->current_cycle++)
 			scheduler(vm, args);
