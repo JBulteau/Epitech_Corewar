@@ -39,11 +39,11 @@ int execute(vm_t *vm, prog_t *prog, args_t *args)
 		for (; vm->live[prog_c] != -2; prog_c++);
 		for (int i = 1; i < return_v && args->progs->next != NULL; i++)
 			args->progs = args->progs->next;
-		if (return_v <= prog_c && vm->live[return_v - 1] == 0) {
-			vm->live[return_v - 1] = 1;
+		if (return_v <= prog_c)
 			my_printf("The player %i(%s) is alive.\n", return_v, \
 &args->progs->prog_name[4]);
-		}
+		if (return_v <= prog_c && vm->live[return_v - 1] == 0)
+			vm->live[return_v - 1] = 1;
 		return (0);
 	}
 	args->progs = first;
